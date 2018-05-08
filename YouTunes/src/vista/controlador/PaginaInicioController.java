@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package youtunes;
+package vista.controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +16,7 @@ import javafx.scene.control.Label;
  *
  * @author yamii
  */
-public class FXMLDocumentController implements Initializable {
+public class PaginaInicioController implements Initializable {
     
     @FXML
     private Label label;
