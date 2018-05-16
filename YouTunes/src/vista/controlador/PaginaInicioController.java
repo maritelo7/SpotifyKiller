@@ -5,12 +5,16 @@
  */
 package vista.controlador;
 
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -19,17 +23,36 @@ import javafx.scene.control.Label;
 public class PaginaInicioController implements Initializable {
     
     @FXML
-    private Label label;
-    
+    private JFXDrawer menuDrawer;
+
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+    private JFXHamburger menuIcon;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+
+        try {
+            VBox box = FXMLLoader.load(getClass().getResource("/vista/MenuDrawer.fxml"));
+            menuDrawer.setSidePane(box);
+        } catch (IOException ex) {
+          /*  Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+                    "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+            dialogo.show();*/
+        }
+        menuIcon.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+            menuDrawer.open();
+            menuIcon.setVisible(false);
+        });
+    }
+
+    /**
+     * Muestra el ícono del menú en la ventana
+     */
+    @FXML
+    public void mostrarIcono() {
+        if (!menuDrawer.isShown()) {
+            menuIcon.setVisible(true);
+        }
+    }   
     
 }
