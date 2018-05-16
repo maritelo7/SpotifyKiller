@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/yamii/Desktop/ProyectoYouTunes/SpotifyKiller/YouTunes/src/vista/controlador/MenuDrawerController.java</file>
+            <file>file:/C:/Users/yamii/Desktop/ProyectoYouTunes/SpotifyKiller/YouTunes/src/vista/MenuDrawer.fxml</file>
+            <file>file:/C:/Users/yamii/Desktop/ProyectoYouTunes/SpotifyKiller/YouTunes/src/vista/controlador/PaginaInicioController.java</file>
+            <file>file:/C:/Users/yamii/Desktop/ProyectoYouTunes/SpotifyKiller/YouTunes/src/vista/PaginaInicio.fxml</file>
+            <file>file:/C:/Users/yamii/Desktop/ProyectoYouTunes/SpotifyKiller/YouTunes/src/vista/YouTunes.java</file>
+        </group>
     </open-files>
 </project-private>
