@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="250.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="vista.controlador.MenuDrawerController">
-   <children>
-      <VBox prefHeight="600.0" prefWidth="250.0" />
-   </children>
-</AnchorPane>
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="263.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.MenuDrawerController">
+    <children>
+        <ImageView fitHeight="121.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@recursos/logoYoutunes.png" />
+            </image>
+        </ImageView>
+        <Accordion focusTraversable="false" prefHeight="600.0" prefWidth="263.0" style="-fx-background-color: white;">
+            <panes>
+                <TitledPane contentDisplay="TOP" style="-fx-background-color: white;" text="Ver perfil" textOverrun="CLIP">
+                    <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                            <children>
+                                <JFXButton fx:id="botonCuenta" prefHeight="25.0" prefWidth="256.0" style="-fx-background-color: #0489B1;" text="Cuenta" textFill="WHITE" />
+                            </children>
+                        </VBox>
+                    </content>
+                </TitledPane>
+                <TitledPane  text="Playlists">
+                    <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+                    </content>
+                </TitledPane>
+                <TitledPane  text="Álbumes">
+                    <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+                    </content>
+                </TitledPane>
+                <TitledPane  text="Mi música">
+                    <content>
+                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+                    </content>
+                </TitledPane>
+            </panes>
+        </Accordion>
+        <JFXButton fx:id="botonCerrarSesion" layoutY="573.0" prefHeight="27.0" prefWidth="263.0" style="-fx-background-color: #0489B1;" text="Cerrar sesión" textFill="WHITE" />
+    </children>
+</VBox>
+ 
