@@ -1,4 +1,4 @@
-package ws;
+package modelo.ws;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;

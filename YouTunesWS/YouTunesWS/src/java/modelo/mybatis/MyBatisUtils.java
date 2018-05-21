@@ -1,4 +1,4 @@
-package mybatis;
+package modelo.mybatis;
 
 import java.io.IOException;
 import java.io.Reader;
