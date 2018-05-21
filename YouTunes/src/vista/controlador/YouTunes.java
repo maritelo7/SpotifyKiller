@@ -1,4 +1,4 @@
-package vista;
+package vista.controlador;
 
 import java.net.URL;
 import javafx.application.Application;
