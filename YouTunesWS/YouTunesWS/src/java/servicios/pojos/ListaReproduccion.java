@@ -1,4 +1,4 @@
-package pojos;
+package servicios.pojos;
 /**
  * @author Mari
  */
