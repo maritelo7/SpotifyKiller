@@ -1,27 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.controlador;
 
 import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 /**
- * FXML Controller class
  *
  * @author yamii
  */
-public class LoginController implements Initializable {
+public class LoginController extends Application {
+
+    private static BorderPane root = new BorderPane();
+    private static BorderPane panePrincipal = new BorderPane();
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+        URL panePrincipalURL = getClass().getResource(("/vista/Login.fxml"));
+        AnchorPane paneInicial = FXMLLoader.load(panePrincipalURL);
+
+        panePrincipal.setCenter(paneInicial);
+        Scene sceneDos = new Scene(panePrincipal);
+        stage.setScene(sceneDos);
+        stage.show();
+    }
 
     /**
-     * Initializes the controller class.
+     * @param args the command line arguments
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }
