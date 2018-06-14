@@ -2,18 +2,12 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXProgressBar?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="640.0" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.ReproductorController">
    <children>
-      <Separator layoutX="320.0" orientation="VERTICAL" prefHeight="600.0" />
-      <ImageView fx:id="imagePortada" fitHeight="300.0" fitWidth="300.0" layoutX="171.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@recursos/fondo.jpg" />
-         </image></ImageView>
       <JFXButton id="buttonPlayPause" fx:id="buttonNext" layoutX="440.0" layoutY="473.0" prefHeight="50.0" prefWidth="23.0" styleClass="jfx-buttonImage" stylesheets="@recursos/hojaEstilos.css" text=" ">
          <graphic>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
@@ -41,5 +35,10 @@
          </graphic>
       </JFXButton>
       <JFXProgressBar fx:id="progressBarAudio" layoutX="121.0" layoutY="428.0" prefHeight="5.0" prefWidth="400.0" />
+      <ImageView fitHeight="275.0" fitWidth="340.0" layoutX="156.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@recursos/nirvana.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
