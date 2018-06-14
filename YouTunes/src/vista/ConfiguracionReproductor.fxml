@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" accessibleRole="TEXT_AREA" prefHeight="600.0" prefWidth="640.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="vista.controlador.ConfiguracionReproductorController">
+   <children>
+      <Separator layoutX="320.0" opacity="0.43" orientation="VERTICAL" prefHeight="600.0" style="-fx-background-color: grey;" />
+      <Label layoutX="202.0" layoutY="69.0" text="Cambiar la configuración de calidad del audio" />
+      <Label layoutX="164.0" layoutY="258.0" text="Calidad de audio en streaming: " />
+      <Label layoutX="168.0" layoutY="352.0" text="Calidad de audio descargado:" />
+      <MenuButton fx:id="comboCalidadStream" layoutX="202.0" layoutY="291.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="243.0">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <MenuButton fx:id="comboCalidadDescarga" layoutX="202.0" layoutY="391.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="243.0">
+         <items>
+            <MenuItem mnemonicParsing="false" text="Action 1" />
+            <MenuItem mnemonicParsing="false" text="Action 2" />
+         </items>
+      </MenuButton>
+      <JFXTextArea editable="false" layoutX="110.0" layoutY="121.0" prefHeight="91.0" prefWidth="437.0" text="La calidad del audio es determinada por el tamaño de las canciones, y es medida en Kbps (kilobytes por segundo). Esta aplicación soporta la calidad más baja de 48Kbps, la media de 192Kbps y la mayor es de 320Kbps.&#10;Para el streaming o la descarga en mayor calidad se recomienda estar conectado a una red con un buen ancho de banda. " />
+      <JFXButton fx:id="buttonGuardarCambios" layoutX="271.0" layoutY="495.0" text="Guardar cambios" />
+   </children>
+</AnchorPane>

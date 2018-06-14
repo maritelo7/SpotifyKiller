@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="640.0" style="-fx-graphic: C:\Users\Mari\Desktop\ESCUELA\Desarrollo de sistema en red\PROYECTO SPOTIFY\YouTunes\SpotifyKiller\YouTunes\src\vista\recursos\NEXT_symbol.png;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.ReproductorController">
+   <children>
+      <Separator layoutX="320.0" orientation="VERTICAL" prefHeight="600.0" />
+      <ImageView fx:id="imagePortada" fitHeight="300.0" fitWidth="300.0" layoutX="171.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
+      <JFXButton fx:id="buttonPlayPause" layoutX="283.0" layoutY="468.0" />
+   </children>
+</AnchorPane>
