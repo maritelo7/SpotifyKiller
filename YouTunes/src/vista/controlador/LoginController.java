@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  *
  * @author yamii
  */
-public class YouTunes extends Application {
+public class LoginController extends Application {
 
     private static BorderPane root = new BorderPane();
     private static BorderPane panePrincipal = new BorderPane();
@@ -20,11 +20,11 @@ public class YouTunes extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        URL panePrincipalURL = getClass().getResource(("/vista/PaginaInicio.fxml"));
+        URL panePrincipalURL = getClass().getResource(("/vista/Login.fxml"));
         AnchorPane paneInicial = FXMLLoader.load(panePrincipalURL);
 
         panePrincipal.setCenter(paneInicial);
-        Scene sceneDos = new Scene(panePrincipal, 900, 600);
+        Scene sceneDos = new Scene(panePrincipal);
         stage.setScene(sceneDos);
         stage.show();
     }
