@@ -73,7 +73,7 @@ public class LoginController extends Application {
      */
     @FXML
     public void ingresarSistema() throws IOException {
-        paneInicial = FXMLLoader.load(getClass().getResource("/vista/PaginaInicio.fxml"));
+        paneInicial = FXMLLoader.load(getClass().getResource("/vista/MenuDrawer.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(paneInicial);
         stage.setTitle("Iniciar Sesión");
