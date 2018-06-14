@@ -4,14 +4,11 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
-import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -47,11 +44,12 @@ public class LoginController extends Application {
     /**
      * Inicia la aplicación con la pantalla de Login
      *
-     //@param primaryStage
+     * @param primaryStage
      */
     @Override
     public void start(Stage stage) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/vista/Login.fxml"));
+
         Scene scene = new Scene(root);
         stage.setTitle("Iniciar Sesión");
         stage.setScene(scene);
@@ -85,10 +83,6 @@ public class LoginController extends Application {
         Stage principal = (Stage) botonIniciar.getScene().getWindow();
         principal.close();
 
-    }
-    
-    public void validarCampos(){
-        
     }
 
     /**
