@@ -174,18 +174,26 @@ public class LoginController extends Application {
 
                     switch (tipoUsuarioLog) {
                         case 1:
-                            Stage stagePrincipal = new Stage();
-                            URL panePrincipalURL = getClass().getResource(("/vista/PaginaPrincipalCliente.fxml"));
-                            paneInicial = FXMLLoader.load(panePrincipalURL);
+                            Stage paginaCliente = new Stage();
+                            URL paginaClienteURL = getClass().getResource(("/vista/PaginaPrincipalCliente.fxml"));
+                            paneInicial = FXMLLoader.load(paginaClienteURL);
 
-                            Stage stage = (Stage) botonIniciar.getScene().getWindow();
-                            stage.close();
-                            Scene sceneDos = new Scene(paneInicial);
-                            stagePrincipal.setScene(sceneDos);
-                            stagePrincipal.show();
+                            Stage escenaLoginCliente = (Stage) botonIniciar.getScene().getWindow();
+                            escenaLoginCliente.close();
+                            Scene escenaCliente = new Scene(paneInicial);
+                            paginaCliente.setScene(escenaCliente);
+                            paginaCliente.show();
                             break;
                         case 2:
-                            System.out.println("Soy Artista");
+                            Stage paginaArtista = new Stage();
+                            URL paginaArtistaURL = getClass().getResource(("/vista/PaginaPrincipalArtista.fxml"));
+                            paneInicial = FXMLLoader.load(paginaArtistaURL);
+
+                            Stage escenaLoginArtista = (Stage) botonIniciar.getScene().getWindow();
+                            escenaLoginArtista.close();
+                            Scene escenaArtista = new Scene(paneInicial);
+                            paginaArtista.setScene(escenaArtista);
+                            paginaArtista.show();
                             break;
                         default:
                             dialogo = new Dialogo(Alert.AlertType.ERROR,
