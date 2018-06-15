@@ -5,8 +5,10 @@
  */
 package vista.controlador;
 
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 /**
@@ -15,6 +17,15 @@ import javafx.fxml.Initializable;
  * @author Mari
  */
 public class ConsultaCuentaArtistaController implements Initializable {
+
+    @FXML
+    private JFXTextField fieldNombreUsuario;
+    @FXML
+    private JFXTextField fieldFechaNacimiento;
+    @FXML
+    private JFXTextField fieldApellidos;
+    @FXML
+    private JFXTextField fieldNombre;
 
     /**
      * Initializes the controller class.

@@ -7,14 +7,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="263.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.MenuDrawerController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="263.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.MenuDrawerController">
     <children>
         <ImageView fitHeight="121.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@recursos/logoYoutunes.png" />
             </image>
         </ImageView>
-        <Accordion focusTraversable="false" prefHeight="600.0" prefWidth="263.0" style="-fx-background-color: white;">
+        <Accordion focusTraversable="false" prefHeight="600.0" prefWidth="260.0" style="-fx-background-color: white;">
             <panes>
                 <TitledPane contentDisplay="TOP" style="-fx-background-color: white;" text="Ver perfil" textOverrun="CLIP">
                     <content>
@@ -25,17 +25,17 @@
                         </VBox>
                     </content>
                 </TitledPane>
-                <TitledPane  text="Playlists">
+                <TitledPane text="Playlists">
                     <content>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
                     </content>
                 </TitledPane>
-                <TitledPane  text="Álbumes">
+                <TitledPane text="Álbumes">
                     <content>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
                     </content>
                 </TitledPane>
-                <TitledPane  text="Mi música">
+                <TitledPane text="Mi música">
                     <content>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
                     </content>
@@ -45,4 +45,3 @@
         <JFXButton fx:id="botonCerrarSesion" layoutY="573.0" prefHeight="27.0" prefWidth="263.0" style="-fx-background-color: #0489B1;" text="Cerrar sesión" textFill="WHITE" />
     </children>
 </VBox>
- 
