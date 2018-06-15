@@ -1,8 +1,16 @@
 package modelo.ws;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -11,6 +19,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import modelo.mybatis.MyBatisUtils;
 import org.apache.ibatis.session.SqlSession;
+import servicios.pojos.TipoUsuario;
 import servicios.pojos.Usuario;
 
 /**
@@ -68,10 +77,12 @@ public class Catalog {
       @FormParam("apellidoMat") String apellidoMat,
       @FormParam("fechaNacimiento") String fechaNacimiento,
       @FormParam("nombreArtistico") String nombreArtistico,
-      @FormParam("tipoUsuario") Integer tipoUsuario){
+      @FormParam("tipoUsuario") Integer tipoUsuario) throws ParseException{
     SqlSession conn = null;
     Mensaje msg = new Mensaje();
     try {
+      DateFormat formatter = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
+      Date fechaNac = formatter.parse(fechaNacimiento);
       conn = MyBatisUtils.getSession();
       HashMap<String, Object> param
           = new HashMap<String, Object>();
@@ -80,7 +91,7 @@ public class Catalog {
       param.put("nombre", nombre);     
       param.put("apellidoPat", apellioPat);
       param.put("apellidoMat", apellidoMat);
-      param.put("fechaNacimiento", fechaNacimiento);
+      param.put("fechaNacimiento", fechaNac);
       param.put("nombreArtistico", nombreArtistico);
       param.put("tipoUsuario", tipoUsuario);
       param.put("calidadDescarga", 1);
@@ -129,6 +140,27 @@ public class Catalog {
 
     }
     return msg;
+  }
+  
+  @GET
+  @Path("recuperarTiposUsuarios")
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<TipoUsuario> recuperarTiposUsuarios() {
+    SqlSession conn = null;
+    List<TipoUsuario>  tipos= new ArrayList();
+    try {
+      conn = MyBatisUtils.getSession();
+      tipos = conn.selectList("TipoUsuario.recuperarTodos");
+      conn.commit();
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    } finally {
+      if (conn != null) {
+        conn.close();
+      }
+
+    }
+    return tipos;
   }
   
 }
