@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class MyBatisUtils {
     
-    public static String RESOURCE = "mybatis/mybatis-config.xml";    
+    public static String RESOURCE = "modelo/mybatis/mybatis-config.xml";    
     public static String ENVIRONMENT = "development";
     public static SqlSession getSession() throws IOException{
         SqlSession session = null;

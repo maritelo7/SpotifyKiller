@@ -10,9 +10,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED" >
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/youtunes"/>
-                <property name="username" value="youtunes"/>
-                <property name="password" value="youtunesred"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/youtunesdb"/>
+                <property name="username" value="root"/>
+                <property name="password" value="131994"/>
                 <property name="poolMaximumActiveConnections" value="50"/>
             </dataSource>
         </environment>

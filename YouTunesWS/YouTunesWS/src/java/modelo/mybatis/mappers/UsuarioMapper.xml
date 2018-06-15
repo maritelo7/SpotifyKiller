@@ -4,8 +4,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Usuario">
-    <select id="getUsuario" parameterType="String">
-        SELECT * FROM usuario WHERE nombre = #{nombre};
+    
+    <select id="accesoUsuario" parameterType = "map" resultType="servicios.pojos.Usuario">
+        SELECT * FROM usuario WHERE nombreUsuario = #{nombreUsuario} AND clave = #{clave};
+    </select>
+    
+    <insert id="registrarUsuario" parameterType ="map">
+        INSERT INTO usuario (nombre, apellidoPat, apellidoMat, fechaNacimiento, 
+        clave, nombreArtistico, tipoUsuario, nombreUsuario, calidadDescarga, calidadStream)
+        VALUES (#{nombre}, #{apellidoPat},#{apellidoMat}, #{fechaNacimiento}, #{clave},
+        #{nombreArtistico}, #{tipoUsuario}, #{nombreUsuario}, #{calidadDescarga}, #{calidadStream});
+    </insert>
+    
+    <select id="actualizarCalidad" parameterType = "map" >
+        UPDATE usuario SET calidadStream = #{calidadStream}, calidadDescarga= #{calidadDescarga}
+        WHERE nombreUsuario = #{nombreUsuario};
     </select>
     
 </mapper>

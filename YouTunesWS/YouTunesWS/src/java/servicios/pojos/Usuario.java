@@ -20,6 +20,8 @@ public class Usuario {
     private String clave;
     private String nombreArtistico;
     private Integer tipoUsuario;
+    private Integer calidadDescarga;
+    private Integer calidadStream;
 
     public Integer getIdUsuario() {
         return idUsuario;
@@ -83,5 +85,29 @@ public class Usuario {
 
     public void setTipoUsuario(Integer tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public Integer getCalidadDescarga() {
+        return calidadDescarga;
+    }
+
+    public void setCalidadDescarga(Integer calidadDescarga) {
+        this.calidadDescarga = calidadDescarga;
+    }
+
+    public Integer getCalidadStream() {
+        return calidadStream;
+    }
+
+    public void setCalidadStream(Integer calidadStream) {
+        this.calidadStream = calidadStream;
     }
 }
