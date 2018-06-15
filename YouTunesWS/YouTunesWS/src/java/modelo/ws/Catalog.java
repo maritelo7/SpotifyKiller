@@ -47,14 +47,14 @@ public class Catalog {
       @FormParam("clave") String clave
   ) {
     SqlSession conn = null;
-    Usuario conductor = new Usuario();
+    Usuario usuario = new Usuario();
     try {
       conn = MyBatisUtils.getSession();
       HashMap<String, Object> param
           = new HashMap<String, Object>();
       param.put("nombreUsuario", nombreUsuario);
       param.put("clave", clave);
-      conductor = conn.selectOne("Usuario.accesoUsuario", param);
+      usuario = conn.selectOne("Usuario.accesoUsuario", param);
     } catch (IOException ex) {
       ex.printStackTrace();
     } finally {
@@ -63,7 +63,7 @@ public class Catalog {
       }
 
     }
-    return conductor;
+    return usuario;
   }
   
   @POST

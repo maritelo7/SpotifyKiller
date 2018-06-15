@@ -20,17 +20,17 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="197.0">
                      <children>
-                        <JFXTextField fx:id="campoUsuario" labelFloat="true" layoutX="38.0" layoutY="132.0" onKeyReleased="#activarBotonIngresar" prefHeight="42.0" prefWidth="205.0" promptText="Nombre de usuario" unFocusColor="BLACK">
+                        <JFXTextField fx:id="campoUsuario" labelFloat="true" layoutX="38.0" layoutY="132.0" prefHeight="42.0" prefWidth="205.0" promptText="Nombre de usuario" unFocusColor="BLACK">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </JFXTextField>
-                        <JFXButton fx:id="botonIniciar" layoutX="61.0" layoutY="288.0" onAction="#registrarUsuario" prefHeight="42.0" prefWidth="159.0" text="Iniciar Sesión">
+                        <JFXButton fx:id="botonIniciar" layoutX="61.0" layoutY="288.0" onAction="#accesarUsuario" prefHeight="42.0" prefWidth="159.0" text="Iniciar Sesión">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXPasswordField fx:id="campoContrasenia" layoutX="40.0" layoutY="209.0" prefHeight="25.0" prefWidth="205.0" promptText="Contraseña" />
+                        <JFXPasswordField fx:id="campoContrasenia" onKeyReleased="#activarBotonIngresar" layoutX="40.0" layoutY="209.0" prefHeight="25.0" prefWidth="205.0" promptText="Contraseña" />
                         <ImageView fitHeight="81.0" fitWidth="127.0" layoutX="100.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@recursos/usuario.png" />
