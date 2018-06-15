@@ -30,11 +30,14 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import modelo.Cifrado;
+import vista.Dialogo;
 
 /**
  *
- * @author yamii
+ * @author Esmeralda Yamileth Hernández González
  */
 public class LoginController extends Application {
 
@@ -42,7 +45,8 @@ public class LoginController extends Application {
     private static int tipoUsuarioLog = 0;
     private static AnchorPane root = new AnchorPane();
     private static AnchorPane paneInicial = new AnchorPane();
-    Response resws;
+    private Response resws;
+    private Dialogo dialogo;
 
     @FXML
     private JFXPasswordField campoContrasenia;
@@ -102,7 +106,9 @@ public class LoginController extends Application {
         try {
             root = FXMLLoader.load(getClass().getResource("/vista/Login.fxml"));
         } catch (IOException ex) {
-            //Dialogo
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Servidor no disponible, intente más tarde.", "Error", ButtonType.OK);
+            dialogo.show();
         }
         Scene scene = new Scene(root);
         primaryStage.setTitle("Iniciar Sesión");
@@ -122,6 +128,10 @@ public class LoginController extends Application {
         }
     }
 
+    /**
+     * Método asignado al tabpane de Registrarse, para cargar los combos de 
+     * tipo de usuario y de las fechas.
+     */
     @FXML
     public void cargarCombos() {
         cargarComboBoxes();
@@ -131,11 +141,13 @@ public class LoginController extends Application {
      * Permite registrar al usuario en el sistema
      */
     @FXML
-    public void accesarUsuario() throws NoSuchAlgorithmException, ParseException {
+    public void accesarUsuario() {
         if (validarCamposAcceso()) {
             ingresarSistema();
         } else {
-            System.out.println("Llene todos los campos obligatorios");
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Ingresar campos obligatorios", "Error", ButtonType.OK);
+            dialogo.show();
         }
 
     }
@@ -159,13 +171,13 @@ public class LoginController extends Application {
                     System.out.println("usuario: " + validado.getIdUsuario());
                     tipoUsuarioLog = validado.getTipoUsuario();
                     usuarioLog = validado.getIdUsuario();
-                    
+
                     switch (tipoUsuarioLog) {
                         case 1:
                             Stage stagePrincipal = new Stage();
                             URL panePrincipalURL = getClass().getResource(("/vista/PaginaPrincipalCliente.fxml"));
-                            AnchorPane paneInicial = FXMLLoader.load(panePrincipalURL);
-                            
+                            paneInicial = FXMLLoader.load(panePrincipalURL);
+
                             Stage stage = (Stage) botonIniciar.getScene().getWindow();
                             stage.close();
                             Scene sceneDos = new Scene(paneInicial);
@@ -176,18 +188,24 @@ public class LoginController extends Application {
                             System.out.println("Soy Artista");
                             break;
                         default:
-                            System.out.println("Error al iniciar sesión");
+                            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                                "El Usuario ingresado no existe", "Error", ButtonType.OK);
+                            dialogo.show();
                             break;
-                            
+
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                System.out.println("El usuario no existe");
+                dialogo = new Dialogo(Alert.AlertType.ERROR,
+                    "El Usuario ingresado no existe", "Error", ButtonType.OK);
+                dialogo.show();
             }
         } else {
-            System.out.println("Contraseña incorrecta");
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Nombre de Usuario o Contraseña incorrectos", "Error", ButtonType.OK);
+            dialogo.show();
         }
     }
 
@@ -200,40 +218,60 @@ public class LoginController extends Application {
         if (validarCamposRegistro()) {
             tareaRegistrarUsuario();
         } else {
-            System.out.println("Llene todos los campos obligatorios");
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Ingresar campos obligatorios", "Error", ButtonType.OK);
+            dialogo.show();
         }
     }
 
     /**
      * Lleva a cabo la llamada al método de HttpUtils para registrar el usuario
      */
-    public void tareaRegistrarUsuario() throws NoSuchAlgorithmException, ParseException {
+    public void tareaRegistrarUsuario() {
         String dia = diaCB.getValue();
         int mes = mesCB.getSelectionModel().getSelectedIndex() + 1;
         String anio = anioCB.getValue();
         if (validarFecha(dia, mes, anio)) {
-            Usuario usuario = new Usuario();
-            usuario.setNombre(nombreTF.getText());
-            usuario.setApellidoPat(apellidoPatTF.getText());
-            usuario.setApellidoMat(apellidoMatTF.getText());
-            usuario.setClave(getHash(contrasenaRTF.getText()));
-            Date date = convertirFecha(dia, mes, anio);
-            usuario.setFechaNacimiento(date);
-            usuario.setNombreUsuario(nombreUsuarioTF.getText());
-            usuario.setTipoUsuario(tipoUsuarioCB.getValue().getIdTipoUsuario());
-            usuario.setNombreArtistico(nombreArtisticoTF.getText());
-            resws = HttpUtils.registroUsuario(usuario);
-            if (resws != null && !resws.isError() && resws.getResult() != null) {
-                if (resws.getStatus() == 200) {
-                    System.out.println("registro exitoso");
+            try {
+                Usuario usuario = new Usuario();
+                usuario.setNombre(nombreTF.getText());
+                usuario.setApellidoPat(apellidoPatTF.getText());
+                usuario.setApellidoMat(apellidoMatTF.getText());
+                usuario.setClave(getHash(contrasenaRTF.getText()));
+                Date date = convertirFecha(dia, mes, anio);
+                usuario.setFechaNacimiento(date);
+                usuario.setNombreUsuario(nombreUsuarioTF.getText());
+                usuario.setTipoUsuario(tipoUsuarioCB.getValue().getIdTipoUsuario());
+                usuario.setNombreArtistico(nombreArtisticoTF.getText());
+                resws = HttpUtils.registroUsuario(usuario);
+                if (resws != null && !resws.isError() && resws.getResult() != null) {
+                    if (resws.getStatus() == 200) {
+                        dialogo = new Dialogo(Alert.AlertType.INFORMATION,
+                            "Registro exitoso", "Éxito", ButtonType.OK);
+                        dialogo.show();
+                    } else {
+                        dialogo = new Dialogo(Alert.AlertType.ERROR,
+                            "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+                        dialogo.show();
+                    }
                 } else {
-                    System.out.println(resws.getResult());
+                    dialogo = new Dialogo(Alert.AlertType.ERROR,
+                        "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+                    dialogo.show();
                 }
-            } else {
-                System.out.println(resws.getResult());
+            } catch (NoSuchAlgorithmException ex) {
+                dialogo = new Dialogo(Alert.AlertType.ERROR,
+                    "No se pudo cifrar la contraseña", "Error", ButtonType.OK);
+                dialogo.show();
+            } catch (ParseException ex) {
+                dialogo = new Dialogo(Alert.AlertType.ERROR,
+                    "Formato de fecha incorrecto", "Error", ButtonType.OK);
+                dialogo.show();
             }
         } else {
-            System.out.println("FECHA INVÁLIDA");
+            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Fecha Inválida", "Error", ButtonType.OK);
+            dialogo.show();
         }
     }
 
@@ -265,6 +303,14 @@ public class LoginController extends Application {
         return false;
     }
 
+    /**
+     * Método para convertir la fecha en Date y almacenarla en la base de datos.
+     * @param dia dia de nacimeinto. 
+     * @param mes mes de nacimiento.
+     * @param anio año de nacimiento.
+     * @return fecha de nacimiento en formato DATE. 
+     * @throws ParseException 
+     */
     public Date convertirFecha(String dia, int mes, String anio) throws ParseException {
         String mesAux;
         if (mes < 10) {
@@ -280,6 +326,11 @@ public class LoginController extends Application {
         return date;
     }
 
+    /**
+     * Método para validar si la fecha es correcta.
+     * @param dateToValidate
+     * @return 
+     */
     public boolean esFechaValida(String dateToValidate) {
         String dateFromat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
@@ -288,15 +339,23 @@ public class LoginController extends Application {
         try {
             date = sdf.parse(dateToValidate);
         } catch (ParseException e) {
-            System.out.println(date);
-            //desplegarMensaje("No se puede registrar actividad, la fecha indicada es inválida.");
-            e.printStackTrace();
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "No se puede registrar actividad, la fecha indicada es inválida.",
+                "Error", ButtonType.OK);
+            dialogo.show();
             return false;
         }
 
         return true;
     }
 
+    /**
+     * Método para validar la fecha.
+     * @param dia día de nacimiento.
+     * @param mes mes de nacimiento.
+     * @param anio año de nacimiento.
+     * @return true si es válida, false sino.
+     */
     public boolean validarFecha(String dia, int mes, String anio) {
         String mesAux;
         if (mes < 10) {
