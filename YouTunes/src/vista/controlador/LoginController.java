@@ -48,7 +48,7 @@ public class LoginController extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/vista/Login.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/vista/CrearAlbum.fxml"));
         Scene scene = new Scene(root);
         stage.setTitle("Iniciar Sesión");
         stage.setScene(scene);
@@ -73,7 +73,7 @@ public class LoginController extends Application {
      */
     @FXML
     public void ingresarSistema() throws IOException {
-        paneInicial = FXMLLoader.load(getClass().getResource("/vista/MenuDrawer.fxml"));
+        paneInicial = FXMLLoader.load(getClass().getResource("/vista/PaginaPrincipalCliente.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(paneInicial);
         stage.setTitle("Iniciar Sesión");
