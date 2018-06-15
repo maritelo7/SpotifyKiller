@@ -15,15 +15,15 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author yamii
  */
-public class MenuDrawerController implements Initializable {
-
+public class PaginaPrincipalArtistaController implements Initializable {
+    
     @FXML
     private JFXButton botonCerrarSesion;
 
     @FXML
     private JFXButton botonCuenta;
     @FXML
-    private JFXDrawer drawerPane;
+    private JFXDrawer drawerPanel;
 
     /**
      * Initializes the controller class.
@@ -34,15 +34,15 @@ public class MenuDrawerController implements Initializable {
     }
 
     /**
-     * Método para abrir la información personal del cliente.
-     * @throws IOException 
+     * Método para abrir la información personal del artista.
+     *
+     * @throws IOException
      */
     @FXML
-    public void abrirConsultaCuentaCliente() throws IOException {
+    public void abrirConsultaCuentaArtista() throws IOException {
         AnchorPane consultaCliente = FXMLLoader.load(getClass()
-            .getResource("/vista/ConsultaCuentaCliente.fxml"));
-        drawerPane.setPrefWidth(640);
-        drawerPane.setContent(consultaCliente);
+            .getResource("/vista/ConsultaCuentaArtista.fxml"));
+        drawerPanel.setPrefWidth(640);
+        drawerPanel.setContent(consultaCliente);
     }
-   
 }
