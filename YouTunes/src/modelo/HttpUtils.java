@@ -22,8 +22,8 @@ public class HttpUtils {
 
     public static Response accesoUsuario(Usuario usuario) {
         String url = "accesoUsuario";
-        String parametros = String.format("nombreUsuario=%s",
-                usuario.getNombreUsuario());
+        String parametros = String.format("nombreUsuario=%s&clave=%s",
+                usuario.getNombreUsuario(), usuario.getClave());
         return invocarServicioWeb(url, "POST", parametros);
     }
 

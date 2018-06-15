@@ -27,6 +27,8 @@ import modelo.pojos.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import modelo.Cifrado;
 
@@ -96,8 +98,12 @@ public class LoginController extends Application {
      * //@param primaryStage
      */
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("/vista/Login.fxml"));
+    public void start(Stage primaryStage) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/vista/Login.fxml"));
+        } catch (IOException ex) {
+            //Dialogo
+        }
         Scene scene = new Scene(root);
         primaryStage.setTitle("Iniciar Sesión");
         primaryStage.setScene(scene);
@@ -126,7 +132,6 @@ public class LoginController extends Application {
      */
     @FXML
     public void accesarUsuario() throws NoSuchAlgorithmException, ParseException {
-
         if (validarCamposAcceso()) {
             ingresarSistema();
         } else {
@@ -136,51 +141,53 @@ public class LoginController extends Application {
     }
 
     /**
-     * Permite ingresar al sistema
+     * Permite ingresar al sistema como usuario Artista o Consumidor
      */
     public void ingresarSistema() {
-        Cifrado cifrar = new Cifrado();
         Usuario ingresado = new Usuario();
-        boolean continuar = false;
+        Cifrado cifrado = new Cifrado();
+        ingresado.setNombreUsuario(campoUsuario.getText());
+        ingresado.setClave(cifrado.cifrarCadena(campoContrasenia.getText()));
+        resws = HttpUtils.accesoUsuario(ingresado);
 
-        try {
-            ingresado.setNombreUsuario(campoUsuario.getText());
-            ingresado.setClave(campoContrasenia.getText());
-            resws = HttpUtils.accesoUsuario(ingresado);
-            System.out.println("resqs: " + resws);
-            
-            continuar = true;
-            System.out.println("Se recuperó en nombre de usuario");
-        } catch (Exception ex) {
-            System.out.println("No se ha recuperado el nombre de usuario");
-        }
-        
-        System.out.println("ingresado: " + ingresado + "continuar: " + continuar);
-        if (continuar) {
-            try {
-                if (ingresado == null) {
-                    System.out.println("Usuario no existe");
-                } else if (ingresado.getClave().equals(
-                    cifrar.cifrarCadena(campoContrasenia.getText()))) {
-                    tipoUsuarioLog = ingresado.getTipoUsuario();
-                    usuarioLog = ingresado.getIdUsuario();
-                    Stage stagePrincipal = new Stage();
-                    URL panePrincipalURL = getClass().getResource(("/vista/PaginaPrincipalCliente"));
-                    AnchorPane panePrincipal = FXMLLoader.load(panePrincipalURL);
-
-                    Stage stage = (Stage) botonIniciar.getScene().getWindow();
-                    stage.close();
-
-                    Scene scene = new Scene(paneInicial);
-                    stage.setTitle("YouTunes");
-                    stage.setScene(scene);
-                    stage.show();
-                } else {
-                    System.out.println("Los datos ingresados son incorrectos");
+        if (resws != null && !resws.isError() && resws.getResult() != null) {
+            if (resws.getResult().contains("idUsuario")) {
+                try {
+                    Usuario validado = new Usuario();
+                    validado = new Gson().fromJson(resws.getResult(), Usuario.class);
+                    System.out.println("tipo Usuario: " + validado.getTipoUsuario());
+                    System.out.println("usuario: " + validado.getIdUsuario());
+                    tipoUsuarioLog = validado.getTipoUsuario();
+                    usuarioLog = validado.getIdUsuario();
+                    
+                    switch (tipoUsuarioLog) {
+                        case 1:
+                            Stage stagePrincipal = new Stage();
+                            URL panePrincipalURL = getClass().getResource(("/vista/PaginaPrincipalCliente.fxml"));
+                            AnchorPane paneInicial = FXMLLoader.load(panePrincipalURL);
+                            
+                            Stage stage = (Stage) botonIniciar.getScene().getWindow();
+                            stage.close();
+                            Scene sceneDos = new Scene(paneInicial);
+                            stagePrincipal.setScene(sceneDos);
+                            stagePrincipal.show();
+                            break;
+                        case 2:
+                            System.out.println("Soy Artista");
+                            break;
+                        default:
+                            System.out.println("Error al iniciar sesión");
+                            break;
+                            
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (Exception ex) {
-                System.out.println("Servidor no disponible");
+            } else {
+                System.out.println("El usuario no existe");
             }
+        } else {
+            System.out.println("Contraseña incorrecta");
         }
     }
 
@@ -308,8 +315,8 @@ public class LoginController extends Application {
      * Método que carga el combo box de los tipos de usuarios
      */
     public void cargarComboUsuarios() {
-        Response respuesta = HttpUtils.recuperarCatalogoUsuarios();
-        List<TipoUsuario> tipos = new Gson().fromJson(respuesta.getResult(), new TypeToken<List<TipoUsuario>>() {
+        resws = HttpUtils.recuperarCatalogoUsuarios();
+        List<TipoUsuario> tipos = new Gson().fromJson(resws.getResult(), new TypeToken<List<TipoUsuario>>() {
         }.getType());
         ObservableList<TipoUsuario> tiposUsuario = FXCollections.observableArrayList(tipos);
         tipoUsuarioCB.setItems(tiposUsuario);
@@ -327,6 +334,7 @@ public class LoginController extends Application {
         }
         return stringBuilder.toString();
     }
+
     /**
      * Método que carga los combo boxes de dia, mes, año y tipo de usuario
      */
@@ -351,7 +359,6 @@ public class LoginController extends Application {
         anioCB.getSelectionModel().selectFirst();
         cargarComboUsuarios();
     }
-    
 
     /**
      * Cierra la aplicación

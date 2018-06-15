@@ -5,8 +5,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Usuario">
     
-    <select id="accesoUsuario" parameterType = "String" resultType="servicios.pojos.Usuario">
-        SELECT * FROM usuario WHERE nombreUsuario = #{nombreUsuario};
+    <select id="accesoUsuario" parameterType = "map" resultType="servicios.pojos.Usuario">
+        SELECT * FROM usuario WHERE nombreUsuario = #{nombreUsuario} AND 
+        clave = #{clave};
     </select>
     
     <insert id="registrarUsuario" parameterType ="map">
