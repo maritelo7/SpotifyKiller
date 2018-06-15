@@ -12,26 +12,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="560.0" prefWidth="409.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="560.0" prefWidth="409.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.LoginController">
    <children>
-      <JFXTabPane layoutX="59.0" layoutY="108.0" prefHeight="437.0" prefWidth="291.0">
+      <JFXTabPane layoutX="47.0" layoutY="108.0" prefHeight="437.0" prefWidth="316.0" style="-tab-header-background: #ffffff;" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css">
          <tabs>
-            <Tab text="       Inciar Sesión   ">
+            <Tab style="-fx-background-color: #092a35;" text="Inciar Sesión">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="197.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="197.0" styleClass="fondo">
                      <children>
-                        <JFXTextField fx:id="campoUsuario" labelFloat="true" layoutX="38.0" layoutY="132.0" prefHeight="42.0" prefWidth="205.0" promptText="Nombre de usuario" unFocusColor="BLACK">
+                        <JFXTextField fx:id="campoUsuario" labelFloat="true" layoutX="58.0" layoutY="136.0" prefHeight="42.0" prefWidth="205.0" promptText="Nombre de usuario" styleClass="jfx-text-field" unFocusColor="#bfb6b636">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </JFXTextField>
-                        <JFXButton fx:id="botonIniciar" layoutX="61.0" layoutY="288.0" onAction="#accesarUsuario" prefHeight="42.0" prefWidth="159.0" text="Iniciar Sesión">
+                        <JFXButton fx:id="botonIniciar" layoutX="81.0" layoutY="292.0" onAction="#accesarUsuario" prefHeight="42.0" prefWidth="159.0" text="Iniciar Sesión">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXPasswordField fx:id="campoContrasenia" onKeyReleased="#activarBotonIngresar" layoutX="40.0" layoutY="209.0" prefHeight="25.0" prefWidth="205.0" promptText="Contraseña" />
-                        <ImageView fitHeight="81.0" fitWidth="127.0" layoutX="100.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                        <JFXPasswordField fx:id="campoContrasenia" layoutX="60.0" layoutY="213.0" onKeyReleased="#activarBotonIngresar" prefHeight="25.0" prefWidth="205.0" promptText="Contraseña" />
+                        <ImageView fitHeight="81.0" fitWidth="127.0" layoutX="120.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@recursos/usuario.png" />
                            </image>
@@ -40,38 +40,31 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="  Registrarse">
+            <Tab fx:id="tabRegistrarse" onSelectionChanged="#cargarCombos" style="-fx-background-color: #092a35;" text="Registrarse">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="291.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="316.0" stylesheets="@recursos/hojaEstilos.css">
                      <children>
-                        <JFXComboBox fx:id="tipoUsuarioCB" layoutX="14.0" prefHeight="32.0" prefWidth="169.0" promptText="Tipo de Usuario" />
-                        <JFXTextField fx:id="nombreTF" labelFloat="true" layoutX="14.0" layoutY="42.0" prefHeight="25.0" prefWidth="255.0" promptText="Nombre(s)" />
-                        <JFXTextField fx:id="apellidoMatTF" labelFloat="true" layoutX="13.0" layoutY="106.0" prefHeight="25.0" prefWidth="257.0" promptText="Apellido Materno:" />
-                        <Label layoutX="14.0" layoutY="183.0" text="Fecha de Nacimiento:" />
-                        <JFXComboBox fx:id="diaCB" layoutX="14.0" layoutY="207.0" promptText="dia" />
-                        <JFXComboBox fx:id="mesCB" layoutX="106.0" layoutY="207.0" promptText="mes" />
-                        <JFXComboBox fx:id="anioCB" layoutX="202.0" layoutY="207.0" promptText="año" />
-                        <JFXTextField fx:id="nombreUsuarioTF" labelFloat="true" layoutX="18.0" layoutY="243.0" prefHeight="25.0" prefWidth="256.0" promptText="Nombre de Usuario" />
-                        <JFXPasswordField fx:id="contrasenaRTF" layoutX="18.0" layoutY="319.0" prefHeight="25.0" prefWidth="255.0" promptText="Contraseña" />
-                        <JFXButton fx:id="registrarBT" layoutX="108.0" layoutY="356.0" onAction="#registrarUsuario" text="Registrarse" />
-                        <JFXTextField fx:id="nombreArtisticoTF" labelFloat="true" layoutX="14.0" layoutY="140.0" prefHeight="25.0" prefWidth="255.0" promptText="Nombre Artístico" />
-                        <JFXTextField fx:id="campoCorreo" disable="true" labelFloat="true" layoutX="18.0" layoutY="284.0" prefHeight="25.0" prefWidth="256.0" promptText="Correo electrónico" />
-                        <JFXTextField fx:id="apellidoPatTF" labelFloat="true" layoutX="14.0" layoutY="71.0" prefHeight="25.0" prefWidth="257.0" promptText="Apellido Paterno:" />
-                        <JFXButton fx:id="cargarCB" layoutX="210.0" layoutY="356.0" onAction="#cargarCombos" text="cargar CB" />
+                        <JFXComboBox fx:id="tipoUsuarioCB" labelFloat="true" layoutX="30.0" layoutY="10.0" prefHeight="32.0" prefWidth="258.0" promptText="Tipo de Usuario" />
+                        <JFXTextField fx:id="nombreTF" layoutX="30.0" layoutY="53.0" prefHeight="25.0" prefWidth="255.0" promptText="Nombre(s)" />
+                        <JFXTextField fx:id="apellidoPatTF" layoutX="30.0" layoutY="89.0" prefHeight="25.0" prefWidth="257.0" promptText="Apellido Paterno:" />
+                        <JFXTextField fx:id="apellidoMatTF" layoutX="29.0" layoutY="125.0" prefHeight="25.0" prefWidth="257.0" promptText="Apellido Materno:" />
+                        <Label layoutX="30.0" layoutY="162.0" text="Fecha de Nacimiento:" />
+                        <JFXComboBox fx:id="diaCB" layoutX="30.0" layoutY="187.0" prefHeight="25.0" prefWidth="43.0" promptText="dia" />
+                        <JFXComboBox fx:id="mesCB" layoutX="95.0" layoutY="187.0" prefHeight="25.0" prefWidth="111.0" promptText="mes" />
+                        <JFXComboBox fx:id="anioCB" layoutX="225.0" layoutY="187.0" promptText="año" />
+                        <JFXTextField fx:id="nombreUsuarioTF" layoutX="31.0" layoutY="227.0" prefHeight="25.0" prefWidth="256.0" promptText="Nombre de Usuario" />
+                        <JFXPasswordField fx:id="contrasenaRTF" layoutX="32.0" layoutY="263.0" prefHeight="25.0" prefWidth="255.0" promptText="Contraseña" />
+                        <JFXTextField fx:id="nombreArtisticoTF" layoutX="32.0" layoutY="299.0" prefHeight="25.0" prefWidth="255.0" promptText="Nombre Artístico" />
+                        <JFXButton fx:id="registrarBT" layoutX="113.0" layoutY="350.0" onAction="#registrarUsuario" text="Registrarse" />
                      </children></AnchorPane>
               </content>
             </Tab>
          </tabs>
       </JFXTabPane>
-      <ImageView fitHeight="75.0" fitWidth="250.0" layoutX="83.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="75.0" fitWidth="250.0" layoutX="105.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/logoYoutunes2.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="botonSalir" layoutX="313.0" layoutY="15.0" onAction="#salirSistema" prefHeight="13.0" prefWidth="96.0" text="Salir">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </JFXButton>
    </children>
 </AnchorPane>

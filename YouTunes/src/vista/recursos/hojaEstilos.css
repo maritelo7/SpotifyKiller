@@ -8,28 +8,13 @@ and open the template in the editor.
     Author     : Mari
 */
 
-.jfx-button{
-    -fx-font-size: 14px;
-    -jfx-button-type: RISED;
-    -fx-background-color: #ccffff;
-    -fx-text-fill: BLACK;
-    
-}
 
 .jfx-buttonImage{
 -fx-background-color: transparent;
 }
 
-.jfx-text-field {
-    -jfx-focus-color: #01ECD5 ;
-    -jfx-unfocus-color: #35C2BD;
-    -jfx-background-color: #4580FF;
-    -fx-text-fill: #FFFFFF;
-    -fx-prompt-text-fill: #FFFFFF;    
-}
-
 .fondo {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #092a35;
 }
 
 .label {
@@ -43,16 +28,44 @@ and open the template in the editor.
     -fx-font-family: "System"; 
     -fx-font-size: 18pt;
 }
-.combo-box {
-    -fx-background-color: #ffffff;
+
+.jfx-button{
+    -fx-background-color: #f7b32d;
+    -fx-text-fill: BLACK;   
+    -fx-font-size: 14px;
+}
+
+.tab-header-background{
+    -fx-background-color: #092a35;
+}
+
+.jfx-text-field {
+    -jfx-focus-color: #01ECD5 ;
+    -jfx-background-color: #4580FF;
     -fx-text-fill: #FFFFFF;
+    -fx-prompt-text-fill: #FFFFFF;    
 }
 
 .jfx-password-field {
-    -jfx-focus-color: #01ECD5 ;
-    -jfx-unfocus-color: #35C2BD;
+    -jfx-focus-color: #FFFFFF ;
     -jfx-background-color: #4580FF;
     -fx-text-fill: #FFFFFF;
+    -fx-prompt-text-fill: #FFFFFF;    
+}
+
+.combo-box {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+    -fx-prompt-text-fill: #FFFFFF;  
+    -jfx-focus-color: #FFFFFF ;
+}
+
+.tab {
+    -fx-pref-width: 150;
+}
+
+.tab-pane{
+    -fx-padding: 0 -1 -1 -1;
 }
 
 
