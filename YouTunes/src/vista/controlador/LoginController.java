@@ -420,14 +420,6 @@ public class LoginController extends Application {
     }
 
     /**
-     * Cierra la aplicación
-     */
-    @FXML
-    public void salirSistema() {
-        System.exit(0);
-    }
-
-    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
