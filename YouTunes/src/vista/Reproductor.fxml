@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXProgressBar?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,11 +11,7 @@
    <children>
       <JFXButton id="buttonPlayPause" fx:id="buttonNext" layoutX="440.0" layoutY="473.0" prefHeight="50.0" prefWidth="23.0" styleClass="jfx-buttonImage" stylesheets="@recursos/hojaEstilos.css" text=" ">
          <graphic>
-            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@recursos/NEXT_symbol.png" />
-               </image>
-            </ImageView>
+            <FontAwesomeIconView glyphName="STEP_FORWARD" size="30.0" />
          </graphic></JFXButton>
       <JFXButton fx:id="buttonPlay" layoutX="287.0" layoutY="473.0" styleClass="jfx-buttonImage" stylesheets="@recursos/hojaEstilos.css" text=" ">
          <graphic>
@@ -27,11 +24,7 @@
       </JFXButton>
       <JFXButton fx:id="buttonPrev" layoutX="119.0" layoutY="473.0" styleClass="jfx-buttonImage" stylesheets="@recursos/hojaEstilos.css" text=" ">
          <graphic>
-            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@recursos/PREV_symbol.png" />
-               </image>
-            </ImageView>
+            <FontAwesomeIconView glyphName="STEP_BACKWARD" size="30.0" />
          </graphic>
       </JFXButton>
       <JFXProgressBar fx:id="progressBarAudio" layoutX="121.0" layoutY="428.0" prefHeight="5.0" prefWidth="400.0" />
