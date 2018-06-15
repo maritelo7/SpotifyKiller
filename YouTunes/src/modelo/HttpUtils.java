@@ -1,5 +1,6 @@
 package modelo;
 
+import modelo.pojos.Usuario;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,7 +8,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import modelo.Usuario;
 
 /**
  * Created by Mari on 04/05/2018.
@@ -22,8 +22,8 @@ public class HttpUtils {
 
     public static Response accesoUsuario(Usuario usuario) {
         String url = "accesoUsuario";
-        String parametros = String.format("nombreUsuario=%s&clave=%s",
-                usuario.getNombreUsuario(), usuario.getClave());
+        String parametros = String.format("nombreUsuario=%s",
+                usuario.getNombreUsuario());
         return invocarServicioWeb(url, "POST", parametros);
     }
 
