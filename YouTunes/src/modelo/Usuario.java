@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servicios.pojos;
+package modelo;
 
 import java.util.Date;
 
@@ -19,8 +19,8 @@ public class Usuario {
     private Date fechaNacimiento;
     private String clave;
     private String nombreArtistico;
-    private String nombreUsuario;
     private Integer tipoUsuario;
+    private String nombreUsuario;
     private Integer calidadDescarga;
     private Integer calidadStream;
 
@@ -64,14 +64,6 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getCllave() {
-        return clave;
-    }
-
-    public void setCllave(String cllave) {
-        this.clave = cllave;
-    }
-
     public String getNombreArtistico() {
         return nombreArtistico;
     }
@@ -96,7 +88,7 @@ public class Usuario {
         this.clave = clave;
     }
     
-     public String getNombreUsuario() {
+    public String getNombreUsuario() {
         return nombreUsuario;
     }
 
