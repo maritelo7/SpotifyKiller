@@ -40,7 +40,7 @@ and open the template in the editor.
 }
 
 .jfx-text-field {
-    -jfx-focus-color: #01ECD5 ;
+    -jfx-focus-color: #FFFFFF ;
     -jfx-background-color: #4580FF;
     -fx-text-fill: #FFFFFF;
     -fx-prompt-text-fill: #FFFFFF;    

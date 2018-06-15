@@ -44,17 +44,17 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="316.0" stylesheets="@recursos/hojaEstilos.css">
                      <children>
-                        <JFXComboBox fx:id="tipoUsuarioCB" labelFloat="true" layoutX="30.0" layoutY="10.0" prefHeight="32.0" prefWidth="258.0" promptText="Tipo de Usuario" />
-                        <JFXTextField fx:id="nombreTF" layoutX="30.0" layoutY="53.0" prefHeight="25.0" prefWidth="255.0" promptText="Nombre(s)" />
-                        <JFXTextField fx:id="apellidoPatTF" layoutX="30.0" layoutY="89.0" prefHeight="25.0" prefWidth="257.0" promptText="Apellido Paterno:" />
-                        <JFXTextField fx:id="apellidoMatTF" layoutX="29.0" layoutY="125.0" prefHeight="25.0" prefWidth="257.0" promptText="Apellido Materno:" />
-                        <Label layoutX="30.0" layoutY="162.0" text="Fecha de Nacimiento:" />
-                        <JFXComboBox fx:id="diaCB" layoutX="30.0" layoutY="187.0" prefHeight="25.0" prefWidth="43.0" promptText="dia" />
-                        <JFXComboBox fx:id="mesCB" layoutX="95.0" layoutY="187.0" prefHeight="25.0" prefWidth="111.0" promptText="mes" />
-                        <JFXComboBox fx:id="anioCB" layoutX="225.0" layoutY="187.0" promptText="año" />
-                        <JFXTextField fx:id="nombreUsuarioTF" layoutX="31.0" layoutY="227.0" prefHeight="25.0" prefWidth="256.0" promptText="Nombre de Usuario" />
-                        <JFXPasswordField fx:id="contrasenaRTF" layoutX="32.0" layoutY="263.0" prefHeight="25.0" prefWidth="255.0" promptText="Contraseña" />
-                        <JFXTextField fx:id="nombreArtisticoTF" layoutX="32.0" layoutY="299.0" prefHeight="25.0" prefWidth="255.0" promptText="Nombre Artístico" />
+                        <JFXComboBox fx:id="tipoUsuarioCB" labelFloat="true" layoutX="16.0" layoutY="10.0" prefHeight="32.0" prefWidth="280.0" promptText="Tipo de Usuario" />
+                        <JFXTextField fx:id="nombreTF" layoutX="16.0" layoutY="53.0" prefHeight="25.0" prefWidth="280.0" promptText="Nombre(s)" />
+                        <JFXTextField fx:id="apellidoPatTF" layoutX="16.0" layoutY="89.0" prefHeight="25.0" prefWidth="280.0" promptText="Apellido Paterno:" />
+                        <JFXTextField fx:id="apellidoMatTF" layoutX="15.0" layoutY="125.0" prefHeight="25.0" prefWidth="280.0" promptText="Apellido Materno:" />
+                        <Label layoutX="17.0" layoutY="162.0" text="Fecha de Nacimiento:" />
+                        <JFXComboBox fx:id="diaCB" layoutX="17.0" layoutY="187.0" prefHeight="25.0" prefWidth="43.0" promptText="dia" />
+                        <JFXComboBox fx:id="mesCB" layoutX="82.0" layoutY="187.0" prefHeight="25.0" prefWidth="111.0" promptText="mes" />
+                        <JFXComboBox fx:id="anioCB" layoutX="212.0" layoutY="187.0" promptText="año" />
+                        <JFXTextField fx:id="nombreUsuarioTF" layoutX="17.0" layoutY="227.0" prefHeight="25.0" prefWidth="280.0" promptText="Nombre de Usuario" />
+                        <JFXPasswordField fx:id="contrasenaRTF" layoutX="18.0" layoutY="263.0" prefHeight="25.0" prefWidth="280.0" promptText="Contraseña" />
+                        <JFXTextField fx:id="nombreArtisticoTF" layoutX="18.0" layoutY="299.0" prefHeight="25.0" prefWidth="280.0" promptText="Nombre Artístico" />
                         <JFXButton fx:id="registrarBT" layoutX="113.0" layoutY="350.0" onAction="#registrarUsuario" text="Registrarse" />
                      </children></AnchorPane>
               </content>
