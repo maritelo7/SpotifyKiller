@@ -64,14 +64,6 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getCllave() {
-        return clave;
-    }
-
-    public void setCllave(String cllave) {
-        this.clave = cllave;
-    }
-
     public String getNombreArtistico() {
         return nombreArtistico;
     }

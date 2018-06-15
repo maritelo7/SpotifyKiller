@@ -15,6 +15,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import modelo.mybatis.MyBatisUtils;
@@ -161,6 +162,56 @@ public class Catalog {
 
     }
     return tipos;
+  }
+  
+
+  
+  @GET
+  @Path("recuperarUsuarioPorId/{idUsuario}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Usuario getUsuarioPorId(
+      @PathParam("idUsuario") Integer idUsuario
+  ) throws IOException {
+    Usuario usuario = new Usuario();
+    SqlSession conn = null;
+    try {
+        HashMap<String, Object> param
+          = new HashMap<String, Object>();
+      param.put("idUsuario", idUsuario);
+      conn = MyBatisUtils.getSession();
+      usuario = conn.selectOne("Usuario.getPorId", param);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    } finally {
+      if (conn != null) {
+        conn.close();
+      }
+    }
+    return usuario;
+  }
+  
+  @GET
+  @Path("recuperarUsuarioPorNombre/{nombreUsuario}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Usuario getUsuarioPorNombre(
+      @PathParam("nombreUsuario") String nombreUsuario
+  ) throws IOException {
+    Usuario usuario = new Usuario();
+    SqlSession conn = null;
+      HashMap<String, Object> param
+          = new HashMap<String, Object>();
+      param.put("nombreUsuario", nombreUsuario);
+    try {
+      conn = MyBatisUtils.getSession();
+      usuario = conn.selectOne("Usuario.getPorNombreUsuario", param);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    } finally {
+      if (conn != null) {
+        conn.close();
+      }
+    }
+    return usuario;
   }
   
 }

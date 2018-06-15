@@ -47,6 +47,16 @@ public class HttpUtils {
         String url = "recuperarTiposUsuarios";
         return invocarServicioWeb(url, "GET", null);
     }
+     
+    public static Response recuperarUsuarioPorNombreUsuario(Usuario usuario) {
+        String url = "recuperarUsuarioPorNombre/" + usuario.getNombreUsuario();
+        return invocarServicioWeb(url, "GET", null);
+    }
+  
+  public static Response recuperarUsuarioPorId(Usuario usuario) {
+        String url = "recuperarUsuarioPorId/" + usuario.getIdUsuario();
+        return invocarServicioWeb(url, "GET", null);
+    }
 
     //ESTE MÉTODO SE CONSERVA TAL CUAL
     private static Response invocarServicioWeb(String url, String tipoinvocacion, String parametros){
