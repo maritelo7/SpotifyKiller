@@ -74,6 +74,7 @@ public class LoginController extends Application {
     private JFXTextField apellidoMatTF;
     @FXML
     private JFXTextField apellidoPatTF;
+
     @FXML
     private JFXButton cargarCB;
 
@@ -194,7 +195,6 @@ public class LoginController extends Application {
         } else {
             System.out.println("Llene todos los campos obligatorios");
         }
-
     }
 
     /**
@@ -327,7 +327,6 @@ public class LoginController extends Application {
         }
         return stringBuilder.toString();
     }
-
     /**
      * Método que carga los combo boxes de dia, mes, año y tipo de usuario
      */
@@ -352,6 +351,7 @@ public class LoginController extends Application {
         anioCB.getSelectionModel().selectFirst();
         cargarComboUsuarios();
     }
+    
 
     /**
      * Cierra la aplicación
