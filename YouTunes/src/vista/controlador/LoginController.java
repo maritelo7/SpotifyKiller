@@ -26,6 +26,7 @@ import modelo.pojos.TipoUsuario;
 import modelo.pojos.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.net.ConnectException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -129,8 +130,8 @@ public class LoginController extends Application {
     }
 
     /**
-     * Método asignado al tabpane de Registrarse, para cargar los combos de 
-     * tipo de usuario y de las fechas.
+     * Método asignado al tabpane de Registrarse, para cargar los combos de tipo de usuario y de las
+     * fechas.
      */
     @FXML
     public void cargarCombos() {
@@ -144,6 +145,7 @@ public class LoginController extends Application {
     public void accesarUsuario() {
         if (validarCamposAcceso()) {
             ingresarSistema();
+
         } else {
             dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Ingresar campos obligatorios", "Error", ButtonType.OK);
@@ -203,7 +205,9 @@ public class LoginController extends Application {
 
                     }
                 } catch (IOException ex) {
-                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    dialogo = new Dialogo(Alert.AlertType.ERROR,
+                        "Servidor no disponible, intente más tarde.", "Error", ButtonType.OK);
+                    dialogo.show();
                 }
             } else {
                 dialogo = new Dialogo(Alert.AlertType.ERROR,
@@ -313,11 +317,12 @@ public class LoginController extends Application {
 
     /**
      * Método para convertir la fecha en Date y almacenarla en la base de datos.
-     * @param dia dia de nacimeinto. 
+     *
+     * @param dia dia de nacimeinto.
      * @param mes mes de nacimiento.
      * @param anio año de nacimiento.
-     * @return fecha de nacimiento en formato DATE. 
-     * @throws ParseException 
+     * @return fecha de nacimiento en formato DATE.
+     * @throws ParseException
      */
     public Date convertirFecha(String dia, int mes, String anio) throws ParseException {
         String mesAux;
@@ -336,8 +341,9 @@ public class LoginController extends Application {
 
     /**
      * Método para validar si la fecha es correcta.
+     *
      * @param dateToValidate
-     * @return 
+     * @return
      */
     public boolean esFechaValida(String dateToValidate) {
         String dateFromat = "dd/MM/yyyy";
@@ -359,6 +365,7 @@ public class LoginController extends Application {
 
     /**
      * Método para validar la fecha.
+     *
      * @param dia día de nacimiento.
      * @param mes mes de nacimiento.
      * @param anio año de nacimiento.
@@ -382,7 +389,15 @@ public class LoginController extends Application {
      * Método que carga el combo box de los tipos de usuarios
      */
     public void cargarComboUsuarios() {
-        resws = HttpUtils.recuperarCatalogoUsuarios();
+        try {
+            resws = HttpUtils.recuperarCatalogoUsuarios();
+        } catch (Exception ex) {
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Servidor no disponible, intente más tarde.",
+                "Error", ButtonType.OK);
+            dialogo.show();
+        }
+
         List<TipoUsuario> tipos = new Gson().fromJson(resws.getResult(), new TypeToken<List<TipoUsuario>>() {
         }.getType());
         ObservableList<TipoUsuario> tiposUsuario = FXCollections.observableArrayList(tipos);
