@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Tab;
 import modelo.Cifrado;
 import vista.Dialogo;
 
@@ -54,8 +55,6 @@ public class LoginController extends Application {
     @FXML
     private JFXTextField campoUsuario;
     @FXML
-    private JFXButton botonSalir;
-    @FXML
     private JFXButton botonIniciar;
     @FXML
     private JFXComboBox<TipoUsuario> tipoUsuarioCB;
@@ -76,14 +75,10 @@ public class LoginController extends Application {
     @FXML
     private JFXTextField nombreArtisticoTF;
     @FXML
-    private JFXTextField campoCorreo;
-    @FXML
     private JFXTextField apellidoMatTF;
     @FXML
     private JFXTextField apellidoPatTF;
 
-    @FXML
-    private JFXButton cargarCB;
 
     public static AnchorPane getPrincipal() {
         return root;
@@ -96,6 +91,8 @@ public class LoginController extends Application {
     public static int returnTipoUsuario() {
         return tipoUsuarioLog;
     }
+    @FXML
+    private Tab tabRegistrarse;
 
     /**
      * Inicia la aplicación con la pantalla de Login
@@ -235,6 +232,15 @@ public class LoginController extends Application {
             dialogo.show();
         }
     }
+    
+    public void limpiarCamposRegistrar(){
+        nombreTF.setText("");
+        apellidoPatTF.setText("");
+        apellidoMatTF.setText("");
+        contrasenaRTF.setText("");
+        nombreUsuarioTF.setText("");
+        nombreArtisticoTF.setText("");
+    }
 
     /**
      * Lleva a cabo la llamada al método de HttpUtils para registrar el usuario
@@ -255,12 +261,17 @@ public class LoginController extends Application {
                 usuario.setNombreUsuario(nombreUsuarioTF.getText());
                 usuario.setTipoUsuario(tipoUsuarioCB.getValue().getIdTipoUsuario());
                 usuario.setNombreArtistico(nombreArtisticoTF.getText());
+                resws = HttpUtils.recuperarUsuarioPorNombreUsuario(usuario);
+                if (resws != null && !resws.isError() && resws.getResult() != null) {
+                    List<Usuario> usuarios = new Gson().fromJson(resws.getResult(), new TypeToken<List<Usuario>>() {}.getType());
+                    if (usuarios.size()!=0){    
                 resws = HttpUtils.registroUsuario(usuario);
                 if (resws != null && !resws.isError() && resws.getResult() != null) {
                     if (resws.getStatus() == 200) {
                         dialogo = new Dialogo(Alert.AlertType.INFORMATION,
-                            "Registro exitoso", "Éxito", ButtonType.OK);
+                            "¡Registro exitoso! Inicie sesión con sus datos por favor", "Éxito", ButtonType.OK);
                         dialogo.show();
+                        limpiarCamposRegistrar();
                     } else {
                         dialogo = new Dialogo(Alert.AlertType.ERROR,
                             "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
@@ -270,6 +281,12 @@ public class LoginController extends Application {
                     dialogo = new Dialogo(Alert.AlertType.ERROR,
                         "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
                     dialogo.show();
+                }
+            }else{
+                   dialogo = new Dialogo(Alert.AlertType.ERROR,
+                    "Usuario con ese nombre de usuario ya existe. Por favor elija otro.", "Error", ButtonType.OK);
+                dialogo.show(); 
+                    }
                 }
             } catch (NoSuchAlgorithmException ex) {
                 dialogo = new Dialogo(Alert.AlertType.ERROR,
