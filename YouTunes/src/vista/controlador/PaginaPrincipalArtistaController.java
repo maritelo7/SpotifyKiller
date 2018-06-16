@@ -45,4 +45,18 @@ public class PaginaPrincipalArtistaController implements Initializable {
         drawerPanel.setPrefWidth(640);
         drawerPanel.setContent(consultaCliente);
     }
+    
+    /**
+     * Método para abrir la ventana para crear album nuevo.
+     *
+     * @throws IOException
+     */
+    @FXML
+    public void abrirCrearAlbum() throws IOException {
+        AnchorPane consultaCliente = FXMLLoader.load(getClass()
+            .getResource("/vista/CrearAlbum.fxml"));
+        drawerPanel.setPrefWidth(640);
+        drawerPanel.setContent(consultaCliente);
+    }
+    
 }

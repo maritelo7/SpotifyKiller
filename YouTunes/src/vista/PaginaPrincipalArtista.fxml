@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -21,11 +22,12 @@
          <children>
             <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="260.0" styleClass="fondo">
                <children>
-                  <ImageView fitHeight="121.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="106.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@recursos/logoYoutunes.png" />
                      </image>
                   </ImageView>
+                  <Label />
                   <Accordion focusTraversable="false" prefHeight="600.0" prefWidth="260.0" styleClass="fondo">
                      <panes>
                         <TitledPane contentDisplay="TOP" prefHeight="429.0" prefWidth="260.0" styleClass="fondo" text="Ver perfil" textOverrun="CLIP">
@@ -41,7 +43,7 @@
                            <content>
                               <VBox alignment="TOP_CENTER" prefHeight="423.0" prefWidth="275.0" styleClass="fondo">
                                  <children>
-                                    <JFXButton prefHeight="21.0" prefWidth="238.0" text="Crear álbum" />
+                                    <JFXButton fx:id="botonCrearAlbum" onAction="#abrirCrearAlbum" prefHeight="21.0" prefWidth="238.0" text="Crear álbum" />
                                     <JFXListView fx:id="listaAlbumes" prefHeight="342.0" prefWidth="238.0" styleClass="fondo" />
                                  </children>
                               </VBox>
