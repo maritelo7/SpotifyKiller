@@ -89,7 +89,7 @@ public class HttpUtils {
                 //------------------------------------------------------//
             }
             res.setStatus(c.getResponseCode());
-            if(res.getStatus()!=200 && res.getStatus()!=201){
+            if(res.getStatus()!=200 && res.getStatus()!=201&& res.getStatus()!=204){
                 res.setError(true);
             }
             if(c.getInputStream()!=null) {

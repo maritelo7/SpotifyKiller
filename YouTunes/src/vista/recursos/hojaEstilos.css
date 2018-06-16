@@ -60,14 +60,14 @@ and open the template in the editor.
     -jfx-focus-color: #FFFFFF ;
 }
 
-.combo-box .list-cell {
-    -fx-text-fill:#ffffff;
+.jfx-combo-box .list-view{
+	-fx-background-color:  transparent;
 }
 
-.combo-box .list-cell:filled:hover {
-    -fx-text-fill: #FFFFFF;
+.jfx-combo-box .label {
+	-fx-background-color: transparent;
+	-fx-text-fill: WIHTE;
 }
-
 .tab {
     -fx-pref-width: 150;
 }

@@ -133,6 +133,21 @@ public class LoginController extends Application {
     @FXML
     public void cargarCombos() {
         cargarComboBoxes();
+        nombreArtisticoTF.setVisible(false);
+    }
+    
+     /**
+     * Método asignado para que al elegir una opción de tipo de usuario se muestre o no el campo
+     * de nombre artístico
+     * fechas.
+     */
+    @FXML
+    public void mostrarNombreArtistico() {
+        if (tipoUsuarioCB.getValue().getIdTipoUsuario()==2){
+            nombreArtisticoTF.setVisible(true);
+        } else {
+            nombreArtisticoTF.setVisible(false);
+        }
     }
 
     /**
@@ -142,13 +157,11 @@ public class LoginController extends Application {
     public void accesarUsuario() {
         if (validarCamposAcceso()) {
             ingresarSistema();
-
         } else {
             dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Ingresar campos obligatorios", "Error", ButtonType.OK);
             dialogo.show();
         }
-
     }
 
     /**
@@ -160,7 +173,6 @@ public class LoginController extends Application {
         ingresado.setNombreUsuario(campoUsuario.getText());
         ingresado.setClave(cifrado.cifrarCadena(campoContrasenia.getText()));
         resws = HttpUtils.accesoUsuario(ingresado);
-
         if (resws != null && !resws.isError() && resws.getResult() != null) {
             if (resws.getResult().contains("idUsuario")) {
                 try {
@@ -223,7 +235,6 @@ public class LoginController extends Application {
      */
     @FXML
     public void registrarUsuario() throws NoSuchAlgorithmException, ParseException {
-
         if (validarCamposRegistro()) {
             tareaRegistrarUsuario();
         } else {
@@ -262,9 +273,8 @@ public class LoginController extends Application {
                 usuario.setTipoUsuario(tipoUsuarioCB.getValue().getIdTipoUsuario());
                 usuario.setNombreArtistico(nombreArtisticoTF.getText());
                 resws = HttpUtils.recuperarUsuarioPorNombreUsuario(usuario);
-                if (resws != null && !resws.isError() && resws.getResult() != null) {
-                    List<Usuario> usuarios = new Gson().fromJson(resws.getResult(), new TypeToken<List<Usuario>>() {}.getType());
-                    if (usuarios.size()!=0){    
+                if (!resws.isError()) {                    
+                    if (resws.getStatus()==204){    
                 resws = HttpUtils.registroUsuario(usuario);
                 if (resws != null && !resws.isError() && resws.getResult() != null) {
                     if (resws.getStatus() == 200) {
@@ -272,11 +282,7 @@ public class LoginController extends Application {
                             "¡Registro exitoso! Inicie sesión con sus datos por favor", "Éxito", ButtonType.OK);
                         dialogo.show();
                         limpiarCamposRegistrar();
-                    } else {
-                        dialogo = new Dialogo(Alert.AlertType.ERROR,
-                            "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
-                        dialogo.show();
-                    }
+                    } 
                 } else {
                     dialogo = new Dialogo(Alert.AlertType.ERROR,
                         "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
@@ -287,6 +293,10 @@ public class LoginController extends Application {
                     "Usuario con ese nombre de usuario ya existe. Por favor elija otro.", "Error", ButtonType.OK);
                 dialogo.show(); 
                     }
+                }else {
+                dialogo = new Dialogo(Alert.AlertType.ERROR,
+                    "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+                dialogo.show(); 
                 }
             } catch (NoSuchAlgorithmException ex) {
                 dialogo = new Dialogo(Alert.AlertType.ERROR,
@@ -419,6 +429,7 @@ public class LoginController extends Application {
         }.getType());
         ObservableList<TipoUsuario> tiposUsuario = FXCollections.observableArrayList(tipos);
         tipoUsuarioCB.setItems(tiposUsuario);
+        tipoUsuarioCB.getSelectionModel().selectFirst();
     }
 
     /**
