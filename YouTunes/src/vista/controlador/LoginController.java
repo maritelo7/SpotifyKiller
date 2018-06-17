@@ -91,6 +91,7 @@ public class LoginController extends Application {
     public static int returnTipoUsuario() {
         return tipoUsuarioLog;
     }
+    
     @FXML
     private Tab tabRegistrarse;
 
@@ -180,6 +181,7 @@ public class LoginController extends Application {
                     validado = new Gson().fromJson(resws.getResult(), Usuario.class);
                     System.out.println("tipo Usuario: " + validado.getTipoUsuario());
                     System.out.println("usuario: " + validado.getIdUsuario());
+                    System.out.println("Nombre usuario: " + validado.getNombreUsuario());
                     tipoUsuarioLog = validado.getTipoUsuario();
                     usuarioLog = validado.getIdUsuario();
                     switch (tipoUsuarioLog) {

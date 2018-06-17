@@ -51,6 +51,7 @@ public class PaginaPrincipalArtistaController implements Initializable {
             .getResource("/vista/ConsultaCuentaArtista.fxml"));        
         drawerPanel.setPrefWidth(640);
         drawerPanel.setContent(consultaCliente);
+        
     }
     
     /**
@@ -89,7 +90,11 @@ public class PaginaPrincipalArtistaController implements Initializable {
      */
     void setUsuario(Usuario validado) {
         this.usuario = validado;        
-        System.out.println(usuario.getNombreUsuario());
+        //System.out.println(usuario.getNombreUsuario());
+    }
+    
+    Usuario getUsuario () {
+        return this.usuario;
     }
     
 }

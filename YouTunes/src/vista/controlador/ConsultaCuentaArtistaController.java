@@ -5,11 +5,14 @@
  */
 package vista.controlador;
 
+import com.google.gson.Gson;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import modelo.HttpUtils;
+import modelo.Response;
 import modelo.pojos.Usuario;
 
 /**
@@ -27,18 +30,32 @@ public class ConsultaCuentaArtistaController implements Initializable {
     private JFXTextField fieldApellidos;
     @FXML
     private JFXTextField fieldNombre;
+    @FXML
+    private JFXTextField fieldNombreArtistico;
+    private Response resws;
 
     Usuario usuario;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-
-    void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+        recuperarInformacionArtista();
     }
-    
+
+    private void recuperarInformacionArtista() {
+        Usuario artista = new Usuario();
+        artista.setIdUsuario(LoginController.returnUsuario());
+        resws = HttpUtils.recuperarUsuarioPorId(artista);
+
+        usuario = new Gson().fromJson(resws.getResult(), Usuario.class);
+
+        fieldNombreUsuario.setText(usuario.getNombreUsuario());
+        fieldFechaNacimiento.setText(usuario.getFechaNacimiento().toString());
+        fieldApellidos.setText(usuario.getApellidoPat() + " " + usuario.getApellidoMat());
+        fieldNombre.setText(usuario.getNombre());
+        fieldNombreArtistico.setText(usuario.getNombreArtistico());  
+    }
+
 }
