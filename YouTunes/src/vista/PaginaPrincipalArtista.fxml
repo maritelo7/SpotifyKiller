@@ -51,7 +51,7 @@
                         </TitledPane>
                      </panes>
                   </Accordion>
-                  <JFXButton fx:id="botonCerrarSesion" layoutY="573.0" prefHeight="27.0" prefWidth="263.0" text="Cerrar sesión" textFill="WHITE" />
+                  <JFXButton fx:id="botonCerrarSesion" layoutY="573.0" onAction="#salir" prefHeight="27.0" prefWidth="263.0" text="Cerrar sesión" textFill="WHITE" />
                </children>
             </VBox>
          </children>

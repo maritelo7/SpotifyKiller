@@ -182,13 +182,13 @@ public class LoginController extends Application {
                     System.out.println("usuario: " + validado.getIdUsuario());
                     tipoUsuarioLog = validado.getTipoUsuario();
                     usuarioLog = validado.getIdUsuario();
-
                     switch (tipoUsuarioLog) {
                         case 1:
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipalCliente.fxml"));
+                            paneInicial = loader.load();
+                            PaginaPrincipalClienteController controller = loader.getController();
+                            controller.setUsuario(validado);
                             Stage paginaCliente = new Stage();
-                            URL paginaClienteURL = getClass().getResource(("/vista/PaginaPrincipalCliente.fxml"));
-                            paneInicial = FXMLLoader.load(paginaClienteURL);
-
                             Stage escenaLoginCliente = (Stage) botonIniciar.getScene().getWindow();
                             escenaLoginCliente.close();
                             Scene escenaCliente = new Scene(paneInicial);
@@ -196,10 +196,11 @@ public class LoginController extends Application {
                             paginaCliente.show();
                             break;
                         case 2:
+                            FXMLLoader loaderArtista = new FXMLLoader(getClass().getResource("/vista/PaginaPrincipalArtista.fxml"));
+                            paneInicial = loaderArtista.load();
+                            PaginaPrincipalArtistaController controllerArtista = loaderArtista.getController();
+                            controllerArtista.setUsuario(validado);
                             Stage paginaArtista = new Stage();
-                            URL paginaArtistaURL = getClass().getResource(("/vista/PaginaPrincipalArtista.fxml"));
-                            paneInicial = FXMLLoader.load(paginaArtistaURL);
-
                             Stage escenaLoginArtista = (Stage) botonIniciar.getScene().getWindow();
                             escenaLoginArtista.close();
                             Scene escenaArtista = new Scene(paneInicial);
@@ -214,11 +215,13 @@ public class LoginController extends Application {
 
                     }
                 } catch (IOException ex) {
+                    ex.printStackTrace();
                     dialogo = new Dialogo(Alert.AlertType.ERROR,
                         "Servidor no disponible, intente más tarde.", "Error", ButtonType.OK);
                     dialogo.show();
                 }
             } else {
+                
                 dialogo = new Dialogo(Alert.AlertType.ERROR,
                     "El Usuario ingresado no existe", "Error", ButtonType.OK);
                 dialogo.show();
