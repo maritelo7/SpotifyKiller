@@ -53,8 +53,7 @@ public class CrearAlbumController implements Initializable {
     
     public static int returnIdAlbum() {
         return idAlbum;
-    }
-    
+    }    
 
     /**
      * Initializes the controller class.
