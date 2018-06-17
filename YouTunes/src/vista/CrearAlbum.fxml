@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.CrearAlbumController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.CrearAlbumController">
    <children>
       <ImageView fitHeight="77.0" fitWidth="106.0" layoutX="549.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -45,12 +45,12 @@
          </font>
       </Label>
       <JFXTextField fx:id="campoCompania" layoutX="221.0" layoutY="386.0" prefHeight="25.0" prefWidth="271.0" />
-      <JFXButton fx:id="botonCrearAlbum" layoutX="203.0" layoutY="501.0" text="Crear álbum">
+      <JFXButton fx:id="botonCrearAlbum" layoutX="203.0" layoutY="501.0" onAction="#subirAlbum" stylesheets="@recursos/hojaEstilos.css" text="Crear álbum">
          <font>
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="botonCancelar" onAction="#peticion" layoutX="354.0" layoutY="501.0" text="Cancelar">
+      <JFXButton fx:id="botonCancelar" layoutX="354.0" layoutY="501.0" onAction="#peticion" text="Cancelar">
          <font>
             <Font size="14.0" />
          </font>

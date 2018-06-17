@@ -3,35 +3,44 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXProgressBar?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="640.0" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.ReproductorController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.ReproductorController">
    <children>
-      <JFXButton id="buttonPlayPause" fx:id="buttonNext" layoutX="440.0" layoutY="473.0" prefHeight="50.0" prefWidth="23.0" styleClass="jfx-buttonImage" stylesheets="@recursos/hojaEstilos.css" text=" ">
+      <JFXButton id="buttonStop" fx:id="buttonStop" disable="true" layoutX="150.0" layoutY="470.0" onAction="#stopMusic" prefHeight="50.0" prefWidth="20.0" style="-fx-background-color: transparent;" stylesheets="@recursos/hojaEstilos.css" text=" ">
          <graphic>
-            <FontAwesomeIconView glyphName="STEP_FORWARD" size="30.0" />
+            <FontAwesomeIconView fill="WHITE" glyphName="SQUARE" size="30.0" />
          </graphic></JFXButton>
-      <JFXButton fx:id="buttonPlay" layoutX="287.0" layoutY="473.0" styleClass="jfx-buttonImage" stylesheets="@recursos/hojaEstilos.css" text=" ">
+      <JFXButton id="buttonPlay" fx:id="buttonPlay" disable="true" layoutX="290.0" layoutY="473.0" onAction="#playMusic" style="-fx-background-color: transparent;" stylesheets="@recursos/hojaEstilos.css" text=" ">
          <graphic>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@recursos/PLAYPAUSE2.png" />
-               </image>
-            </ImageView>
+               </image></ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="buttonPrev" layoutX="119.0" layoutY="473.0" styleClass="jfx-buttonImage" stylesheets="@recursos/hojaEstilos.css" text=" ">
+      <JFXButton id="buttonNext" fx:id="buttonNext" disable="true" layoutX="450.0" layoutY="470.0" onAction="#nextMusic" prefHeight="50.0" prefWidth="20.0" style="-fx-background-color: transparent;" stylesheets="@recursos/hojaEstilos.css" text=" ">
          <graphic>
-            <FontAwesomeIconView glyphName="STEP_BACKWARD" size="30.0" />
+            <FontAwesomeIconView fill="WHITE" glyphName="STEP_FORWARD" size="30.0">
+               <rotationAxis>
+                  <Point3D />
+               </rotationAxis>
+            </FontAwesomeIconView>
          </graphic>
       </JFXButton>
-      <JFXProgressBar fx:id="progressBarAudio" layoutX="121.0" layoutY="428.0" prefHeight="5.0" prefWidth="400.0" />
-      <ImageView fitHeight="275.0" fitWidth="340.0" layoutX="156.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+      <JFXProgressBar fx:id="progressBarAudio" layoutX="121.0" layoutY="455.0" prefHeight="5.0" prefWidth="400.0" styleClass="bar" stylesheets="@recursos/hojaEstilos.css" />
+      <ImageView fx:id="portada" fitHeight="400.0" fitWidth="400.0" layoutX="121.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/nirvana.jpg" />
          </image>
       </ImageView>
+      <Label fx:id="labelTitulo" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="1.0" layoutY="388.0" prefHeight="20.0" prefWidth="315.0" textAlignment="CENTER" />
+      <Label fx:id="labelArtista" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="410.0" prefHeight="20.0" prefWidth="640.0" textAlignment="CENTER" />
+      <Label fx:id="labelAlbum" contentDisplay="CENTER" layoutX="329.0" layoutY="388.0" prefHeight="20.0" prefWidth="310.0" style="-fx-font-size: 12;" textAlignment="CENTER" />
+      <Label fx:id="labelDuracion" layoutX="530.0" layoutY="447.0" prefHeight="20.0" prefWidth="107.0" />
    </children>
 </AnchorPane>

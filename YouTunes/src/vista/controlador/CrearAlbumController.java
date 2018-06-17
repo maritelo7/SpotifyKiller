@@ -16,10 +16,15 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import modelo.pojos.Usuario;
 
 /**
  * FXML Controller class
@@ -42,7 +47,7 @@ public class CrearAlbumController implements Initializable {
     private JFXButton botonCancelar;
 
     private Desktop desktop = Desktop.getDesktop();
-
+    Usuario usuario;
     /**
      * Initializes the controller class.
      */
@@ -89,6 +94,32 @@ public class CrearAlbumController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(CrearAlbumController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    @FXML
+    private void subirAlbum(){
+    //se crea y sube el album al servidor, se recupera y se pasa ese id a la
+    //pagina siguiente de subir canciones
+    irSubirCanciones();    
+    }
+    
+
+    private void irSubirCanciones(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/SubirCanciones.fxml"));
+            AnchorPane creaAlbum = new AnchorPane(loader.load());
+            SubirCancionesController controller = loader.getController();
+            controller.setUsuario(usuario);
+            Scene scene = imgPortada.getScene();
+            scene.setRoot(creaAlbum);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(CrearAlbumController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }

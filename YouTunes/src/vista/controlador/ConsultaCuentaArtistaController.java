@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import modelo.pojos.Usuario;
 
 /**
  * FXML Controller class
@@ -27,6 +28,7 @@ public class ConsultaCuentaArtistaController implements Initializable {
     @FXML
     private JFXTextField fieldNombre;
 
+    Usuario usuario;
     /**
      * Initializes the controller class.
      */
@@ -34,5 +36,9 @@ public class ConsultaCuentaArtistaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
     
 }

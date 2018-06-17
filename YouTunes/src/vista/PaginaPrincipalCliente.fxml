@@ -2,35 +2,44 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.MenuDrawerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.PaginaPrincipalClienteController">
    <children>
-      <AnchorPane layoutX="260.0" prefHeight="600.0" prefWidth="640.0" style="-fx-background-color: white;">
+      <AnchorPane fx:id="panePrincipal" layoutX="260.0" prefHeight="600.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css">
          <children>
-            <JFXDrawer fx:id="drawerPane" prefHeight="600.0" prefWidth="640.0" style="-fx-background-color: white;" />
+            <JFXDrawer fx:id="pane" defaultDrawerSize="0.0" layoutY="47.0" overLayVisible="false" prefHeight="3.0" prefWidth="0.0" />
+            <JFXDrawer fx:id="drawerReproductor" defaultDrawerSize="550.0" direction="BOTTOM" layoutY="50.0" overLayVisible="false" stylesheets="@recursos/hojaEstilos.css" visible="false" />
+            <JFXDrawer fx:id="drawerCola" defaultDrawerSize="600.0" direction="RIGHT" layoutX="240.0" layoutY="50.0" overLayVisible="false" visible="false" />
+            <Label layoutX="15.0" layoutY="10.0" onKeyPressed="#mostrarReproductor" onKeyReleased="#mostrarReproductor" style="-fx-text-fill: f7b32d; -fx-font-size: 14;" />
+            <Separator fx:id="labelReproductor" layoutX="15.0" layoutY="30.0" onKeyReleased="#mostrarReproductor" prefHeight="3.0" prefWidth="241.0" />
+            <JFXButton fx:id="buttonReproductor" layoutX="5.0" layoutY="5.0" onAction="#mostrarReproductor" style="-fx-background-color: transparent; -fx-text-fill: orange;" text="Mostrar/ocultar reproductor de música" />
          </children></AnchorPane>
-      <AnchorPane prefHeight="600.0" prefWidth="230.0" style="-fx-background-color: white;">
+      <AnchorPane prefHeight="600.0" prefWidth="230.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css">
          <children>
-            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="260.0" style="-fx-background-color: white;">
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="260.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css">
                <children>
                   <ImageView fitHeight="121.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@recursos/logoYoutunes.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="20.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true" />
                   <Accordion focusTraversable="false" prefHeight="600.0" prefWidth="260.0" style="-fx-background-color: white;">
                      <panes>
-                        <TitledPane contentDisplay="TOP" style="-fx-background-color: white;" text="Ver perfil" textOverrun="CLIP">
+                        <TitledPane contentDisplay="TOP" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" text="Ver perfil" textOverrun="CLIP">
                            <content>
                               <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <JFXButton fx:id="botonCuenta" onAction="#abrirConsultaCuentaCliente" prefHeight="25.0" prefWidth="256.0" style="-fx-background-color: #0489B1;" text="Cuenta" textFill="WHITE" />
+                                    <JFXButton fx:id="botonCuenta" onAction="#abrirConsultaCuentaCliente" prefHeight="25.0" prefWidth="256.0" stylesheets="@recursos/hojaEstilos.css" text="Cuenta" textFill="WHITE" />
                                  </children>
                               </VBox>
                            </content>
@@ -45,17 +54,22 @@
                               <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
                            </content>
                         </TitledPane>
-                        <TitledPane text="Mi música">
+                        <TitledPane fx:id="buttonMiMusica" text="Mi música">
                            <content>
-                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <JFXButton fx:id="buttonSubirCanciones" prefHeight="30.0" prefWidth="233.0" text="Subir canciones" />
+                                 </children></VBox>
                            </content>
                         </TitledPane>
                      </panes>
                   </Accordion>
-                  <JFXButton fx:id="botonCerrarSesion" layoutY="573.0" prefHeight="27.0" prefWidth="263.0" style="-fx-background-color: #0489B1;" text="Cerrar sesión" textFill="WHITE" />
+                  <JFXButton fx:id="botonCerrarSesion" layoutY="573.0" onAction="#salir" prefHeight="27.0" prefWidth="263.0" stylesheets="@recursos/hojaEstilos.css" text="Cerrar sesión" textFill="WHITE" />
                </children>
             </VBox>
          </children>
       </AnchorPane>
+      <JFXHamburger fx:id="hamburguerCola" layoutX="838.0" layoutY="14.0" onMouseClicked="#mostrarCola" style="-fx-background-color: ORANGE;" />
+      <Separator layoutX="260.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="5.0" style="-fx-background-color: transparent; -fx-border-color: transparent;" />
    </children>
 </AnchorPane>

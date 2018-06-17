@@ -18,6 +18,7 @@ public class Cancion {
     private String colaboradores;
     private int idUsuarioSubioCancion;
     private int idAlbum;
+    private int calidad;
 
     public int getIdCancion() {
         return idCancion;
@@ -81,5 +82,18 @@ public class Cancion {
 
     public void setIdAlbum(int idAlbum) {
         this.idAlbum = idAlbum;
+    }
+
+    public int getCalidad() {
+        return calidad;
+    }
+
+    public void setCalidad(int calidad) {
+        this.calidad = calidad;
+    }
+    
+    @Override
+    public String toString(){
+        return titulo;
     }
 }
