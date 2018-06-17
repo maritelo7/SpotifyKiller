@@ -67,23 +67,25 @@ public class PaginaPrincipalArtistaController implements Initializable {
         drawerPanel.setContent(consultaCliente);
     }
     
-    /**
+     /**
      * Método para cerrar sesión y salir del programa
+     * 
      */
-     @FXML
+    @FXML
     public void salir() {
-         try {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Login.fxml"));
             Stage pagina = new Stage();
-            Scene escena = new Scene(loader.load());            
-            Stage escenaCliente = (Stage) botonCuenta.getScene().getWindow();
-            escenaCliente.close();            
+            Scene escena = new Scene(loader.load());
+            Stage escenaCliente = (Stage) drawerPanel.getScene().getWindow();
+            escenaCliente.close();
             pagina.setScene(escena);
             pagina.show();
         } catch (IOException ex) {
             Logger.getLogger(PaginaPrincipalClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     /**
      * Método para cargar la cuenta del usuario que se logueó
      * 

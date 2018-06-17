@@ -50,7 +50,7 @@ public class ConsultaCuentaClienteController implements Initializable {
         usuario = new Gson().fromJson(resws.getResult(), Usuario.class);
 
         fieldNombreUsuario.setText(usuario.getNombreUsuario());
-        fieldFechaNacimiento.setText(usuario.getFechaNacimiento().toString());
+        fieldFechaNacimiento.setText(usuario.getFechaNacimientoFormato());
         fieldApellidos.setText(usuario.getApellidoPat() + " " + usuario.getApellidoMat());
         fieldNombre.setText(usuario.getNombre());
     }

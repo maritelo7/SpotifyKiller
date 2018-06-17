@@ -5,7 +5,9 @@
  */
 package modelo.pojos;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  *
@@ -58,6 +60,12 @@ public class Usuario {
 
     public Date getFechaNacimiento() {
         return fechaNacimiento;
+    }
+    
+    public String getFechaNacimientoFormato() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd 'de' MMMM 'de' YYYY", new Locale("ES"));
+        String fechaNac = sdf.format(fechaNacimiento);
+        return fechaNac;
     }
 
     public void setFechaNacimiento(Date fechaNacimiento) {
