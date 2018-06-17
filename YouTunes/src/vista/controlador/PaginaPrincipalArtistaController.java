@@ -27,7 +27,7 @@ public class PaginaPrincipalArtistaController implements Initializable {
     @FXML
     private JFXButton botonCuenta;
     @FXML
-    private JFXDrawer drawerPanel;
+    public JFXDrawer drawerPanel;
 
     
     Usuario usuario;
@@ -39,6 +39,7 @@ public class PaginaPrincipalArtistaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
+    
 
     /**
      * Método para abrir la información personal del artista.

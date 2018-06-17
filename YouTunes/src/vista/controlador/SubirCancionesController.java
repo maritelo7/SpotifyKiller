@@ -18,11 +18,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import modelo.pojos.Cancion;
@@ -52,6 +51,10 @@ public class SubirCancionesController implements Initializable {
     private JFXTextField fieldColaboradores;
     @FXML
     private Button buttonSeleccionar;
+    @FXML
+    private Label labelGenero;
+    @FXML
+    private Label labelCalidad;
     
     ObservableList<Cancion> items =FXCollections.observableArrayList(); 
     Usuario usuario;
@@ -65,7 +68,17 @@ public class SubirCancionesController implements Initializable {
         //se debe ya haber subido y sido recuperado para asociarlo a las canciones
         //Como solo pedimos formato ,mp3 entonces se enviará automáticamente con ese valor 
         //El path no se envía se envia el archivo y se guarda en el server, se recupera y se 
-        //guarda ese path en la base        
+        //guarda ese path en la base  
+        if (LoginController.returnTipoUsuario() == 1) {
+            fieldTitulo.setVisible(false);
+            fieldColaboradores.setVisible(false);
+            buttonAgregar.setVisible(false);
+            labelGenero.setVisible(false);
+            labelCalidad.setVisible(false);
+            comboGenero.setVisible(false);
+            comboCalidad.setVisible(false);
+            
+        }
     }
  
     @FXML
