@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawersStack?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -10,6 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.CrearAlbumController">
    <children>
+      <JFXDrawersStack fx:id="drawerCancion" prefHeight="601.0" prefWidth="641.0" styleClass="fondo" />
       <ImageView fitHeight="77.0" fitWidth="106.0" layoutX="549.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@recursos/usuario.png" />
@@ -44,7 +46,6 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="campoCompania" layoutX="221.0" layoutY="386.0" prefHeight="25.0" prefWidth="271.0" />
       <JFXButton fx:id="botonCrearAlbum" layoutX="203.0" layoutY="501.0" onAction="#subirAlbum" stylesheets="@recursos/hojaEstilos.css" text="Crear álbum">
          <font>
             <Font size="14.0" />
@@ -55,5 +56,6 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
+      <JFXTextField fx:id="campoCompania" layoutX="221.0" layoutY="386.0" prefHeight="25.0" prefWidth="271.0" />
    </children>
 </AnchorPane>

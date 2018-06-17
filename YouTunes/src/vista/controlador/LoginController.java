@@ -26,10 +26,6 @@ import modelo.pojos.TipoUsuario;
 import modelo.pojos.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import java.net.ConnectException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -179,9 +175,6 @@ public class LoginController extends Application {
                 try {
                     Usuario validado = new Usuario();
                     validado = new Gson().fromJson(resws.getResult(), Usuario.class);
-                    System.out.println("tipo Usuario: " + validado.getTipoUsuario());
-                    System.out.println("usuario: " + validado.getIdUsuario());
-                    System.out.println("Nombre usuario: " + validado.getNombreUsuario());
                     tipoUsuarioLog = validado.getTipoUsuario();
                     usuarioLog = validado.getIdUsuario();
                     switch (tipoUsuarioLog) {
@@ -211,7 +204,7 @@ public class LoginController extends Application {
                             break;
                         default:
                             dialogo = new Dialogo(Alert.AlertType.ERROR,
-                                "El Usuario ingresado no existe", "Error", ButtonType.OK);
+                                "Nombre de usuario o contraseña incorrectos", "Error", ButtonType.OK);
                             dialogo.show();
                             break;
 
@@ -225,7 +218,7 @@ public class LoginController extends Application {
             } else {
                 
                 dialogo = new Dialogo(Alert.AlertType.ERROR,
-                    "El Usuario ingresado no existe", "Error", ButtonType.OK);
+                    "Nombre de usuario o contraseña incorrectos", "Error", ButtonType.OK);
                 dialogo.show();
             }
         } else {

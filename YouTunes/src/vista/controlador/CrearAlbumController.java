@@ -1,8 +1,8 @@
 package vista.controlador;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDrawersStack;
 import com.jfoenix.controls.JFXTextField;
-import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -19,12 +19,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import modelo.pojos.Usuario;
+import vista.Dialogo;
 
 /**
  * FXML Controller class
@@ -45,9 +46,16 @@ public class CrearAlbumController implements Initializable {
     private ImageView imgPortada;
     @FXML
     private JFXButton botonCancelar;
+    @FXML
+    private JFXDrawersStack drawerCancion;
+    
+    private static int idAlbum = 0;
+    
+    public static int returnIdAlbum() {
+        return idAlbum;
+    }
+    
 
-    private Desktop desktop = Desktop.getDesktop();
-    Usuario usuario;
     /**
      * Initializes the controller class.
      */
@@ -68,6 +76,11 @@ public class CrearAlbumController implements Initializable {
         });
     }
 
+    /**
+     * Configuración de filtro para elegir el archivo de portada del álbum.
+     *
+     * @param archivoPortada
+     */
     private static void configureFileChooser(final FileChooser archivoPortada) {
         archivoPortada.setTitle("Buscar Portada de Álbum");
         archivoPortada.getExtensionFilters().addAll(
@@ -77,14 +90,14 @@ public class CrearAlbumController implements Initializable {
     }
 
     @FXML
-    private void peticion () {
+    private void peticion() {
         URL url;
         try {
             url = new URL("http://192.168.43.224:8000/prueba/1");
             URLConnection con = url.openConnection();
-            
+
             BufferedReader in = new BufferedReader(new InputStreamReader(
-                    con.getInputStream()));
+                con.getInputStream()));
             String linea;
             while ((linea = in.readLine()) != null) {
                 System.out.println(linea);
@@ -95,31 +108,21 @@ public class CrearAlbumController implements Initializable {
             Logger.getLogger(CrearAlbumController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    @FXML
-    private void subirAlbum(){
-    //se crea y sube el album al servidor, se recupera y se pasa ese id a la
-    //pagina siguiente de subir canciones
-    irSubirCanciones();    
-    }
-    
 
-    private void irSubirCanciones(){
+    @FXML
+    private void subirAlbum() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/SubirCanciones.fxml"));
-            AnchorPane creaAlbum = new AnchorPane(loader.load());
-            SubirCancionesController controller = loader.getController();
-            controller.setUsuario(usuario);
-            Scene scene = imgPortada.getScene();
-            scene.setRoot(creaAlbum);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(CrearAlbumController.class.getName()).log(Level.SEVERE, null, ex);
+            Stage pagina = new Stage();
+            Scene escena = new Scene(loader.load());
+            pagina.setScene(escena);
+            pagina.setTitle("Subir canciones");
+            pagina.show();
+
+        } catch (IOException ioEx) {
+            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+            dialogo.show();
         }
     }
-
-    void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
 }
