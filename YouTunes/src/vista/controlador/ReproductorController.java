@@ -60,7 +60,7 @@ public class ReproductorController extends Application{
     MediaPlayer mediaPlayer;
     boolean playing = false;
     Task task;
-    Thread taskThread;
+    static Thread taskThread;
     final int FIN = 100;
     double progresoCancion = 0;
     Cancion cancion;
@@ -125,9 +125,9 @@ public class ReproductorController extends Application{
     
     @FXML
     public void stopMusic() throws InterruptedException{  
-        System.out.println("STOP");
             mediaPlayer.stop();
-            playing = false;   
+            playing = false;  
+            taskThread.interrupt();
     }
     
     @FXML
@@ -167,7 +167,6 @@ public class ReproductorController extends Application{
              }
          };
      }
-
 
     
 }

@@ -39,4 +39,8 @@ public class ListaReproduccion {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+    
+    public String toString(){
+        return nombreLista;
+    }
 }

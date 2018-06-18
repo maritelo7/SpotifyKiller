@@ -3,6 +3,7 @@ package vista.controlador;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
@@ -60,12 +61,21 @@ public class PaginaPrincipalClienteController implements Initializable {
     static ColaReproduccionController controllerCola;
     @FXML
     private JFXButton buttonSubirCanciones;
+    @FXML
+    private JFXButton buttonCrearPlaylist;
+    @FXML
+    private JFXListView<?> listPlaylists;
+    @FXML
+    private JFXButton buttonMisCanciones;
+    @FXML
+    private JFXButton buttonHistorial;
     
     /**
      * Initializes the controllerReproductor class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         try {          
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Reproductor.fxml"));
             AnchorPane panel = loader.load();
@@ -79,6 +89,7 @@ public class PaginaPrincipalClienteController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(PaginaPrincipalClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     /**
@@ -93,6 +104,32 @@ public class PaginaPrincipalClienteController implements Initializable {
         pane.setContent(consultaCliente);
     }
     
+     /**
+     * Método para abrir la lista de canciones subidas al servidor
+     * @throws IOException 
+     */
+    @FXML
+    public void abrirMisCanciones() throws IOException {
+        AnchorPane cancionesSubidas = FXMLLoader.load(getClass()
+            .getResource("/vista/CancionesSubidas.fxml"));
+        pane.setPrefWidth(550);
+        pane.setContent(cancionesSubidas);
+    }
+    
+     /**
+     * Método para crear una nueva lista de reproducción
+     * @throws IOException 
+     */
+    @FXML
+    public void crearPlaylist() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/CrearPlaylist.fxml"));
+            Stage pagina = new Stage();
+            Scene escena = new Scene(loader.load());
+            pagina.setScene(escena);
+            pagina.setTitle("Crear playlist");
+            pagina.show();
+    }
+    
     /**
      * Método para abrir las canciones que coinciden con la búsqueda.
      * @throws IOException 
@@ -103,6 +140,26 @@ public class PaginaPrincipalClienteController implements Initializable {
             .getResource("/vista/BuscarCanciones.fxml"));
         pane.setPrefWidth(550);
         pane.setContent(consultaCanciones);
+    }
+    
+     /**
+     * Método encargado de enviar a la ventana para subir canciones del cliente.
+     */
+    @FXML
+    private void subirCanciones() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/SubirCanciones.fxml"));
+            Stage pagina = new Stage();
+            Scene escena = new Scene(loader.load());
+            pagina.setScene(escena);
+            pagina.setTitle("Subir canciones");
+            pagina.show();
+
+        } catch (IOException ioEx) {
+            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+            dialogo.show();
+        }
     }
     
      @FXML
@@ -138,6 +195,7 @@ public class PaginaPrincipalClienteController implements Initializable {
     @FXML
     public void salir() {
         try {
+            stopReproduccion ();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Login.fxml"));
             Stage pagina = new Stage();
             Scene escena = new Scene(loader.load());
@@ -170,6 +228,14 @@ public class PaginaPrincipalClienteController implements Initializable {
         String nombreCancion = fieldCanciones.getText();
         return nombreCancion;
     }
+    
+     public static void stopReproduccion () {
+        try {
+            controllerReproductor.stopMusic();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PaginaPrincipalClienteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
      /**
      * Método para cargar la cuenta del usuario que se logueó
@@ -180,23 +246,5 @@ public class PaginaPrincipalClienteController implements Initializable {
         System.out.println(usuario.getNombreUsuario());
     }
     
-    /**
-     * Método encargado de enviar a la ventana para subir canciones del cliente.
-     */
-    @FXML
-    private void subirCanciones() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/SubirCanciones.fxml"));
-            Stage pagina = new Stage();
-            Scene escena = new Scene(loader.load());
-            pagina.setScene(escena);
-            pagina.setTitle("Subir canciones");
-            pagina.show();
-
-        } catch (IOException ioEx) {
-            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
-                "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
-            dialogo.show();
-        }
-    }
+   
 }

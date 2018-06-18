@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.CrearPlaylistController">
+   <children>
+      <Label layoutX="254.0" layoutY="30.0" style="-fx-font-size: 16;" text="Crear playlist" />
+      <Separator layoutX="244.0" layoutY="59.0" prefHeight="3.0" prefWidth="111.0" style="-fx-background: orange; -fx-background-color: orange;" />
+      <Label layoutX="86.0" layoutY="133.0" text="Descripción:" />
+      <JFXTextField fx:id="fieldTitulo" labelFloat="true" layoutX="86.0" layoutY="94.0" prefHeight="25.0" prefWidth="427.0" promptText="Título de la playlist" unFocusColor="#5b5a5a" />
+      <JFXTextArea fx:id="textDescripcion" layoutX="86.0" layoutY="165.0" prefHeight="90.0" prefWidth="427.0" styleClass="jfx-text-field" />
+      <JFXButton fx:id="buttonCrear" layoutX="245.0" layoutY="313.0" prefHeight="30.0" prefWidth="111.0" text="Crear" />
+   </children>
+</AnchorPane>
