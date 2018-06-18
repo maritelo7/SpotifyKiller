@@ -4,10 +4,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="vista.controlador.HistorialReproduccionController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.HistorialReproduccionController">
    <children>
       <Label layoutX="231.0" layoutY="29.0" style="-fx-font-size: 16;" text="Historial de reproducción" />
-      <TableView fx:id="tableHistorial" layoutX="67.0" layoutY="92.0" prefHeight="407.0" prefWidth="509.0" styleClass="fondo" />
+      <TableView fx:id="tableHistorial" layoutX="67.0" layoutY="92.0" prefHeight="400.0" prefWidth="500.0" styleClass="fondo" />
    </children>
 </AnchorPane>
