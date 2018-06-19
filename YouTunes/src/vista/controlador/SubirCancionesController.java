@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -139,49 +140,59 @@ public class SubirCancionesController implements Initializable {
     @FXML
     private void subirCancion() {
         System.out.println("SUBIR CANCION");
+
+        /*Cancion cancion = new Cancion();
+        cancion.setCalidad(1);
+        cancion.setColaboradores("Sean Kingston");
+        cancion.setFormato(".mp3");
+        cancion.setIdAlbum(1);
+        cancion.setIdGenero(1);
+        cancion.setIdUsuarioSubioCancion(1);
+        cancion.setPath("PATH QUE NO SIRVE PA NADA");
+        cancion.setTitulo("Eenie Meenie");*/
         try {
-            //           Cancion cancion = new Cancion();
-//           cancion.setCalidad(1);
-//           cancion.setColaboradores("Sean Kingston");
-//           cancion.setFormato(".mp3");
-//           cancion.setIdAlbum(1);
-//           cancion.setIdGenero(1);
-//           cancion.setIdUsuarioSubioCancion(1);
-//           cancion.setPath("PATH QUE NO SIRVE PA NADA");
-//           cancion.setTitulo("Eenie Meenie");
             JSONObject cancion = new JSONObject();
-            cancion.accumulate("titulo", "Eenie Meednie");
-            cancion.accumulate("formato", ".mp3");
+
+            cancion.accumulate("titulo", "Ya quedó");
+            cancion.accumulate("formato", "bueno");
             cancion.accumulate("idGenero", 1);
-            cancion.accumulate("path", "C:\\Users\\VictorHugo\\Desktop\\conferencia.jpg");
-            cancion.accumulate("colaboradores", "Sean Kingston");
+            cancion.accumulate("path", "esta es la ruta yei");
+            cancion.accumulate("colaboradores", "Otro weyes");
             cancion.accumulate("idUsuarioSubioCancion", 1);
             cancion.accumulate("idAlbum", 1);
             cancion.accumulate("calidad", 1);
 
-            URL url = new URL("http://192.168.1.82:8000/guardarCancion/"+cancion);
-            //URL url = new URL("http://192.168.1.82:8000/test");
+            String titulo = "con strings";
+            String formato = "formato";
+            Integer idGenero = 1;
+            String path = "dfgkdfjdkg";
+            String colaboradores = "manes";
+            Integer idUsuarioSubioCancion = 1;
+            Integer idAlbum = 1;
+            Integer calidad = 1;
+
+            /* URL url = new URL("http://192.168.43.79:8080/guardarCancion/"+titulo+"/"+formato+"/"+String.valueOf(idGenero)+
+                "/"+path+"/"+colaboradores+"/"+String.valueOf(idUsuarioSubioCancion)+"/"+String.valueOf(idAlbum)+"/"+
+                String.valueOf(calidad));*/
+            //URL url = new URL("http://192.168.43.79:8080/guardarCancion2/{\"colaboradores\":\"Otro weyes\",\"path\":\"esta es la ruta yei\",\"idUsuarioSubioCancion\":1,\"formato\":\"bueno\",\"idGenero\":1,\"titulo\":\"Es el bueno\",\"idAlbum\":1,\"calidad\":1}");
+            //System.out.println("JSON: " + cancion);
+            // URL url = new URL("http://192.168.43.79:8080/guardarGenero/opera");
+//            
+            //URL url = new URL("http://192.168.43.79:8080/guardarCancion2/" + cancion); 
+            URL url = new URL("http://192.168.43.36:8080/recuperar");
             URLConnection con = url.openConnection();
-            
-            
-             BufferedReader in = new BufferedReader(new InputStreamReader(
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(
                 con.getInputStream()));
-             String linea;
+            String linea;
             while ((linea = in.readLine()) != null) {
                 System.out.println(linea);
             }
-            
+
             System.out.println("JSON ENVIADO");
-//           if (!items.isEmpty()){
-//
-//               
-//               System.out.println("SUBIENDO");
-//           }else{
-//               //no se puede enviar lista porque es vacía
-//               System.out.println("LISTA VACIA");
-//           }
         } catch (MalformedURLException ex) {
-            Logger.getLogger(SubirCancionesController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("este es el error");
+
         } catch (IOException ex) {
             Logger.getLogger(SubirCancionesController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -194,9 +205,4 @@ public class SubirCancionesController implements Initializable {
             return false;
         }
     }
-
-    void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
 }
