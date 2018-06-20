@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,6 +21,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import modelo.mybatis.MyBatisUtils;
 import org.apache.ibatis.session.SqlSession;
+import servicios.pojos.Album;
+import servicios.pojos.Cancion;
 import servicios.pojos.TipoUsuario;
 import servicios.pojos.Usuario;
 
@@ -213,5 +216,52 @@ public class Catalog {
     }
     return usuario;
   }
+  
+    @POST
+    @Path("/subirAlbum/{album}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public Mensaje subirImagen(
+        @PathParam("idUsuario") Integer idUsuario, byte[] bytes){
+        Cancion cancion =new Gson().fromJson(pram, Cancion.class);
+        Mensaje res = new Mensaje();
+        try{
+            if(bytes!=null){
+                if(guardarImagen(idUsuario, bytes)){
+                    res.setMensaje("Foto guardada correctamente...");
+                }else{
+                    res.setError(true);
+                    res.setMensaje("No se pudo guardar la imagen en el servidor...");
+                }
+            }else{
+                res.setError(true);
+                res.setMensaje("No se recibio flujo de datos...");
+            }            
+        }catch(Exception ex){
+            ex.printStackTrace();
+            res.setError(true);
+            res.setMensaje(ex.getMessage());
+        }
+        return res;
+    }
+    
+//    private boolean guardarImagen(int idUsuario, byte[] bytes){
+//        boolean exitoso = true;
+//        SqlSession conn = null;
+//        try {
+//            Album album = new Album();
+//            album.setTitulo(titulo);
+//            evidencia.setEvidenica(bytes);
+//            conn = MyBatisUtils.getSession();
+//            conn.insert("Evidencia.subirFoto", evidencia);
+//            conn.commit();
+//        } catch (Exception ex){
+//            ex.printStackTrace();
+//            exitoso=false;
+//        }
+//     return exitoso;   
+//    }
+
+  
   
 }
