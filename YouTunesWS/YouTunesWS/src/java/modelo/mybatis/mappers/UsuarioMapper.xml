@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
      <select id="getPorId" parameterType = "map" resultType="servicios.pojos.Usuario">
-        SELECT * FROM usuario WHERE idUsuario = #{id};
+        SELECT * FROM usuario WHERE id = #{idUsuario};
     </select>
     
      <select id="getPorNombreUsuario" parameterType = "map" resultType="servicios.pojos.Usuario">
