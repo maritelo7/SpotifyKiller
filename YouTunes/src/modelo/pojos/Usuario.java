@@ -14,7 +14,7 @@ import java.util.Locale;
  * @author Mari
  */
 public class Usuario {
-    private Integer idUsuario;
+    private Integer id;
     private String nombre;
     private String apellidoPat;
     private String apellidoMat;
@@ -27,11 +27,11 @@ public class Usuario {
     private Integer calidadStream;
 
     public Integer getIdUsuario() {
-        return idUsuario;
+        return id;
     }
 
     public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+        this.id = idUsuario;
     }
 
     public String getNombre() {

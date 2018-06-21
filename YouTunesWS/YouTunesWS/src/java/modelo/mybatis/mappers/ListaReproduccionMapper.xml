@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ListaReproduccion">
+    
+    <select id="registrarLista" parameterType = "map" >
+        INSERT INTO lista_reproduccion (idUsuario, nombreLista, descripcion) VALUES 
+        (#{idUsuario}, #{nombreLista}, #{descripcion});
+    </select>
+    
+     <select id="agregarCancion" parameterType = "map" >
+        INSERT INTO usuario_agrega_cancion (idUsuario, idCancion, idListaReproduccion) VALUES 
+        (#{idUsuario}, #{idCancion}, #{idListaReproduccion});
+    </select>
+    
+    <select id="actualizarValoracion" parameterType = "map" >
+        UPDATE usuario_agrega_cancion SET valoracion = #{valoracion}
+        WHERE idUsuarioAgregaCancion = #{id};
+    </select>
+    
+</mapper>

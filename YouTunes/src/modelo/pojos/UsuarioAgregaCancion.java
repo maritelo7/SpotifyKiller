@@ -10,7 +10,7 @@ package modelo.pojos;
  * @author Mari
  */
 public class UsuarioAgregaCancion {
-    private int idUsuarioAgregaCancion;
+    private int id;
     private int valoracion;
     private int idUsuario;
     private int descargada;
@@ -18,11 +18,11 @@ public class UsuarioAgregaCancion {
     private int idListaReproduccion;
 
     public int getIdUsuarioAgregaCancion() {
-        return idUsuarioAgregaCancion;
+        return id;
     }
 
     public void setIdUsuarioAgregaCancion(int idUsuarioAgregaCancion) {
-        this.idUsuarioAgregaCancion = idUsuarioAgregaCancion;
+        this.id = idUsuarioAgregaCancion;
     }
 
     public int getValoracion() {

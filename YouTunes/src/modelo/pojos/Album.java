@@ -5,7 +5,7 @@ package modelo.pojos;
  * @author Mari
  */
 public class Album {
-    private int idAlbum;
+    private int id;
     private String titulo; 
     private String pathPortada;
     private int anioLanzamiento;
@@ -13,11 +13,11 @@ public class Album {
     private int idUsuario;
 
     public int getIdAlbum() {
-        return idAlbum;
+        return id;
     }
 
     public void setIdAlbum(int idAlbum) {
-        this.idAlbum = idAlbum;
+        this.id = idAlbum;
     }
 
     public String getTitulo() {

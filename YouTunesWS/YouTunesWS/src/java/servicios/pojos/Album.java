@@ -5,19 +5,19 @@ package servicios.pojos;
  * @author Mari
  */
 public class Album {
-    private int idAlbum;
+    private int id;
     private String titulo; 
     private String pathPortada;
     private int anioLanzamiento;
     private String companiaDiscografica;
     private int idUsuario;
 
-    public int getIdAlbum() {
-        return idAlbum;
+    public int getId() {
+        return id;
     }
 
-    public void setIdAlbum(int idAlbum) {
-        this.idAlbum = idAlbum;
+    public void setId(int idAlbum) {
+        this.id = idAlbum;
     }
 
     public String getTitulo() {

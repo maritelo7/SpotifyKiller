@@ -12,7 +12,7 @@ import java.util.Date;
  * @author Mari
  */
 public class Usuario {
-    private Integer idUsuario;
+    private Integer id;
     private String nombre;
     private String apellidoPat;
     private String apellidoMat;
@@ -24,12 +24,12 @@ public class Usuario {
     private Integer calidadDescarga;
     private Integer calidadStream;
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId(Integer idUsuario) {
+        this.id = idUsuario;
     }
 
     public String getNombre() {

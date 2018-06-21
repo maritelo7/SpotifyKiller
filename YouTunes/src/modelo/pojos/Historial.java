@@ -14,7 +14,7 @@ import java.util.Date;
 public class Historial {
     private int idUsuario;
     private int idCancion;
-    private int idHistorial;
+    private int id;
     private Date fecha;
 
     public int getIdUsuario() {
@@ -34,11 +34,11 @@ public class Historial {
     }
 
     public int getIdHistorial() {
-        return idHistorial;
+        return id;
     }
 
     public void setIdHistorial(int idHistorial) {
-        this.idHistorial = idHistorial;
+        this.id = idHistorial;
     }
 
     public Date getFecha() {

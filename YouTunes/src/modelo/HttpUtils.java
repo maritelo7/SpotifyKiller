@@ -20,6 +20,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.pojos.Album;
 import modelo.pojos.Cancion;
+import modelo.pojos.Historial;
+import modelo.pojos.ListaReproduccion;
+import modelo.pojos.UsuarioAgregaCancion;
 
 /**
  * Created by Mari on 04/05/2018.
@@ -45,6 +48,35 @@ public class HttpUtils {
             + "=%s&fechaNacimiento=%s&nombreArtistico=%s&tipoUsuario=%s", usuario.getNombreUsuario(), usuario.getClave(),
             usuario.getNombre(), usuario.getApellidoPat(), usuario.getApellidoMat(), usuario.getFechaNacimiento(), 
             usuario.getNombreArtistico(), usuario.getTipoUsuario());
+        return invocarServicioWeb(url, "POST", parametros);
+    }
+    
+    public static Response registrarPlaylist(ListaReproduccion lista) {
+        String url = "registrarPlaylist";
+        String parametros = String.format("idUsuario=%s&nombreLista=%s&descripcion=%s", lista.getIdUsuario(),
+            lista.getNombreLista(), lista.getDescripcion());
+        return invocarServicioWeb(url, "POST", parametros);
+    }
+    
+    public static Response agregarCancionPlaylist(UsuarioAgregaCancion usuarioCancion) {
+        String url = "agregarCancionPlaylist";
+        String parametros = String.format("idUsuario=%s&idCancion=%s&idListaReproduccion=%s", 
+            usuarioCancion.getIdUsuario(), usuarioCancion.getIdCancion(), 
+            usuarioCancion.getIdListaReproduccion());
+        return invocarServicioWeb(url, "POST", parametros);
+    }
+    
+     public static Response actualizarValoracion(UsuarioAgregaCancion usuarioCancion) {
+        String url = "actualizarValoracion";
+        String parametros = String.format("idUsuarioAgregaCancion=%s&valoracion=%s",
+                usuarioCancion.getIdUsuario(), usuarioCancion.getValoracion());
+        return invocarServicioWeb(url, "POST", parametros);
+    }
+     
+      public static Response actualizarHistorial(Historial historial) {
+        String url = "actualizarHistorial";
+        String parametros = String.format("idUsuario=%s&idCancion=%s",
+                historial.getIdUsuario(), historial.getIdCancion());
         return invocarServicioWeb(url, "POST", parametros);
     }
     

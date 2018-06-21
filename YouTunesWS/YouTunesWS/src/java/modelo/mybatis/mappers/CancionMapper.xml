@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="Cancion">
     
     <select id="registrarCancion" parameterType = "servicios.pojos.Cancion" >
-        INSERT INTO cancion (idCancion, titulo, formato, idGenero, path, colaboradores,
-        idUsuarioSubioCancion, idAlbum, calidad) VALUES (#{idCancion}, #{titulo}, #{formato}, 
+        INSERT INTO cancion (titulo, formato, idGenero, path, colaboradores,
+        idUsuarioSubioCancion, idAlbum, calidad) VALUES (#{titulo}, #{formato}, 
         #{idGenero}, #{path}, #{colaboradores}, #{idUsuarioSubioCancion}, #{idAlbum},
         #{calidad});
     </select>

@@ -3,17 +3,17 @@ package modelo.pojos;
  * @author Mari
  */
 public class ListaReproduccion {
-    private int idListaReproduccion;
+    private int id;
     private int idUsuario;
     private String nombreLista;
     private String descripcion;
 
     public int getIdListaReproduccion() {
-        return idListaReproduccion;
+        return id;
     }
 
     public void setIdListaReproduccion(int idListaReproduccion) {
-        this.idListaReproduccion = idListaReproduccion;
+        this.id = idListaReproduccion;
     }
 
     public int getIdUsuario() {

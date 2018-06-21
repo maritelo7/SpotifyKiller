@@ -163,12 +163,12 @@ public class SubirCancionesController implements Initializable {
                 while ((bytesRead = input.read(buffer)) > 0) {
                     baos.write(buffer, 0, bytesRead);
                 }
-                HttpUtils.subirCancion(cancion, baos.toByteArray());                ;
-                items.clear();
-                listCanciones.setItems(items);
-                System.out.println("MENSAJE DE ÉXITO");
+                HttpUtils.subirCancion(cancion, baos.toByteArray());
                 input.close();
             }
+            items.clear();
+            listCanciones.setItems(items);
+            System.out.println("MENSAJE DE ÉXITO");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SubirCancionesController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

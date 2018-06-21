@@ -10,19 +10,18 @@ package servicios.pojos;
  * @author Mari
  */
 public class UsuarioAgregaCancion {
-    private int idUsuarioAgregaCancion;
+    private int id;
     private int valoracion;
     private int idUsuario;
-    private int descargada;
     private int idCancion;
     private int idListaReproduccion;
 
-    public int getIdUsuarioAgregaCancion() {
-        return idUsuarioAgregaCancion;
+    public int getId() {
+        return id;
     }
 
-    public void setIdUsuarioAgregaCancion(int idUsuarioAgregaCancion) {
-        this.idUsuarioAgregaCancion = idUsuarioAgregaCancion;
+    public void setId(int idUsuarioAgregaCancion) {
+        this.id = idUsuarioAgregaCancion;
     }
 
     public int getValoracion() {
@@ -39,14 +38,6 @@ public class UsuarioAgregaCancion {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
-    }
-
-    public int getDescargada() {
-        return descargada;
-    }
-
-    public void setDescargada(int descargada) {
-        this.descargada = descargada;
     }
 
     public int getIdCancion() {
