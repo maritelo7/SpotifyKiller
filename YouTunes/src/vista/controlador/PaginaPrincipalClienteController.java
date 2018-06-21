@@ -8,8 +8,6 @@ import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -70,6 +68,7 @@ public class PaginaPrincipalClienteController implements Initializable {
     private JFXButton buttonMisCanciones;
     @FXML
     private JFXButton buttonHistorial;
+    private Dialogo dialogo;
 
     /**
      * Initializes the controllerReproductor class.
@@ -88,7 +87,9 @@ public class PaginaPrincipalClienteController implements Initializable {
             controllerCola = loader.getController();
             drawerCola.setSidePane(panel);
         } catch (IOException ex) {
-            Logger.getLogger(PaginaPrincipalClienteController.class.getName()).log(Level.SEVERE, null, ex);
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+            dialogo.show();
         }
 
     }
@@ -105,7 +106,7 @@ public class PaginaPrincipalClienteController implements Initializable {
             pane.setPrefWidth(550);
             pane.setContent(consultaCliente);
         } catch (IOException ex) {
-            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
             dialogo.show();
         }
@@ -123,7 +124,7 @@ public class PaginaPrincipalClienteController implements Initializable {
             pane.setPrefWidth(550);
             pane.setContent(cancionesSubidas);
         } catch (IOException ex) {
-            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
             dialogo.show();
         }
@@ -141,7 +142,7 @@ public class PaginaPrincipalClienteController implements Initializable {
             pane.setPrefWidth(550);
             pane.setContent(consultaCliente);
         } catch (IOException ex) {
-            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
             dialogo.show();
         }
@@ -158,7 +159,7 @@ public class PaginaPrincipalClienteController implements Initializable {
             pane.setPrefWidth(550);
             pane.setContent(consultaCanciones);
         } catch (IOException ex) {
-            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
             dialogo.show();
         }
@@ -176,7 +177,7 @@ public class PaginaPrincipalClienteController implements Initializable {
             pane.setContent(consultaCliente);
 
         } catch (IOException ioEx) {
-            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
             dialogo.show();
         }
@@ -194,7 +195,7 @@ public class PaginaPrincipalClienteController implements Initializable {
             pane.setPrefWidth(550);
             pane.setContent(consultaCanciones);
         } catch (IOException ex) {
-            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
             dialogo.show();
         }

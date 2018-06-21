@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,12 +59,13 @@ public class CrearAlbumController implements Initializable {
     private JFXDrawersStack drawerCancion;
     @FXML
     private JFXButton botonCrearAlbum;
-    
+
     String path;
     private static int idAlbum = 0;
+    private Dialogo dialogo;
     Album album = new Album();
     Usuario usuario;
-    
+
     /**
      * Initializes the controller class.
      */
@@ -86,26 +89,7 @@ public class CrearAlbumController implements Initializable {
         });
     }
 
-    private void peticion() {
-        URL url;
-        try {
-            url = new URL("http://192.168.43.224:8000/prueba/1");
-            URLConnection con = url.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                con.getInputStream()));
-            String linea;
-            while ((linea = in.readLine()) != null) {
-                System.out.println(linea);
-            }
-        } catch (MalformedURLException ex) {
-            System.out.println("Que pez");
-        } catch (IOException ex) {
-            Logger.getLogger(CrearAlbumController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    
-    private void irSubirCanciones() {        
+    private void irSubirCanciones() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/SubirCanciones.fxml"));
             Stage pagina = new Stage();
@@ -114,13 +98,12 @@ public class CrearAlbumController implements Initializable {
             pagina.setTitle("Subir canciones");
             pagina.show();
         } catch (IOException ioEx) {
-            Dialogo dialogo = new Dialogo(Alert.AlertType.ERROR,
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
             dialogo.show();
         }
     }
-    
-    
+
     /**
      * Configuración de filtro para elegir el archivo de portada del álbum.
      *
@@ -130,15 +113,14 @@ public class CrearAlbumController implements Initializable {
         archivoPortada.setTitle("Buscar Portada de Álbum");
         archivoPortada.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("JPG", "*.jpg")
-            //new FileChooser.ExtensionFilter("PNG", "*.png")
+        //new FileChooser.ExtensionFilter("PNG", "*.png")
         );
     }
-   
+
     @FXML
     private void enviarAlbum() {
         if (validarCampos()) {
             try {
-                System.out.println("CAMPOS VALIDOS");
                 album.setIdUsuario(usuario.getIdUsuario());
                 album.setTitulo(campoTitulo.getText());
                 album.setCompaniaDiscografica(campoCompania.getText());
@@ -147,44 +129,52 @@ public class CrearAlbumController implements Initializable {
                 ImageIO.write(bImage, "jpg", bos);
                 byte[] data = bos.toByteArray();
                 HttpUtils.subirAlbum(album, data);
-                System.out.println("REGISTRO EXITOSO");
-                irSubirCanciones();
+                dialogo = new Dialogo(Alert.AlertType.INFORMATION,
+                    "¡Registro exitoso!", "Éxito", ButtonType.OK);
+                Optional<ButtonType> result = dialogo.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    irSubirCanciones();
+                }
             } catch (Exception ex) {
-                Logger.getLogger(CrearAlbumController.class.getName()).log(Level.SEVERE, null, ex);
+                dialogo = new Dialogo(Alert.AlertType.ERROR,
+                    "Error al crear nuevo álbum", "Error", ButtonType.OK);
+                dialogo.show();
             }
         } else {
-            System.out.println("CAMPOS NO VALIDOS");
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Campos no válidos", "Error", ButtonType.OK);
+            dialogo.show();
         }
     }
-    
-    
-    public boolean validarCampos(){ 
-        boolean valido = true;        
-        if (campoTitulo.getText().trim().length() != 0){         
-        } else { 
-            valido = false; 
-            //MENSAJE DE QUE TÍTULO ES UN CAMPO OBLIGATORIO
-            System.out.println("TÍTULO OBLIGATORIO");
-        }        
-        if (campoAnioLanzamiento.getText().trim().length() != 0){     
+
+    public boolean validarCampos() {
+        boolean valido = true;
+        if (campoTitulo.getText().trim().length() != 0) {
+        } else {
+            valido = false;
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Título obligatorio", "Alerta", ButtonType.OK);
+            dialogo.show();
+        }
+        if (campoAnioLanzamiento.getText().trim().length() == 0) {
             album.setAnioLanzamiento(0);
-        } else { 
-             try{
-                 Integer.parseInt(campoAnioLanzamiento.getText());
-                 album.setAnioLanzamiento(Integer.parseInt(campoAnioLanzamiento.getText().substring(0, 4)));   
-             } catch (Exception ex){
-                 valido = false;
-                 //MENSAJE DE QUE EL AÑO DEBE SER UN CAMPO NUMÉRICO
-                 System.out.println("AÑO DEBE SER UN NÚMERO");
-             }
-        }        
+        } else {
+            try {
+                Integer.parseInt(campoAnioLanzamiento.getText());
+                album.setAnioLanzamiento(Integer.parseInt(campoAnioLanzamiento.getText().substring(0, 4)));
+                System.out.println("AÑO LANZAMIENTO: " + album.getAnioLanzamiento());
+            } catch (Exception ex) {
+                valido = false;
+                dialogo = new Dialogo(Alert.AlertType.ERROR,
+                    "Año es de tipo numérico", "Error", ButtonType.OK);
+                dialogo.show();
+            }
+        }
         return valido;
     }
-    
+
     public static int returnIdAlbum() {
         return idAlbum;
-    }    
-
-
+    }
 
 }

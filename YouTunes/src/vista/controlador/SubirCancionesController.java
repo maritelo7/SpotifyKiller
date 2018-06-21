@@ -29,7 +29,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
@@ -40,6 +42,7 @@ import modelo.pojos.Genero;
 import modelo.pojos.TipoUsuario;
 import modelo.pojos.Usuario;
 import org.json.JSONObject;
+import vista.Dialogo;
 
 /**
  * FXML Controller class
@@ -72,6 +75,7 @@ public class SubirCancionesController implements Initializable {
     ObservableList<Cancion> items = FXCollections.observableArrayList();
     Usuario usuario;
     String path; 
+    private Dialogo dialogo;
     
     /**
      * Initializes the controller class.
@@ -134,6 +138,7 @@ public class SubirCancionesController implements Initializable {
                 cancion.setIdAlbum(CrearAlbumController.returnIdAlbum());
             }
             cancion.setIdUsuarioSubioCancion(usuario.getIdUsuario());
+            System.out.println("Usuario: " + usuario.getIdUsuario() + usuario.getNombre());
             cancion.setTitulo(fieldTitulo.getText());
             cancion.setPath(path);
             items.add(cancion);
@@ -141,8 +146,9 @@ public class SubirCancionesController implements Initializable {
             limpiarCampos();
             buttonSubir.setDisable(false);
         } else {
-            //mensaje de llenar al menos el título
-            System.out.println("LLENAR TITULO");
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Llenar título", "Error", ButtonType.OK);
+            dialogo.show();
         }
     }
 
@@ -168,22 +174,23 @@ public class SubirCancionesController implements Initializable {
             }
             items.clear();
             listCanciones.setItems(items);
-            System.out.println("MENSAJE DE ÉXITO");
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SubirCancionesController.class.getName()).log(Level.SEVERE, null, ex);
+            dialogo = new Dialogo(Alert.AlertType.INFORMATION,
+                "¡Las canciones se subieron exitosamente!", "Éxito", ButtonType.OK);
+            dialogo.show();
+        }  catch (FileNotFoundException ex) {
         } catch (IOException ex) {
-            Logger.getLogger(SubirCancionesController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(SubirCancionesController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 input.close();
             } catch (IOException ex) {
-                Logger.getLogger(SubirCancionesController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } catch (NullPointerException npex) {
+        }
         }
         } else{
-            System.out.println("DEBES TENER AL MENOS UNA CANCION EN LA LISTA");
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Debes tener al menos una canción en la lista", "Error", ButtonType.OK);
+            dialogo.show();
         }
     }
 

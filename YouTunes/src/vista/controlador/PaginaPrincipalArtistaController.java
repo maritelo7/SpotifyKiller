@@ -11,9 +11,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import modelo.pojos.Usuario;
+import vista.Dialogo;
 
 /**
  * FXML Controller class
@@ -29,7 +32,7 @@ public class PaginaPrincipalArtistaController implements Initializable {
     @FXML
     public JFXDrawer drawerPanel;
 
-    
+    private Dialogo dialogo;
     static Usuario usuario;
     
     /**
@@ -47,11 +50,17 @@ public class PaginaPrincipalArtistaController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void abrirConsultaCuentaArtista() throws IOException {
-        AnchorPane consultaCliente = FXMLLoader.load(getClass()
-            .getResource("/vista/ConsultaCuentaArtista.fxml"));        
-        drawerPanel.setPrefWidth(640);
-        drawerPanel.setContent(consultaCliente);
+    public void abrirConsultaCuentaArtista() {
+        try {
+            AnchorPane consultaCliente = FXMLLoader.load(getClass()
+                .getResource("/vista/ConsultaCuentaArtista.fxml"));
+            drawerPanel.setPrefWidth(640);
+            drawerPanel.setContent(consultaCliente);
+        } catch (IOException ex) {
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+            dialogo.show();
+        }
         
     }
     
@@ -61,11 +70,17 @@ public class PaginaPrincipalArtistaController implements Initializable {
      * @throws IOException
      */
     @FXML
-    public void abrirCrearAlbum() throws IOException {
-        AnchorPane consultaCliente = FXMLLoader.load(getClass()
-            .getResource("/vista/CrearAlbum.fxml"));
-        drawerPanel.setPrefWidth(640);
-        drawerPanel.setContent(consultaCliente);
+    public void abrirCrearAlbum() {
+        try {
+            AnchorPane consultaCliente = FXMLLoader.load(getClass()
+                .getResource("/vista/CrearAlbum.fxml"));
+            drawerPanel.setPrefWidth(640);
+            drawerPanel.setContent(consultaCliente);
+        } catch (IOException ex) {
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+            dialogo.show();
+        }
     }
     
      /**
@@ -83,7 +98,6 @@ public class PaginaPrincipalArtistaController implements Initializable {
             pagina.setScene(escena);
             pagina.show();
         } catch (IOException ex) {
-            Logger.getLogger(PaginaPrincipalClienteController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
