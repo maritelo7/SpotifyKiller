@@ -174,7 +174,7 @@ public class LoginController extends Application {
         ingresado.setClave(cifrado.cifrarCadena(campoContrasenia.getText()));
         resws = HttpUtils.accesoUsuario(ingresado);
         if (resws != null && !resws.isError() && resws.getResult() != null) {
-            if (resws.getResult().contains("idUsuario")) {
+            if (resws.getResult().contains("id")) {
                 try {
                     Usuario validado = new Usuario();
                     validado = new Gson().fromJson(resws.getResult(), Usuario.class);
