@@ -13,7 +13,7 @@
       <Label layoutX="247.0" layoutY="24.0" styleClass="labelTitulo" text="Subir canciones" />
       <ListView fx:id="listCanciones" layoutX="61.0" layoutY="95.0" prefHeight="324.0" prefWidth="268.0" style="-fx-border-color: grey;" styleClass="fondo" />
       <Label layoutX="61.0" layoutY="71.0" text="Lista de canciones:" />
-      <JFXButton fx:id="buttonSubir" layoutX="282.0" layoutY="487.0" onAction="#subirCancion" text="Subir canciones" />
+      <JFXButton fx:id="buttonSubir" disable="true" layoutX="282.0" layoutY="487.0" onAction="#subirCanciones" text="Subir canciones" />
       <JFXTextField fx:id="fieldTitulo" labelFloat="true" layoutX="362.0" layoutY="95.0" prefHeight="25.0" prefWidth="248.0" promptText="Título" />
       <JFXTextField fx:id="fieldColaboradores" labelFloat="true" layoutX="362.0" layoutY="138.0" prefHeight="25.0" prefWidth="248.0" promptText="Colaboradores" />
       <JFXComboBox fx:id="comboGenero" layoutX="362.0" layoutY="211.0" prefHeight="25.0" prefWidth="248.0" />

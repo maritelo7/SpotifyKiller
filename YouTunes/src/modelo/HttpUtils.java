@@ -1,13 +1,25 @@
 package modelo;
 
+import com.google.gson.Gson;
 import modelo.pojos.Usuario;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.pojos.Album;
+import modelo.pojos.Cancion;
 
 /**
  * Created by Mari on 04/05/2018.
@@ -57,12 +69,44 @@ public class HttpUtils {
         String url = "recuperarUsuarioPorId/" + usuario.getIdUsuario();
         return invocarServicioWeb(url, "GET", null);
     }
+  
+    public static Response recuperarCatalogoGeneros() {
+        String url = "recuperarGeneros";
+        return invocarServicioWeb(url, "GET", null);
+    }
+  
+    public static void subirAlbum(Album album, byte[] cancionByte) throws IOException, MalformedURLException {
+            String albumJSON = new Gson().toJson(album, Album.class);
+            String encodedJSON = URLEncoder.encode(albumJSON, "UTF-8");
+            URLConnection connection = new URL(BASE_URL + "subirAlbum/" + encodedJSON).openConnection();
+            connection.setDoOutput(true); // Triggers POST.
+            connection.setRequestProperty("Content-Type", "application/octet-stream");
+            try (OutputStream output = connection.getOutputStream()) {
+                output.write(cancionByte);
+                // Files.copy(new File("C:\\Users\\Mari\\Pictures\\Jariana\\IMG_0628.JPG").toPath(), output);
+            }
+            InputStream response = connection.getInputStream();    
+    }
+    
+     public static void subirCancion(Cancion cancion, byte[] cancionByte) throws Exception {        
+            String cancionJSON = new Gson().toJson(cancion, Cancion.class);        
+            String encodedJSON = URLEncoder.encode(cancionJSON, "UTF-8");            
+            URLConnection connection = new URL(BASE_URL + "subirCancion/" + encodedJSON).openConnection();            
+            connection.setDoOutput(true); 
+            connection.setRequestProperty("Content-Type", "application/octet-stream");
+            try (OutputStream output = connection.getOutputStream()) {
+                output.write(cancionByte);
+               // Files.copy(new File("C:\\Users\\Mari\\Pictures\\Jariana\\IMG_0628.JPG").toPath(), output);
+            }            
+            InputStream response = connection.getInputStream();          
+    }
 
     //ESTE MÉTODO SE CONSERVA TAL CUAL
     private static Response invocarServicioWeb(String url, String tipoinvocacion, String parametros){
         HttpURLConnection c = null;
         URL u = null;
         Response res = new Response();
+        
         try {
             if(tipoinvocacion.compareToIgnoreCase("GET")==0){
                 u = new URL(BASE_URL+url+((parametros!=null)?parametros:""));

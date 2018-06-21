@@ -1,6 +1,16 @@
 package modelo.ws;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import com.google.gson.Gson;
+import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +33,7 @@ import modelo.mybatis.MyBatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import servicios.pojos.Album;
 import servicios.pojos.Cancion;
+import servicios.pojos.Genero;
 import servicios.pojos.TipoUsuario;
 import servicios.pojos.Usuario;
 
@@ -36,6 +47,7 @@ public class Catalog {
 
     @Context
     private UriInfo context;
+    
 
     /**
      * Creates a new instance of catalog
@@ -167,7 +179,27 @@ public class Catalog {
     return tipos;
   }
   
+    //recuperarGeneros
+    @GET
+    @Path("recuperarGeneros")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Genero> recuperarGeneros() {
+        SqlSession conn = null;
+        List<Genero> tipos = new ArrayList();
+        try {
+            conn = MyBatisUtils.getSession();
+            tipos = conn.selectList("Genero.recuperarTodos");
+            conn.commit();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
 
+        }
+        return tipos;
+    }
   
   @GET
   @Path("recuperarUsuarioPorId/{idUsuario}")
@@ -216,18 +248,23 @@ public class Catalog {
     }
     return usuario;
   }
-  
+     
+    
     @POST
-    @Path("/subirAlbum/{album}")
+    @Path("subirAlbum/{album}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
-    public Mensaje subirImagen(
-        @PathParam("idUsuario") Integer idUsuario, byte[] bytes){
-        Cancion cancion =new Gson().fromJson(pram, Cancion.class);
-        Mensaje res = new Mensaje();
+    public Mensaje subirImagen(@PathParam("album") String album, byte[] bytes) throws UnsupportedEncodingException{
+        Mensaje res = new Mensaje();        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String PATH = "C:\\Users\\Mari\\Desktop\\Imagenes\\" + 
+            URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".jpg";         
+        String albumDecoded = URLDecoder.decode(album, "UTF-8");
+        Album albumRecibido = new Gson().fromJson(albumDecoded, Album.class);
         try{
             if(bytes!=null){
-                if(guardarImagen(idUsuario, bytes)){
+    
+                if(guardarImagen(PATH, bytes, albumRecibido)){
                     res.setMensaje("Foto guardada correctamente...");
                 }else{
                     res.setError(true);
@@ -244,24 +281,101 @@ public class Catalog {
         }
         return res;
     }
-    
-//    private boolean guardarImagen(int idUsuario, byte[] bytes){
-//        boolean exitoso = true;
-//        SqlSession conn = null;
-//        try {
-//            Album album = new Album();
-//            album.setTitulo(titulo);
-//            evidencia.setEvidenica(bytes);
-//            conn = MyBatisUtils.getSession();
-//            conn.insert("Evidencia.subirFoto", evidencia);
-//            conn.commit();
-//        } catch (Exception ex){
-//            ex.printStackTrace();
-//            exitoso=false;
-//        }
-//     return exitoso;   
-//    }
 
+    private boolean guardarImagen(String nombre, byte[] bytes, Album album){
+        InputStream in = new ByteArrayInputStream(bytes);
+        try {
+            SqlSession conn = null;
+            album.setPathPortada(nombre);
+            conn = MyBatisUtils.getSession();
+            conn.insert("Album.registrarAlbum", album);
+            conn.commit();            
+            BufferedImage buffImage = ImageIO.read(in);
+            ImageIO.write(buffImage, "jpg", new File(nombre));
+            return true;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            if (in != null){
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
+    
+     
+    @POST
+    @Path("subirCancion/{cancion}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    public Mensaje subirCancion(@PathParam("cancion") String cancion, byte[] bytes) throws UnsupportedEncodingException{
+        Mensaje res = new Mensaje();        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String PATH = "C:\\Users\\Mari\\Desktop\\Canciones\\" + 
+            URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".mp3";  
+         String cancionDecoded = URLDecoder.decode(cancion, "UTF-8");
+        Cancion cancionRecibida = new Gson().fromJson(cancionDecoded, Cancion.class);   
+        try{
+            if(bytes!=null){
+                if(guardarCancion(PATH, bytes, cancionRecibida)){
+                    res.setMensaje("Foto guardada correctamente...");
+                }else{
+                    res.setError(true);
+                    res.setMensaje("No se pudo guardar la imagen en el servidor...");
+                }
+            }else{
+                res.setError(true);
+                res.setMensaje("No se recibio flujo de datos...");
+            }            
+        }catch(Exception ex){
+            ex.printStackTrace();
+            res.setError(true);
+            res.setMensaje(ex.getMessage());
+        }
+        return res;
+    }
+
+    private boolean guardarCancion(String nombre, byte[] bytes, Cancion cancion){
+        InputStream in = new ByteArrayInputStream(bytes);
+        try {          
+            File file = new File(nombre);                               
+			FileOutputStream output = new FileOutputStream(file);
+            output.write(bytes);               
+            System.out.println(file.getAbsolutePath());            
+            SqlSession conn = null;
+            cancion.setPath(nombre);
+            cancion.setIdCancion(123456);
+            cancion.setFormato(".mp3");
+            conn = MyBatisUtils.getSession();
+            conn.insert("Cancion.registrarCancion", cancion);
+            conn.commit();            
+            return true;
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            if (in != null){
+                try {
+                    in.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
+    
+   
+    ////////////////////////////////////////////////////////////////////////////////////////
+    //                                       PRUEBAS
+    ////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+   }
+    
   
   
-}
+  

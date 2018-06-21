@@ -3,10 +3,11 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="TipoUsuario">
+<mapper namespace="Genero">
     
-    <select id="recuperarTodos" resultType="servicios.pojos.TipoUsuario">
-        SELECT * FROM tipo_usuario;
+     <select id="recuperarTodos" resultType="servicios.pojos.Genero">
+        SELECT * FROM genero;
     </select>
+    
     
 </mapper>
