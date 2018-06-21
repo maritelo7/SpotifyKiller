@@ -12,6 +12,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import modelo.HttpUtils;
+import modelo.Response;
+import modelo.pojos.ListaReproduccion;
 
 /**
  * FXML Controller class
@@ -34,5 +37,29 @@ public class CrearPlaylistController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    @FXML
+    public void crearPlaylist(){
+        ListaReproduccion lista = new ListaReproduccion();
+        lista.setDescripcion(textDescripcion.getText());
+        lista.setNombreLista(fieldTitulo.getText());
+        lista.setIdUsuario(PaginaPrincipalClienteController.getUsuario().getIdUsuario());        
+        fieldTitulo.setText("");
+        textDescripcion.setText("");  
+        Response resws =   HttpUtils.registrarPlaylist(lista);
+        if (!resws.isError()) {   
+            System.out.println("REGISTRO EXITOSO");
+        } else {
+            System.out.println("REGISTRO N OEXITOSO");
+        }
+       
+    }
+    
+    public boolean validarCampos(){
+         if (fieldTitulo.getText().trim().length() != 0) {
+                return true;
+            }
+         return false;
+    }
     
 }

@@ -10,7 +10,7 @@ package servicios.pojos;
  * @author Mari
  */
 public class Cancion {
-    private int idCancion;
+    private int id;
     private String titulo;
     private String formato;
     private int idGenero;
@@ -20,12 +20,12 @@ public class Cancion {
     private int idAlbum;
     private int calidad;
 
-    public int getIdCancion() {
-        return idCancion;
+    public int getId() {
+        return id;
     }
 
-    public void setIdCancion(int idCancion) {
-        this.idCancion = idCancion;
+    public void getId(int idCancion) {
+        this.id = idCancion;
     }
 
     public String getTitulo() {

@@ -10,15 +10,15 @@ package servicios.pojos;
  * @author Mari
  */
 public class Genero {
-    private int idGenero;
+    private int id;
     private String genero;
 
-    public int getIdGenero() {
-        return idGenero;
+    public int getId() {
+        return id;
     }
 
-    public void setIdGenero(int idGenero) {
-        this.idGenero = idGenero;
+    public void setId(int idGenero) {
+        this.id = idGenero;
     }
 
     public String getGenero() {

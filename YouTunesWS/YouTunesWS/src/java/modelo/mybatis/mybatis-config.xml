@@ -25,5 +25,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <mapper resource="modelo/mybatis/mappers/AlbumMapper.xml"/>
         <mapper resource="modelo/mybatis/mappers/CancionMapper.xml"/>
         <mapper resource="modelo/mybatis/mappers/GeneroMapper.xml"/>
+        <mapper resource="modelo/mybatis/mappers/ListaReproduccionMapper.xml"/>
+        <mapper resource="modelo/mybatis/mappers/HistorialMapper.xml"/>
     </mappers>
 </configuration>

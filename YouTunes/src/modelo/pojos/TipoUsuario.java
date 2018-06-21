@@ -10,15 +10,15 @@ package modelo.pojos;
  * @author Mari
  */
 public class TipoUsuario {
-        private int idTipoUsuario;
+        private int id;
         private String tipoUsuario;
 
     public int getIdTipoUsuario() {
-        return idTipoUsuario;
+        return id;
     }
 
     public void setIdTipoUsuario(int idTipoUsuario) {
-        this.idTipoUsuario = idTipoUsuario;
+        this.id = idTipoUsuario;
     }
 
     public String getTipoUsuario() {

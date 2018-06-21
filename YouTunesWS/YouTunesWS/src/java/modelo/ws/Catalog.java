@@ -348,7 +348,6 @@ public class Catalog {
             System.out.println(file.getAbsolutePath());            
             SqlSession conn = null;
             cancion.setPath(nombre);
-            cancion.setIdCancion(123456);
             cancion.setFormato(".mp3");
             conn = MyBatisUtils.getSession();
             conn.insert("Cancion.registrarCancion", cancion);
@@ -369,12 +368,136 @@ public class Catalog {
     }
     
    
-    ////////////////////////////////////////////////////////////////////////////////////////
-    //                                       PRUEBAS
-    ////////////////////////////////////////////////////////////////////////////////////////
-    
-    
-   }
+  @POST
+  @Path("registrarPlaylist")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Mensaje registrarPlaylist(
+      @FormParam("idUsuario") Integer idUsuario,
+      @FormParam("nombreLista") String nombreLista,
+      @FormParam("descripcion") String descripcion)
+  {
+    SqlSession conn = null;
+    Mensaje msg = new Mensaje();
+    try {
+      conn = MyBatisUtils.getSession();
+      HashMap<String, Object> param
+          = new HashMap<String, Object>();
+      param.put("idUsuario", idUsuario);
+      param.put("nombreLista", nombreLista);
+      param.put("descripcion", descripcion);  
+      conn.insert("ListaReproduccion.registrarLista", param);
+      conn.commit();
+      msg.setMensaje("Lista registrada");
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      msg.setError(true);
+      msg.setMensaje(ex.getMessage());
+    } finally {
+      if (conn != null) {
+        conn.close();
+      }
+    }
+    return msg;
+  }
+ 
+  
+  @POST
+  @Path("agregarCancionPlaylist")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Mensaje agregarCancionPlaylist(
+      @FormParam("idUsuario") Integer idUsuario,
+      @FormParam("idCancion") Integer idCancion,
+      @FormParam("idListaReproduccion") Integer idListaReproduccion
+  ) {
+    SqlSession conn = null;
+    Mensaje msg = new Mensaje();
+    try {
+      conn = MyBatisUtils.getSession();
+      HashMap<String, Object> param
+          = new HashMap<String, Object>();
+      param.put("idUsuario", idUsuario);
+      param.put("idCancion", idCancion);
+      param.put("idListaReproduccion", idListaReproduccion);
+      conn.insert("ListaReproduccion.agregarCancion", param);
+      conn.commit();
+      msg.setMensaje("Cancion agregada a lista de reproducción");
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      msg.setError(true);
+      msg.setMensaje(ex.getMessage());
+    } finally {
+      if (conn != null) {
+        conn.close();
+      }
+
+    }
+    return msg;
+  }
+  
+  @POST
+  @Path("actualizarValoracion")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Mensaje actualizarValoracion(
+      @FormParam("idUsuarioAgregaCancion") Integer idUsuarioAgregaCancion,
+      @FormParam("valoracion") Integer valoracion) {
+    SqlSession conn = null;
+    Mensaje msg = new Mensaje();
+    try {
+      conn = MyBatisUtils.getSession();
+      HashMap<String, Object> param
+          = new HashMap<String, Object>();
+      param.put("idUsuarioAgregaCancion", idUsuarioAgregaCancion);
+      param.put("valoracion", valoracion);
+      conn.update("ListaReproduccion.actualizarValoracion", param);
+      conn.commit();
+      msg.setMensaje("Valoracion actualizada");
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      msg.setError(true);
+      msg.setMensaje(ex.getMessage());
+    } finally {
+      if (conn != null) {
+        conn.close();
+      }
+
+    }
+    return msg;
+  }
+  
+  
+  @POST
+  @Path("actualizarHistorial")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Mensaje actualizarHistorial(
+      @FormParam("idUsuario") Integer idUsuario,
+      @FormParam("idCancion") Integer idCancion) {
+    SqlSession conn = null;
+    Mensaje msg = new Mensaje();
+    try {
+      conn = MyBatisUtils.getSession();
+      HashMap<String, Object> param
+          = new HashMap<String, Object>();
+      param.put("idUsuario", idUsuario);
+      param.put("idCancion", idCancion);
+      conn.insert("Historial.actualizarHistorial", param);
+      conn.commit();
+      msg.setMensaje("Historial actualizado");
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      msg.setError(true);
+      msg.setMensaje(ex.getMessage());
+    } finally {
+      if (conn != null) {
+        conn.close();
+      }
+
+    }
+    return msg;
+  }
+  
+  
+  
+ }
     
   
   

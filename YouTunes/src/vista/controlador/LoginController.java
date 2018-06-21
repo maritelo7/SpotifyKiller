@@ -140,10 +140,13 @@ public class LoginController extends Application {
      */
     @FXML
     public void mostrarNombreArtistico() {
-        if (tipoUsuarioCB.getValue().getIdTipoUsuario()==2){
-            nombreArtisticoTF.setVisible(true);
-        } else {
-            nombreArtisticoTF.setVisible(false);
+        try {
+            if (tipoUsuarioCB.getValue().getIdTipoUsuario() == 2) {
+                nombreArtisticoTF.setVisible(true);
+            } else {
+                nombreArtisticoTF.setVisible(false);
+            }
+        } catch (NullPointerException ex) {
         }
     }
 
@@ -422,7 +425,6 @@ public class LoginController extends Application {
                 "Error", ButtonType.OK);
             dialogo.show();
         }
-
         List<TipoUsuario> tipos = new Gson().fromJson(resws.getResult(), new TypeToken<List<TipoUsuario>>() {
         }.getType());
         ObservableList<TipoUsuario> tiposUsuario = FXCollections.observableArrayList(tipos);

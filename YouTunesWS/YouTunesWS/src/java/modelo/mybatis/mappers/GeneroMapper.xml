@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="Genero">
     
      <select id="recuperarTodos" resultType="servicios.pojos.Genero">
-        SELECT * FROM genero;
+        SELECT * FROM genero order by genero asc;
     </select>
     
     
