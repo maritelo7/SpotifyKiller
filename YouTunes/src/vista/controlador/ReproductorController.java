@@ -124,10 +124,15 @@ public class ReproductorController extends Application{
     }
     
     @FXML
-    public void stopMusic() throws InterruptedException{  
+    public void stopMusic() { 
+        try {
             mediaPlayer.stop();
             playing = false;  
             taskThread.interrupt();
+        } catch (NullPointerException nullEx) {
+            
+        }
+            
     }
     
     @FXML

@@ -65,7 +65,7 @@
                                  <children>
                                     <JFXButton fx:id="buttonMisCanciones" onAction="#abrirMisCanciones" prefHeight="30.0" prefWidth="273.0" text="Ver mis canciones subidas" />
                                     <ImageView fitHeight="10.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                    <JFXButton fx:id="buttonHistorial" prefHeight="30.0" prefWidth="291.0" text="Ver historial de reproducción" />
+                                    <JFXButton fx:id="buttonHistorial" onAction="#abrirHistorial" prefHeight="30.0" prefWidth="291.0" text="Ver historial de reproducción" />
                                     <ImageView fitHeight="10.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                                     <JFXButton fx:id="buttonSubirCanciones" onAction="#subirCanciones" prefHeight="30.0" prefWidth="272.0" text="Subir canciones" />
                                  </children></VBox>
