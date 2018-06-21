@@ -257,7 +257,7 @@ public class Catalog {
     public Mensaje subirImagen(@PathParam("album") String album, byte[] bytes) throws UnsupportedEncodingException{
         Mensaje res = new Mensaje();        
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String PATH = "C:\\Users\\Mari\\Desktop\\Imagenes\\" + 
+        String PATH = "C:\\Users\\yamii\\Desktop\\Imagenes\\" + 
             URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".jpg";         
         String albumDecoded = URLDecoder.decode(album, "UTF-8");
         Album albumRecibido = new Gson().fromJson(albumDecoded, Album.class);
@@ -315,17 +315,17 @@ public class Catalog {
     public Mensaje subirCancion(@PathParam("cancion") String cancion, byte[] bytes) throws UnsupportedEncodingException{
         Mensaje res = new Mensaje();        
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String PATH = "C:\\Users\\Mari\\Desktop\\Canciones\\" + 
+        String PATH = "C:\\Users\\yamii\\Desktop\\Canciones\\" + 
             URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".mp3";  
          String cancionDecoded = URLDecoder.decode(cancion, "UTF-8");
         Cancion cancionRecibida = new Gson().fromJson(cancionDecoded, Cancion.class);   
         try{
             if(bytes!=null){
                 if(guardarCancion(PATH, bytes, cancionRecibida)){
-                    res.setMensaje("Foto guardada correctamente...");
+                    res.setMensaje("Cancion guardada correctamente...");
                 }else{
                     res.setError(true);
-                    res.setMensaje("No se pudo guardar la imagen en el servidor...");
+                    res.setMensaje("No se pudo guardar la cancion en el servidor...");
                 }
             }else{
                 res.setError(true);

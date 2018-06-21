@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.controlador;
 
 import com.jfoenix.controls.JFXButton;
@@ -12,14 +7,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import modelo.HttpUtils;
 import modelo.Response;
 import modelo.pojos.ListaReproduccion;
+import vista.Dialogo;
 
 /**
  * FXML Controller class
  *
- * @author Mari
+ * @author Maribel Tello Rodríguez
+ * @author Esmeralda Yamileth Hernández González
  */
 public class CrearPlaylistController implements Initializable {
 
@@ -29,6 +28,8 @@ public class CrearPlaylistController implements Initializable {
     private JFXTextArea textDescripcion;
     @FXML
     private JFXButton buttonCrear;
+    
+    private Dialogo dialogo;
 
     /**
      * Initializes the controller class.
@@ -38,28 +39,50 @@ public class CrearPlaylistController implements Initializable {
         // TODO
     }    
     
-    @FXML
     public void crearPlaylist(){
         ListaReproduccion lista = new ListaReproduccion();
         lista.setDescripcion(textDescripcion.getText());
         lista.setNombreLista(fieldTitulo.getText());
-        lista.setIdUsuario(PaginaPrincipalClienteController.getUsuario().getIdUsuario());        
-        fieldTitulo.setText("");
+        lista.setIdUsuario(PaginaPrincipalClienteController.getUsuario().getIdUsuario()); 
         textDescripcion.setText("");  
         Response resws =   HttpUtils.registrarPlaylist(lista);
         if (!resws.isError()) {   
-            System.out.println("REGISTRO EXITOSO");
+            dialogo = new Dialogo(Alert.AlertType.INFORMATION,
+                "¡Registro exitoso!", "Éxito", ButtonType.OK);
+            dialogo.show();
+           textDescripcion.setText("");
+           fieldTitulo.setText("");  
         } else {
-            System.out.println("REGISTRO N OEXITOSO");
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Error al crear la playlist, intente nuevamente.", "Error", ButtonType.OK);
+            dialogo.show();
         }
        
     }
+
+    /**
+     * Regresa true si los campos están llenos, y false si al menos uno de los dos no se llenó
+     */
+    public boolean validarCampos() {
+        if (fieldTitulo.getText().trim().length() != 0 & textDescripcion.getText().trim().length() != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
-    public boolean validarCampos(){
-         if (fieldTitulo.getText().trim().length() != 0) {
-                return true;
-            }
-         return false;
+    /**
+     * Permite registrar al usuario en el sistema
+     */
+    @FXML
+    public void registrarPlaylist() {
+        if (validarCampos()) {
+            crearPlaylist();
+        } else {
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Ingresar campos obligatorios", "Error", ButtonType.OK);
+            dialogo.show();
+        }
     }
     
 }
