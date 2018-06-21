@@ -56,7 +56,7 @@ public class PaginaPrincipalClienteController implements Initializable {
     @FXML
     private JFXButton buttonBuscar;
     
-    Usuario usuario;
+    static Usuario usuario;
     static ReproductorController controllerReproductor;    
     static ColaReproduccionController controllerCola;
     @FXML
@@ -246,5 +246,11 @@ public class PaginaPrincipalClienteController implements Initializable {
         System.out.println(usuario.getNombreUsuario());
     }
     
-   
+        /**
+     * Método para recuperar la cuenta del usuario que se logueó
+     * 
+     */
+    public static Usuario getUsuario() {
+        return usuario;
+    }
 }

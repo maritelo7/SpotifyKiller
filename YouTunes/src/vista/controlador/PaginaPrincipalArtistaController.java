@@ -30,7 +30,7 @@ public class PaginaPrincipalArtistaController implements Initializable {
     public JFXDrawer drawerPanel;
 
     
-    Usuario usuario;
+    static Usuario usuario;
     
     /**
      * Initializes the controller class.
@@ -91,13 +91,15 @@ public class PaginaPrincipalArtistaController implements Initializable {
      * Método para cargar la cuenta del usuario que se logueó
      * 
      */
-    void setUsuario(Usuario validado) {
+    public void setUsuario(Usuario validado) {
         this.usuario = validado;        
         //System.out.println(usuario.getNombreUsuario());
     }
     
-    Usuario getUsuario () {
-        return this.usuario;
+    public static Usuario getUsuario () {
+        return usuario;
     }
+    
+    
     
 }

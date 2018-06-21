@@ -10,7 +10,7 @@ public class Album {
     private String pathPortada;
     private int anioLanzamiento;
     private String companiaDiscografica;
-    private int itdUsuario;
+    private int idUsuario;
 
     public int getIdAlbum() {
         return idAlbum;
@@ -52,11 +52,11 @@ public class Album {
         this.companiaDiscografica = companiaDiscografica;
     }
 
-    public int getItdUsuario() {
-        return itdUsuario;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setItdUsuario(int itdUsuario) {
-        this.itdUsuario = itdUsuario;
+    public void setIdUsuario(int itdUsuario) {
+        this.idUsuario = itdUsuario;
     }
 }

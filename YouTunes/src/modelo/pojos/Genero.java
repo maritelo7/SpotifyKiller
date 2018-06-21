@@ -28,4 +28,9 @@ public class Genero {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+    
+    @Override
+    public String toString (){
+        return genero;
+    }
 }
