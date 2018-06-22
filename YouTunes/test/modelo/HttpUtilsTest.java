@@ -10,14 +10,14 @@ import com.google.gson.reflect.TypeToken;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import modelo.pojos.Album;
-import modelo.pojos.Cancion;
-import modelo.pojos.Genero;
-import modelo.pojos.Historial;
-import modelo.pojos.ListaReproduccion;
-import modelo.pojos.TipoUsuario;
-import modelo.pojos.Usuario;
-import modelo.pojos.UsuarioAgregaCancion;
+import modelo.pojos.AlbumDAO;
+import modelo.pojos.CancionDAO;
+import modelo.pojos.GeneroDAO;
+import modelo.pojos.HistorialDAO;
+import modelo.pojos.ListaReproduccionDAO;
+import modelo.pojos.TipoUsuarioDAO;
+import modelo.pojos.UsuarioDAO;
+import modelo.pojos.UsuarioAgregaCancionDAO;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -31,11 +31,11 @@ import static org.junit.Assert.*;
  */
 public class HttpUtilsTest {
 
-    ListaReproduccion playlist = new ListaReproduccion();
-    UsuarioAgregaCancion usuarioCancion = new UsuarioAgregaCancion();
-    Usuario usuario = new Usuario();
-    Album album = new Album();
-    Cancion cancion = new Cancion();
+    ListaReproduccionDAO playlist = new ListaReproduccionDAO();
+    UsuarioAgregaCancionDAO usuarioCancion = new UsuarioAgregaCancionDAO();
+    UsuarioDAO usuario = new UsuarioDAO();
+    AlbumDAO album = new AlbumDAO();
+    CancionDAO cancion = new CancionDAO();
 
     public HttpUtilsTest() {
     }
@@ -80,8 +80,8 @@ public class HttpUtilsTest {
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setClave(cifrar.cifrarCadena(clave));
         Response result = HttpUtils.accesoUsuario(usuario);
-        Usuario resultado;
-        resultado = new Gson().fromJson(result.getResult(), Usuario.class);
+        UsuarioDAO resultado;
+        resultado = new Gson().fromJson(result.getResult(), UsuarioDAO.class);
 
         assertEquals(nombreUsuario, resultado.getNombreUsuario());
         System.out.println("Éxito de igualdad de nombres de usuario");
@@ -134,7 +134,7 @@ public class HttpUtilsTest {
     @Test
     public void actualizarHistorialTest() {
         System.out.println("Prueba del método actualizarHistorial");
-        Historial historial = new Historial();
+        HistorialDAO historial = new HistorialDAO();
         historial.setFecha(Date.valueOf(LocalDate.now()));
         historial.setIdUsuario(1);
         historial.setIdCancion(7);
@@ -165,7 +165,7 @@ public class HttpUtilsTest {
 
         Response resultado = HttpUtils.recuperarCatalogoUsuarios();
 
-        List<TipoUsuario> tipos = new Gson().fromJson(resultado.getResult(), new TypeToken<List<TipoUsuario>>() {
+        List<TipoUsuarioDAO> tipos = new Gson().fromJson(resultado.getResult(), new TypeToken<List<TipoUsuarioDAO>>() {
         }.getType());
 
         assertEquals(tipoUsuario, tipos.get(1).getTipoUsuario());
@@ -182,7 +182,7 @@ public class HttpUtilsTest {
 
         Response resultado = HttpUtils.recuperarUsuarioPorNombreUsuario(usuario);
 
-        usuario = new Gson().fromJson(resultado.getResult(), Usuario.class);
+        usuario = new Gson().fromJson(resultado.getResult(), UsuarioDAO.class);
 
         assertEquals(nombre, usuario.getNombre());
         System.out.println("Éxito de igualdad de nombres");
@@ -197,7 +197,7 @@ public class HttpUtilsTest {
 
         Response resultado = HttpUtils.recuperarUsuarioPorId(usuario);
 
-        usuario = new Gson().fromJson(resultado.getResult(), Usuario.class);
+        usuario = new Gson().fromJson(resultado.getResult(), UsuarioDAO.class);
 
         assertEquals(nombre, usuario.getNombre());
         System.out.println("Éxito de igualdad de nombres");
@@ -210,7 +210,7 @@ public class HttpUtilsTest {
 
         Response resultado = HttpUtils.recuperarCatalogoGeneros();
 
-        List<Genero> tipos = new Gson().fromJson(resultado.getResult(), new TypeToken<List<Genero>>() {
+        List<GeneroDAO> tipos = new Gson().fromJson(resultado.getResult(), new TypeToken<List<GeneroDAO>>() {
         }.getType());
 
         assertEquals(genero, tipos.get(0).getGenero());
