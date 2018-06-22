@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.controlador;
 
 import com.google.gson.Gson;
@@ -74,30 +69,30 @@ public class SubirCancionesController implements Initializable {
 
     ObservableList<Cancion> items = FXCollections.observableArrayList();
     Usuario usuario;
-    String path; 
+    String path;
     private Dialogo dialogo;
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {  
-        ObservableList<String> calidades = FXCollections.observableArrayList("Alta","Media","Baja");
+    public void initialize(URL url, ResourceBundle rb) {
+        ObservableList<String> calidades = FXCollections.observableArrayList("Alta", "Media", "Baja");
         comboCalidad.setItems(calidades);
         comboCalidad.getSelectionModel().selectFirst();
-        
+
         Response resws = HttpUtils.recuperarCatalogoGeneros();
         List<Genero> tipos = new Gson().fromJson(resws.getResult(), new TypeToken<List<Genero>>() {
         }.getType());
         ObservableList<Genero> generos = FXCollections.observableArrayList(tipos);
         comboGenero.setItems(generos);
         comboGenero.getSelectionModel().selectFirst();
-        
+
         if (LoginController.returnTipoUsuario() == 1) {
             fieldColaboradores.setVisible(false);
-            labelGenero.setVisible(false);
+            //labelGenero.setVisible(false);
             labelCalidad.setVisible(false);
-            comboGenero.setVisible(false);
+            //comboGenero.setVisible(false);
             comboCalidad.setVisible(false);
             usuario = PaginaPrincipalClienteController.getUsuario();
         } else {
@@ -113,7 +108,7 @@ public class SubirCancionesController implements Initializable {
         if (audio != null) {
             FileInputStream input = null;
             path = audio.getAbsolutePath();
-            System.out.println(path);            
+            System.out.println(path);
         }
     }
 
@@ -128,19 +123,22 @@ public class SubirCancionesController implements Initializable {
     private void agregarCancion() {
         if (validarCampos()) {
             Cancion cancion = new Cancion();
-            cancion.setIdCancion(324);
             if (LoginController.returnTipoUsuario() == 2) {
                 cancion.setColaboradores(fieldColaboradores.getText());
-                cancion.setIdGenero(comboGenero.getValue().getIdGenero());
-                if (comboCalidad.getValue() == "Baja"); cancion.setCalidad(1);
-                if (comboCalidad.getValue() == "Media"); cancion.setCalidad(2);
-                if (comboCalidad.getValue() == "Alta"); cancion.setCalidad(3);
+                if (comboCalidad.getValue() == "Baja");
+                cancion.setCalidad(1);
+                if (comboCalidad.getValue() == "Media");
+                cancion.setCalidad(2);
+                if (comboCalidad.getValue() == "Alta");
+                cancion.setCalidad(3);
                 cancion.setIdAlbum(CrearAlbumController.returnIdAlbum());
             }
+
+            cancion.setIdGenero(comboGenero.getValue().getIdGenero());
             cancion.setIdUsuarioSubioCancion(usuario.getIdUsuario());
-            System.out.println("Usuario: " + usuario.getIdUsuario() + usuario.getNombre());
             cancion.setTitulo(fieldTitulo.getText());
             cancion.setPath(path);
+            cancion.setIdAlbum(1);
             items.add(cancion);
             listCanciones.setItems(items);
             limpiarCampos();
@@ -154,40 +152,41 @@ public class SubirCancionesController implements Initializable {
 
     @FXML
     private void subirCanciones() {
-        if (items.size()>0){
-        FileInputStream input = null;
-        try {
-            for (int i = 0; i < items.size(); i++) {
-                Cancion cancion = items.get(i);
-                String ruta = cancion.getPath();
-                cancion.setPath("");
-                File file = new File(ruta);
-                input = new FileInputStream(file);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                byte[] buffer = new byte[8192];
-                int bytesRead;
-                while ((bytesRead = input.read(buffer)) > 0) {
-                    baos.write(buffer, 0, bytesRead);
-                }
-                HttpUtils.subirCancion(cancion, baos.toByteArray());
-                input.close();
-            }
-            items.clear();
-            listCanciones.setItems(items);
-            dialogo = new Dialogo(Alert.AlertType.INFORMATION,
-                "¡Las canciones se subieron exitosamente!", "Éxito", ButtonType.OK);
-            dialogo.show();
-        }  catch (FileNotFoundException ex) {
-        } catch (IOException ex) {
-        } catch (Exception ex) {
-        } finally {
+        if (items.size() > 0) {
+            FileInputStream input = null;
             try {
-                input.close();
+                for (int i = 0; i < items.size(); i++) {
+                    Cancion cancion = items.get(i);
+                    String ruta = cancion.getPath();
+                    cancion.setPath("");
+                    File file = new File(ruta);
+                    input = new FileInputStream(file);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[8192];
+                    int bytesRead;
+                    while ((bytesRead = input.read(buffer)) > 0) {
+                        baos.write(buffer, 0, bytesRead);
+                    }
+                    HttpUtils.subirCancion(cancion, baos.toByteArray());
+                    System.out.println("Ya debí haber guardado");
+                    input.close();
+                }
+                items.clear();
+                listCanciones.setItems(items);
+                dialogo = new Dialogo(Alert.AlertType.INFORMATION,
+                    "¡Las canciones se subieron exitosamente!", "Éxito", ButtonType.OK);
+                dialogo.show();
+            } catch (FileNotFoundException ex) {
             } catch (IOException ex) {
-            } catch (NullPointerException npex) {
-        }
-        }
-        } else{
+            } catch (Exception ex) {
+            } finally {
+                try {
+                    input.close();
+                } catch (IOException ex) {
+                } catch (NullPointerException npex) {
+                }
+            }
+        } else {
             dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Debes tener al menos una canción en la lista", "Error", ButtonType.OK);
             dialogo.show();
@@ -201,12 +200,12 @@ public class SubirCancionesController implements Initializable {
             return false;
         }
     }
-    
-    private void limpiarCampos() {      
+
+    private void limpiarCampos() {
         if (LoginController.returnTipoUsuario() == 2) {
-                fieldColaboradores.setText("");              
-        } 
-          fieldTitulo.setText("");
+            fieldColaboradores.setText("");
+        }
+        fieldTitulo.setText("");
     }
-    
+
 }
