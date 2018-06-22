@@ -7,7 +7,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.BuscarCancionesController">
    <children>
-      <JFXListView fx:id="listaCanciones" layoutX="56.0" layoutY="78.0" prefHeight="428.0" prefWidth="533.0" styleClass="fondo" />
+      <JFXListView fx:id="listaCanciones" layoutX="56.0" layoutY="78.0" onMouseClicked="#reproduceCancion" prefHeight="428.0" prefWidth="533.0" styleClass="fondo" />
       <Label layoutX="56.0" layoutY="30.0" text="Canciones que coinciden con la búsqueda:" />
       <JFXComboBox fx:id="comboBox" labelFloat="true" layoutX="206.0" layoutY="214.0" onAction="#agregarCancionPlaylist" prefHeight="29.0" prefWidth="226.0" promptText="Seleccionar playlist..." style="-fx-text-fill: white;" styleClass="jfx-text-field" unFocusColor="WHITE" visible="false" />
    </children>

@@ -53,10 +53,6 @@ public class PaginaPrincipalClienteController implements Initializable {
     private static JFXTextField fieldCanciones;
     @FXML
     private JFXButton buttonBuscar;
-    
-    static Usuario usuario;
-    static ReproductorController controllerReproductor;    
-
     static ColaReproduccionController controllerCola;
     @FXML
     private JFXButton buttonSubirCanciones;
@@ -68,7 +64,11 @@ public class PaginaPrincipalClienteController implements Initializable {
     private JFXButton buttonMisCanciones;
     @FXML
     private JFXButton buttonHistorial;
+    
     private Dialogo dialogo;
+    static Usuario usuario;
+    static ReproductorController controllerReproductor;  
+    static String cancionBuscada;
 
     /**
      * Initializes the controllerReproductor class.
@@ -153,6 +153,7 @@ public class PaginaPrincipalClienteController implements Initializable {
      */
     @FXML
     public void abrirFiltroCanciones() {
+        cancionBuscada = fieldCanciones.getText();
         try {
             AnchorPane consultaCanciones = FXMLLoader.load(getClass()
                 .getResource("/vista/BuscarCanciones.fxml"));
@@ -286,5 +287,13 @@ public class PaginaPrincipalClienteController implements Initializable {
      */
     public static Usuario getUsuario() {
         return usuario;
+    }
+    
+       /**
+     * Método para recuperar la cuenta del usuario que se logueó
+     * 
+     */
+    public static String getCancionBuscada() {
+        return cancionBuscada;
     }
 }
