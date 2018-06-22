@@ -34,8 +34,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import modelo.HttpUtils;
-import modelo.pojos.Album;
-import modelo.pojos.Usuario;
+import modelo.pojos.AlbumDAO;
+import modelo.pojos.UsuarioDAO;
 import vista.Dialogo;
 
 /**
@@ -63,8 +63,8 @@ public class CrearAlbumController implements Initializable {
     String path;
     private static int idAlbum = 0;
     private Dialogo dialogo;
-    Album album = new Album();
-    Usuario usuario;
+    AlbumDAO album = new AlbumDAO();
+    UsuarioDAO usuario;
 
     /**
      * Initializes the controller class.

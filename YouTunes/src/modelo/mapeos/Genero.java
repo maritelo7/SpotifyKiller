@@ -3,22 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo.pojos;
+package modelo.mapeos;
+
+import java.util.List;
 
 /**
  *
  * @author Mari
  */
 public class Genero {
-    private int id;
+    private Integer id;
     private String genero;
+    private List<Cancion> cancionList;
 
-    public int getIdGenero() {
+    public Integer getId() {
         return id;
     }
 
-    public void setIdGenero(int idGenero) {
-        this.id = idGenero;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getGenero() {
@@ -28,9 +31,12 @@ public class Genero {
     public void setGenero(String genero) {
         this.genero = genero;
     }
-    
-    @Override
-    public String toString (){
-        return genero;
+
+    public List<Cancion> getCancionList() {
+        return cancionList;
+    }
+
+    public void setCancionList(List<Cancion> cancionList) {
+        this.cancionList = cancionList;
     }
 }

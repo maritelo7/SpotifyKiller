@@ -4,7 +4,7 @@ package modelo.pojos;
  *
  * @author Mari
  */
-public class Album {
+public class AlbumDAO {
     private int id;
     private String titulo; 
     private String pathPortada;

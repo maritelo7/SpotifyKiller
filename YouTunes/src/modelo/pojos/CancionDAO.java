@@ -9,7 +9,7 @@ package modelo.pojos;
  *
  * @author Mari
  */
-public class Cancion {
+public class CancionDAO {
     private int id;
     private String titulo;
     private String formato;

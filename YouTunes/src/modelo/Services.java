@@ -26,7 +26,7 @@ public class Services {
     
     // url = new URL("http://10.0.2.2:8080/HelloServlet/PDRS?param1="+lat+"&param2="+lon);
     
-    public static Response subirCancion(Cancion cancion) {
+    public static Response subirCancion(CancionDAO cancion) {
         //donde se convierte a JSON la cancion, se pasa a la URL ya convertida
         //se tiene que enviar tambien el audio aunque en que formato??
         String url = "guardarCancion/" + cancion;
@@ -54,7 +54,7 @@ public class Services {
         return invocarServicioWeb(url, "GET", null);
     }
     
-    public static Response crearLista(ListaReproduccion lista) {
+    public static Response crearLista(ListaReproduccionDAO lista) {
         //donde se convierte a JSON la lista, se pasa a la URL ya convertida
         String url = "" + lista;
         return invocarServicioWeb(url, "POST", null);

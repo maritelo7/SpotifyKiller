@@ -25,9 +25,9 @@ import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import modelo.HttpUtils;
 import modelo.Response;
-import modelo.pojos.Cancion;
-import modelo.pojos.Genero;
-import modelo.pojos.Usuario;
+import modelo.pojos.CancionDAO;
+import modelo.pojos.GeneroDAO;
+import modelo.pojos.UsuarioDAO;
 import vista.Dialogo;
 
 /**
@@ -38,11 +38,11 @@ import vista.Dialogo;
 public class SubirCancionesController implements Initializable {
 
     @FXML
-    private ListView<Cancion> listCanciones;
+    private ListView<CancionDAO> listCanciones;
     @FXML
     private JFXButton buttonSubir;
     @FXML
-    private JFXComboBox<Genero> comboGenero;
+    private JFXComboBox<GeneroDAO> comboGenero;
     @FXML
     private JFXComboBox<String> comboCalidad;
     @FXML
@@ -58,8 +58,8 @@ public class SubirCancionesController implements Initializable {
     @FXML
     private Label labelCalidad;
 
-    ObservableList<Cancion> items = FXCollections.observableArrayList();
-    Usuario usuario;
+    ObservableList<CancionDAO> items = FXCollections.observableArrayList();
+    UsuarioDAO usuario;
     String path;
     private Dialogo dialogo;
 
@@ -73,9 +73,9 @@ public class SubirCancionesController implements Initializable {
         comboCalidad.getSelectionModel().selectFirst();
 
         Response resws = HttpUtils.recuperarCatalogoGeneros();
-        List<Genero> tipos = new Gson().fromJson(resws.getResult(), new TypeToken<List<Genero>>() {
+        List<GeneroDAO> tipos = new Gson().fromJson(resws.getResult(), new TypeToken<List<GeneroDAO>>() {
         }.getType());
-        ObservableList<Genero> generos = FXCollections.observableArrayList(tipos);
+        ObservableList<GeneroDAO> generos = FXCollections.observableArrayList(tipos);
         comboGenero.setItems(generos);
         comboGenero.getSelectionModel().selectFirst();
 
@@ -113,7 +113,7 @@ public class SubirCancionesController implements Initializable {
     @FXML
     private void agregarCancion() {
         if (validarCampos()) {
-            Cancion cancion = new Cancion();
+            CancionDAO cancion = new CancionDAO();
             if (LoginController.returnTipoUsuario() == 2) {
                 cancion.setColaboradores(fieldColaboradores.getText());
                 if (comboCalidad.getValue() == "Baja");
@@ -147,7 +147,7 @@ public class SubirCancionesController implements Initializable {
             FileInputStream input = null;
             try {
                 for (int i = 0; i < items.size(); i++) {
-                    Cancion cancion = items.get(i);
+                    CancionDAO cancion = items.get(i);
                     String ruta = cancion.getPath();
                     cancion.setPath("");
                     File file = new File(ruta);

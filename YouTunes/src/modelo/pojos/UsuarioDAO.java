@@ -13,7 +13,7 @@ import java.util.Locale;
  *
  * @author Mari
  */
-public class Usuario {
+public class UsuarioDAO {
     private Integer id;
     private String nombre;
     private String apellidoPat;

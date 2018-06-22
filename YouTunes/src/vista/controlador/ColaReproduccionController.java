@@ -16,7 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import modelo.pojos.Cancion;
+import modelo.pojos.CancionDAO;
 
 /**
  * FXML Controller class
@@ -26,9 +26,9 @@ import modelo.pojos.Cancion;
 public class ColaReproduccionController implements Initializable {
 
     @FXML
-    private JFXListView<Cancion> listaCanciones;
+    private JFXListView<CancionDAO> listaCanciones;
     
-    ObservableList<Cancion> items =FXCollections.observableArrayList(); 
+    ObservableList<CancionDAO> items =FXCollections.observableArrayList(); 
          
     /**
      * Initializes the controller class.
@@ -46,12 +46,12 @@ public class ColaReproduccionController implements Initializable {
         listaCanciones.setItems(items);
     }
     
-    public void agregarCancionPrincipio (Cancion cancionAgregada){
+    public void agregarCancionPrincipio (CancionDAO cancionAgregada){
         items.add(0, cancionAgregada);
         listaCanciones.setItems(items);
     }
     
-      public void agregarCancionFinal (Cancion cancionAgregada){
+      public void agregarCancionFinal (CancionDAO cancionAgregada){
         items.add(cancionAgregada);
         listaCanciones.setItems(items);
     }
@@ -65,7 +65,7 @@ public class ColaReproduccionController implements Initializable {
       }
     
     public void cargarCanciones(){     
-        Cancion cancion = new Cancion();
+        CancionDAO cancion = new CancionDAO();
         cancion.setTitulo("Eenie Meenie");
         cancion.setFormato(".mp3");
         cancion.setPath("Eenie Meenie.mp3");
@@ -73,7 +73,7 @@ public class ColaReproduccionController implements Initializable {
 //        cancion.setGenero("Pop");
         items.add(cancion);
         
-        cancion = new Cancion();
+        cancion = new CancionDAO();
         cancion.setTitulo("Warrior");
         cancion.setFormato(".mp3");
         cancion.setPath("Warrior.mp3");

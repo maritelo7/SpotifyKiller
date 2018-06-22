@@ -12,10 +12,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import modelo.Services;
-import modelo.pojos.Cancion;
+import modelo.pojos.CancionDAO;
 import modelo.pojos.CancionHistorial;
-import modelo.pojos.Historial;
-import modelo.pojos.Usuario;
+import modelo.pojos.HistorialDAO;
+import modelo.pojos.UsuarioDAO;
 
 /**
  * FXML Controller class
@@ -27,7 +27,7 @@ public class HistorialReproduccionController implements Initializable {
     @FXML
     private TableView<CancionHistorial> tableHistorial;
 
-    Usuario usuario;
+    UsuarioDAO usuario;
     
     /**
      * Initializes the controller class.
@@ -54,10 +54,10 @@ public class HistorialReproduccionController implements Initializable {
      
       public void cargarInformacionTabla(){
       Services.recuperarHistorial(usuario.getIdUsuario());
-      //se recibiría un Historial con canciones
-      Cancion cancion = null;
+      //se recibiría un HistorialDAO con canciones
+      CancionDAO cancion = null;
       CancionHistorial canHis;
-      List<Historial> historial = null;
+      List<HistorialDAO> historial = null;
       List<CancionHistorial> cancionHistorial = new ArrayList();
         for (int i = 0; i < historial.size(); i++) {
             canHis = new CancionHistorial();

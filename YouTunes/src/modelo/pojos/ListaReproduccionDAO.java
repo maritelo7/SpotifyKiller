@@ -2,7 +2,7 @@ package modelo.pojos;
 /**
  * @author Mari
  */
-public class ListaReproduccion {
+public class ListaReproduccionDAO {
     private int id;
     private int idUsuario;
     private String nombreLista;

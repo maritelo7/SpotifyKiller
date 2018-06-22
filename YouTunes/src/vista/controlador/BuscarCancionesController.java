@@ -16,10 +16,10 @@ import javafx.scene.control.MenuItem;
 import modelo.HttpUtils;
 import modelo.Response;
 import modelo.Services;
-import modelo.pojos.Cancion;
-import modelo.pojos.ListaReproduccion;
-import modelo.pojos.Usuario;
-import modelo.pojos.UsuarioAgregaCancion;
+import modelo.pojos.CancionDAO;
+import modelo.pojos.ListaReproduccionDAO;
+import modelo.pojos.UsuarioDAO;
+import modelo.pojos.UsuarioAgregaCancionDAO;
 
 /**
  * FXML Controller class
@@ -30,13 +30,13 @@ public class BuscarCancionesController implements Initializable {
     
 
     @FXML
-    private JFXListView<Cancion> listaCanciones;
+    private JFXListView<CancionDAO> listaCanciones;
     @FXML
-    private JFXComboBox<ListaReproduccion> comboBox;    
-    ObservableList<Cancion> items =FXCollections.observableArrayList(); 
-    ObservableList<ListaReproduccion> playlists = FXCollections.observableArrayList();
+    private JFXComboBox<ListaReproduccionDAO> comboBox;    
+    ObservableList<CancionDAO> items =FXCollections.observableArrayList(); 
+    ObservableList<ListaReproduccionDAO> playlists = FXCollections.observableArrayList();
     String cancionBuscada;
-    Usuario usuario;
+    UsuarioDAO usuario;
     
     /**
      * Initializes the controller class.
@@ -61,21 +61,21 @@ public class BuscarCancionesController implements Initializable {
             contextMenu.getItems().addAll(inicio, fin, playlist);
 
             inicio.setOnAction((ActionEvent event) -> {
-                Cancion cancion = listaCanciones.getSelectionModel().getSelectedItem();
+                CancionDAO cancion = listaCanciones.getSelectionModel().getSelectedItem();
                 System.out.println("SELECTED ITEM " + cancion);
                 PaginaPrincipalClienteController.agregarCancionPrincipioCola(cancion);
                 //enviar a cola
             });
 
             fin.setOnAction((ActionEvent event) -> {
-                Cancion cancion = listaCanciones.getSelectionModel().getSelectedItem();
+                CancionDAO cancion = listaCanciones.getSelectionModel().getSelectedItem();
                 System.out.println("SELECTED ITEM " + cancion);
                 PaginaPrincipalClienteController.agregarCancionFinalCola(cancion);
                 //enviar a cola
             });
 
             playlist.setOnAction((ActionEvent event) -> {
-                Cancion cancion = listaCanciones.getSelectionModel().getSelectedItem();
+                CancionDAO cancion = listaCanciones.getSelectionModel().getSelectedItem();
                 System.out.println("SELECTED ITEM " + cancion);
                 comboBox.setVisible(true);
                 listaCanciones.setVisible(false);
@@ -86,7 +86,7 @@ public class BuscarCancionesController implements Initializable {
             
             
         } else {
-            Cancion cancion = new Cancion();
+            CancionDAO cancion = new CancionDAO();
             cancion.setTitulo("¡Lo sentimos! No hay coincidencias para esa búsqueda.");        
             items.add(cancion);
             listaCanciones.setItems(items);
@@ -106,10 +106,10 @@ public class BuscarCancionesController implements Initializable {
         comboBox.setItems(playlists);
         System.out.println(listaCanciones.getSelectionModel().getSelectedItem());
         System.out.println(comboBox.getValue());
-        Cancion cancion = listaCanciones.getSelectionModel().getSelectedItem();
-        ListaReproduccion lista = comboBox.getValue();
+        CancionDAO cancion = listaCanciones.getSelectionModel().getSelectedItem();
+        ListaReproduccionDAO lista = comboBox.getValue();
         
-        UsuarioAgregaCancion usuarioCancion= new UsuarioAgregaCancion();
+        UsuarioAgregaCancionDAO usuarioCancion= new UsuarioAgregaCancionDAO();
         usuarioCancion.setIdUsuario(usuario.getIdUsuario());
         usuarioCancion.setIdCancion(cancion.getIdCancion());
         usuarioCancion.setIdListaReproduccion(lista.getIdListaReproduccion());        
@@ -129,11 +129,11 @@ public class BuscarCancionesController implements Initializable {
        Services.recuperarListasReproduccion(usuario.getIdUsuario());
        //MOSTRAR LISTAS RECUPERADAS EN COMBO BOX
         
-       List<ListaReproduccion> listaRecuperada = new ArrayList();
-       ListaReproduccion e = new ListaReproduccion();
+       List<ListaReproduccionDAO> listaRecuperada = new ArrayList();
+       ListaReproduccionDAO e = new ListaReproduccionDAO();
        e.setNombreLista("Uno");
        listaRecuperada.add(e);
-       e = new ListaReproduccion();
+       e = new ListaReproduccionDAO();
        e.setNombreLista("Dos");
        listaRecuperada.add(e);
        
@@ -149,7 +149,7 @@ public class BuscarCancionesController implements Initializable {
    
     
      public void cargarCanciones(){     
-        Cancion cancion = new Cancion();
+        CancionDAO cancion = new CancionDAO();
         cancion.setTitulo("Eenie Meenie");
         cancion.setFormato(".mp3");
         cancion.setPath("Eenie Meenie.mp3");
@@ -157,7 +157,7 @@ public class BuscarCancionesController implements Initializable {
 //        cancion.setGenero("Pop");
         items.add(cancion);
         
-        cancion = new Cancion();
+        cancion = new CancionDAO();
         cancion.setTitulo("Warrior");
         cancion.setFormato(".mp3");
         cancion.setPath("Warrior.mp3");

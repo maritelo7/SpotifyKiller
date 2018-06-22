@@ -18,8 +18,8 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import modelo.pojos.Cancion;
-import modelo.pojos.Usuario;
+import modelo.pojos.CancionDAO;
+import modelo.pojos.UsuarioDAO;
 import vista.Dialogo;
 
 /**
@@ -66,7 +66,7 @@ public class PaginaPrincipalClienteController implements Initializable {
     private JFXButton buttonHistorial;
     
     private Dialogo dialogo;
-    static Usuario usuario;
+    static UsuarioDAO usuario;
     static ReproductorController controllerReproductor;  
     static String cancionBuscada;
 
@@ -247,7 +247,7 @@ public class PaginaPrincipalClienteController implements Initializable {
         }
     }
 
-    public static void cargarCancion(Cancion cancion) {
+    public static void cargarCancion(CancionDAO cancion) {
         controllerReproductor.cargarCancion(cancion);
     }
 
@@ -255,11 +255,11 @@ public class PaginaPrincipalClienteController implements Initializable {
         controllerCola.siguienteCancion();
     }
 
-    public static void agregarCancionFinalCola(Cancion cancion) {
+    public static void agregarCancionFinalCola(CancionDAO cancion) {
         controllerCola.agregarCancionFinal(cancion);
     }
 
-    public static void agregarCancionPrincipioCola(Cancion cancion) {
+    public static void agregarCancionPrincipioCola(CancionDAO cancion) {
         controllerCola.agregarCancionPrincipio(cancion);
     }
 
@@ -276,7 +276,7 @@ public class PaginaPrincipalClienteController implements Initializable {
      * Método para cargar la cuenta del usuario que se logueó
      *
      */
-    void setUsuario(Usuario validado) {
+    void setUsuario(UsuarioDAO validado) {
         this.usuario = validado;
         System.out.println(usuario.getNombreUsuario());
     }
@@ -285,7 +285,7 @@ public class PaginaPrincipalClienteController implements Initializable {
      * Método para recuperar la cuenta del usuario que se logueó
      * 
      */
-    public static Usuario getUsuario() {
+    public static UsuarioDAO getUsuario() {
         return usuario;
     }
     
