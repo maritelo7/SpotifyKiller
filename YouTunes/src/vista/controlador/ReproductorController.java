@@ -21,6 +21,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import modelo.Services;
 import modelo.pojos.Cancion;
 import vista.Dialogo;
 
@@ -79,7 +80,8 @@ public class ReproductorController extends Application {
     }
 
     public void cargarCancion(Cancion cancion) {
-        this.cancion = cancion;
+        Services.recuperarCancion(cancion.getIdCancion());
+        this.cancion = cancion;        
         playNewSong();
     }
 

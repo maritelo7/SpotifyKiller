@@ -71,6 +71,12 @@ public class Services {
         String url = "" + idUsuario;
         return invocarServicioWeb(url, "GET", null);
     }
+    
+    public static Response recuperarCancion(int idCancion) {
+        //donde se convierte a JSON la lista, se pasa a la URL ya convertida
+        String url = "" + idCancion;
+        return invocarServicioWeb(url, "GET", null);
+    }
 
      private static Response invocarServicioWeb(String url, String tipoinvocacion, String parametros){
         HttpURLConnection c = null;

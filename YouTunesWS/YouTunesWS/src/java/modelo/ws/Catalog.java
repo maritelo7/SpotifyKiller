@@ -257,7 +257,7 @@ public class Catalog {
     public Mensaje subirImagen(@PathParam("album") String album, byte[] bytes) throws UnsupportedEncodingException{
         Mensaje res = new Mensaje();        
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String PATH = "C:\\Users\\yamii\\Desktop\\Imagenes\\" + 
+        String PATH = "C:\\Users\\Mari\\Desktop\\Canciones\\" + 
             URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".jpg";         
         String albumDecoded = URLDecoder.decode(album, "UTF-8");
         Album albumRecibido = new Gson().fromJson(albumDecoded, Album.class);
@@ -315,7 +315,7 @@ public class Catalog {
     public Mensaje subirCancion(@PathParam("cancion") String cancion, byte[] bytes) throws UnsupportedEncodingException{
         Mensaje res = new Mensaje();        
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String PATH = "C:\\Users\\yamii\\Desktop\\Canciones\\" + 
+        String PATH = "C:\\Users\\Mari\\Desktop\\Canciones\\" + 
             URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".mp3";  
          String cancionDecoded = URLDecoder.decode(cancion, "UTF-8");
         Cancion cancionRecibida = new Gson().fromJson(cancionDecoded, Cancion.class);   
