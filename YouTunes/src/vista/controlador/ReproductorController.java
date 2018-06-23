@@ -22,7 +22,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import modelo.Services;
-import modelo.pojos.Cancion;
+import modelo.pojos.CancionDAO;
 import vista.Dialogo;
 
 /**
@@ -59,7 +59,7 @@ public class ReproductorController extends Application {
     static Thread taskThread;
     final int FIN = 100;
     double progresoCancion = 0;
-    Cancion cancion;
+    CancionDAO cancion;
     File archivoAudio;
     Image image;
     boolean primeraVez = true;
@@ -79,7 +79,7 @@ public class ReproductorController extends Application {
         }
     }
 
-    public void cargarCancion(Cancion cancion) {
+    public void cargarCancion(CancionDAO cancion) {
         Services.recuperarCancion(cancion.getIdCancion());
         this.cancion = cancion;        
         playNewSong();

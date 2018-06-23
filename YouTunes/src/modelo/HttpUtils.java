@@ -1,7 +1,7 @@
 package modelo;
 
 import com.google.gson.Gson;
-import modelo.pojos.Usuario;
+import modelo.pojos.UsuarioDAO;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -18,11 +18,11 @@ import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelo.pojos.Album;
-import modelo.pojos.Cancion;
-import modelo.pojos.Historial;
-import modelo.pojos.ListaReproduccion;
-import modelo.pojos.UsuarioAgregaCancion;
+import modelo.pojos.AlbumDAO;
+import modelo.pojos.CancionDAO;
+import modelo.pojos.HistorialDAO;
+import modelo.pojos.ListaReproduccionDAO;
+import modelo.pojos.UsuarioAgregaCancionDAO;
 
 /**
  * Created by Mari on 04/05/2018.
@@ -35,14 +35,14 @@ public class HttpUtils {
     private static final Integer CONNECT_TIMEOUT = 4000; //MILISEGUNDOS
     private static final Integer READ_TIMEOUT = 10000; //MILISEGUNDOS
 
-    public static Response accesoUsuario(Usuario usuario) {
+    public static Response accesoUsuario(UsuarioDAO usuario) {
         String url = "accesoUsuario";
         String parametros = String.format("nombreUsuario=%s&clave=%s",
                 usuario.getNombreUsuario(), usuario.getClave());
         return invocarServicioWeb(url, "POST", parametros);
     }
 
-    public static Response registroUsuario(Usuario usuario) {
+    public static Response registroUsuario(UsuarioDAO usuario) {
         String url = "registroUsuario";
         String parametros = String.format("nombreUsuario=%s&clave=%s&nombre=%s&apellidoPat=%s&apellidoMat"
             + "=%s&fechaNacimiento=%s&nombreArtistico=%s&tipoUsuario=%s", usuario.getNombreUsuario(), usuario.getClave(),
@@ -51,14 +51,14 @@ public class HttpUtils {
         return invocarServicioWeb(url, "POST", parametros);
     }
     
-    public static Response registrarPlaylist(ListaReproduccion lista) {
+    public static Response registrarPlaylist(ListaReproduccionDAO lista) {
         String url = "registrarPlaylist";
         String parametros = String.format("idUsuario=%s&nombreLista=%s&descripcion=%s", lista.getIdUsuario(),
             lista.getNombreLista(), lista.getDescripcion());
         return invocarServicioWeb(url, "POST", parametros);
     }
     
-    public static Response agregarCancionPlaylist(UsuarioAgregaCancion usuarioCancion) {
+    public static Response agregarCancionPlaylist(UsuarioAgregaCancionDAO usuarioCancion) {
         String url = "agregarCancionPlaylist";
         String parametros = String.format("idUsuario=%s&idCancion=%s&idListaReproduccion=%s", 
             usuarioCancion.getIdUsuario(), usuarioCancion.getIdCancion(), 
@@ -66,21 +66,21 @@ public class HttpUtils {
         return invocarServicioWeb(url, "POST", parametros);
     }
     
-     public static Response actualizarValoracion(UsuarioAgregaCancion usuarioCancion) {
+     public static Response actualizarValoracion(UsuarioAgregaCancionDAO usuarioCancion) {
         String url = "actualizarValoracion";
         String parametros = String.format("idUsuarioAgregaCancion=%s&valoracion=%s",
                 usuarioCancion.getIdUsuario(), usuarioCancion.getValoracion());
         return invocarServicioWeb(url, "POST", parametros);
     }
      
-      public static Response actualizarHistorial(Historial historial) {
+      public static Response actualizarHistorial(HistorialDAO historial) {
         String url = "actualizarHistorial";
         String parametros = String.format("idUsuario=%s&idCancion=%s",
                 historial.getIdUsuario(), historial.getIdCancion());
         return invocarServicioWeb(url, "POST", parametros);
     }
     
-    public static Response cambiarCalidadMusica(Usuario usuario) {
+    public static Response cambiarCalidadMusica(UsuarioDAO usuario) {
         String url = "actualizarCalidad";
         String parametros = String.format("nombreUsuario=%s&calidadDescarga=%s&calidadStream=%s",
                 usuario.getNombreUsuario(), usuario.getCalidadDescarga(), usuario.getCalidadStream());
@@ -92,12 +92,12 @@ public class HttpUtils {
         return invocarServicioWeb(url, "GET", null);
     }
      
-    public static Response recuperarUsuarioPorNombreUsuario(Usuario usuario) {
+    public static Response recuperarUsuarioPorNombreUsuario(UsuarioDAO usuario) {
         String url = "recuperarUsuarioPorNombre/" + usuario.getNombreUsuario();
         return invocarServicioWeb(url, "GET", null);
     }
   
-  public static Response recuperarUsuarioPorId(Usuario usuario) {
+  public static Response recuperarUsuarioPorId(UsuarioDAO usuario) {
         String url = "recuperarUsuarioPorId/" + usuario.getIdUsuario();
         return invocarServicioWeb(url, "GET", null);
     }
@@ -107,8 +107,8 @@ public class HttpUtils {
         return invocarServicioWeb(url, "GET", null);
     }
   
-    public static void subirAlbum(Album album, byte[] cancionByte) throws IOException, MalformedURLException {
-            String albumJSON = new Gson().toJson(album, Album.class);
+    public static void subirAlbum(AlbumDAO album, byte[] cancionByte) throws IOException, MalformedURLException {
+            String albumJSON = new Gson().toJson(album, AlbumDAO.class);
             String encodedJSON = URLEncoder.encode(albumJSON, "UTF-8");
             URLConnection connection = new URL(BASE_URL + "subirAlbum/" + encodedJSON).openConnection();
             connection.setDoOutput(true); // Triggers POST.
@@ -120,8 +120,8 @@ public class HttpUtils {
             InputStream response = connection.getInputStream();    
     }
     
-     public static void subirCancion(Cancion cancion, byte[] cancionByte) throws Exception {        
-            String cancionJSON = new Gson().toJson(cancion, Cancion.class);        
+     public static void subirCancion(CancionDAO cancion, byte[] cancionByte) throws Exception {        
+            String cancionJSON = new Gson().toJson(cancion, CancionDAO.class);        
             String encodedJSON = URLEncoder.encode(cancionJSON, "UTF-8");            
             URLConnection connection = new URL(BASE_URL + "subirCancion/" + encodedJSON).openConnection();            
             connection.setDoOutput(true); 

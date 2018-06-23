@@ -22,8 +22,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import modelo.pojos.TipoUsuario;
-import modelo.pojos.Usuario;
+import modelo.pojos.TipoUsuarioDAO;
+import modelo.pojos.UsuarioDAO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.collections.ObservableList;
@@ -53,7 +53,7 @@ public class LoginController extends Application {
     @FXML
     private JFXButton botonIniciar;
     @FXML
-    private JFXComboBox<TipoUsuario> tipoUsuarioCB;
+    private JFXComboBox<TipoUsuarioDAO> tipoUsuarioCB;
     @FXML
     private JFXTextField nombreTF;
     @FXML
@@ -168,7 +168,7 @@ public class LoginController extends Application {
      * Permite ingresar al sistema como usuario Artista o Consumidor
      */
     public void ingresarSistema() {
-        Usuario ingresado = new Usuario();
+        UsuarioDAO ingresado = new UsuarioDAO();
         Cifrado cifrado = new Cifrado();
         ingresado.setNombreUsuario(campoUsuario.getText());
         ingresado.setClave(cifrado.cifrarCadena(campoContrasenia.getText()));
@@ -176,8 +176,8 @@ public class LoginController extends Application {
         if (resws != null && !resws.isError() && resws.getResult() != null) {
             if (resws.getResult().contains("id")) {
                 try {
-                    Usuario validado = new Usuario();
-                    validado = new Gson().fromJson(resws.getResult(), Usuario.class);
+                    UsuarioDAO validado = new UsuarioDAO();
+                    validado = new Gson().fromJson(resws.getResult(), UsuarioDAO.class);
                     tipoUsuarioLog = validado.getTipoUsuario();
                     usuarioLog = validado.getIdUsuario();
                     switch (tipoUsuarioLog) {
@@ -263,7 +263,7 @@ public class LoginController extends Application {
         String anio = anioCB.getValue();
         if (validarFecha(dia, mes, anio)) {
             try {
-                Usuario usuario = new Usuario();
+                UsuarioDAO usuario = new UsuarioDAO();
                 usuario.setNombre(nombreTF.getText());
                 usuario.setApellidoPat(apellidoPatTF.getText());
                 usuario.setApellidoMat(apellidoMatTF.getText());
@@ -425,9 +425,9 @@ public class LoginController extends Application {
                 "Error", ButtonType.OK);
             dialogo.show();
         }
-        List<TipoUsuario> tipos = new Gson().fromJson(resws.getResult(), new TypeToken<List<TipoUsuario>>() {
+        List<TipoUsuarioDAO> tipos = new Gson().fromJson(resws.getResult(), new TypeToken<List<TipoUsuarioDAO>>() {
         }.getType());
-        ObservableList<TipoUsuario> tiposUsuario = FXCollections.observableArrayList(tipos);
+        ObservableList<TipoUsuarioDAO> tiposUsuario = FXCollections.observableArrayList(tipos);
         tipoUsuarioCB.setItems(tiposUsuario);
         tipoUsuarioCB.getSelectionModel().selectFirst();
     }

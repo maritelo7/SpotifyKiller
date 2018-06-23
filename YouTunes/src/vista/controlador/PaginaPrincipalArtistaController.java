@@ -15,7 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import modelo.pojos.Usuario;
+import modelo.pojos.UsuarioDAO;
 import vista.Dialogo;
 
 /**
@@ -33,7 +33,7 @@ public class PaginaPrincipalArtistaController implements Initializable {
     public JFXDrawer drawerPanel;
 
     private Dialogo dialogo;
-    static Usuario usuario;
+    static UsuarioDAO usuario;
     
     /**
      * Initializes the controller class.
@@ -105,12 +105,12 @@ public class PaginaPrincipalArtistaController implements Initializable {
      * Método para cargar la cuenta del usuario que se logueó
      * 
      */
-    public void setUsuario(Usuario validado) {
+    public void setUsuario(UsuarioDAO validado) {
         this.usuario = validado;        
         //System.out.println(usuario.getNombreUsuario());
     }
     
-    public static Usuario getUsuario () {
+    public static UsuarioDAO getUsuario () {
         return usuario;
     }
     

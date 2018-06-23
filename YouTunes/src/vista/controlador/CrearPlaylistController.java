@@ -11,7 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import modelo.HttpUtils;
 import modelo.Response;
-import modelo.pojos.ListaReproduccion;
+import modelo.pojos.ListaReproduccionDAO;
 import vista.Dialogo;
 
 /**
@@ -40,7 +40,7 @@ public class CrearPlaylistController implements Initializable {
     }    
     
     public void crearPlaylist(){
-        ListaReproduccion lista = new ListaReproduccion();
+        ListaReproduccionDAO lista = new ListaReproduccionDAO();
         lista.setDescripcion(textDescripcion.getText());
         lista.setNombreLista(fieldTitulo.getText());
         lista.setIdUsuario(PaginaPrincipalClienteController.getUsuario().getIdUsuario()); 

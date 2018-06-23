@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Mari
  */
-public class Historial {
+public class HistorialDAO {
     private int idUsuario;
     private int idCancion;
     private int id;

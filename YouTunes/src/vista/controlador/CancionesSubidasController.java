@@ -16,7 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import modelo.pojos.Cancion;
+import modelo.pojos.CancionDAO;
 
 /**
  * FXML Controller class
@@ -28,9 +28,9 @@ public class CancionesSubidasController implements Initializable {
     @FXML
     private Label misCanciones;
     @FXML
-    private JFXListView<Cancion> listaMisCanciones;
+    private JFXListView<CancionDAO> listaMisCanciones;
 
-    ObservableList<Cancion> items =FXCollections.observableArrayList();
+    ObservableList<CancionDAO> items =FXCollections.observableArrayList();
     
     /**
      * Initializes the controller class.
@@ -45,13 +45,13 @@ public class CancionesSubidasController implements Initializable {
         contextMenu.getItems().addAll(inicio, fin);  
         
         inicio.setOnAction((ActionEvent event) -> {
-            Cancion cancion = listaMisCanciones.getSelectionModel().getSelectedItem();
+            CancionDAO cancion = listaMisCanciones.getSelectionModel().getSelectedItem();
             System.out.println("SELECTED ITEM " + cancion);
             //enviar a cola
         });        
         
         fin.setOnAction((ActionEvent event) -> {
-            Cancion cancion = listaMisCanciones.getSelectionModel().getSelectedItem();
+            CancionDAO cancion = listaMisCanciones.getSelectionModel().getSelectedItem();
             System.out.println("SELECTED ITEM " + cancion);
             //enviar a cola
         });        
@@ -61,7 +61,7 @@ public class CancionesSubidasController implements Initializable {
     
     
      public void cargarCanciones(){     
-        Cancion cancion = new Cancion();
+        CancionDAO cancion = new CancionDAO();
         cancion.setTitulo("Eenie Meenie");
         cancion.setFormato(".mp3");
         cancion.setPath("Eenie Meenie.mp3");
@@ -69,7 +69,7 @@ public class CancionesSubidasController implements Initializable {
 //        cancion.setGenero("Pop");
         items.add(cancion);
         
-        cancion = new Cancion();
+        cancion = new CancionDAO();
         cancion.setTitulo("Warrior");
         cancion.setFormato(".mp3");
         cancion.setPath("Warrior.mp3");

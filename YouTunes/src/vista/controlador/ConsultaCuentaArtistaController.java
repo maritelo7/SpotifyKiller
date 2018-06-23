@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import modelo.HttpUtils;
 import modelo.Response;
-import modelo.pojos.Usuario;
+import modelo.pojos.UsuarioDAO;
 
 /**
  * FXML Controller class
@@ -34,7 +34,7 @@ public class ConsultaCuentaArtistaController implements Initializable {
     private JFXTextField fieldNombreArtistico;
     private Response resws;
 
-    Usuario usuario;
+    UsuarioDAO usuario;
 
     /**
      * Initializes the controller class.
@@ -45,11 +45,11 @@ public class ConsultaCuentaArtistaController implements Initializable {
     }
 
     private void recuperarInformacionArtista() {
-        Usuario artista = new Usuario();
+        UsuarioDAO artista = new UsuarioDAO();
         artista.setIdUsuario(LoginController.returnUsuario());
         resws = HttpUtils.recuperarUsuarioPorId(artista);
 
-        usuario = new Gson().fromJson(resws.getResult(), Usuario.class);
+        usuario = new Gson().fromJson(resws.getResult(), UsuarioDAO.class);
 
         fieldNombreUsuario.setText(usuario.getNombreUsuario());
         fieldFechaNacimiento.setText(usuario.getFechaNacimientoFormato());
