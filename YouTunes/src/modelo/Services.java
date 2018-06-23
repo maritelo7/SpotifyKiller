@@ -12,25 +12,53 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
+import modelo.mapeos.*;
 import modelo.pojos.*;
-
+import org.json.JSONObject;
+import java.util.List;
+import org.json.JSONObject;
+import javax.ws.rs.ClientErrorException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 /**
  *
  * @author Mari
  */
 public class Services {
-    private static final String BASE_URL ="http://localhost:8000/";
-    private static final Integer CONNECT_TIMEOUT = 4000; 
-    private static final Integer READ_TIMEOUT = 10000; 
-      
+    private static final String BASE_URL = "http://192.168.43.52:8000/";
     
-    // url = new URL("http://10.0.2.2:8080/HelloServlet/PDRS?param1="+lat+"&param2="+lon);
+    public List<Cancion> buscarCancion(String titulo) {
+        String metodo = "buscarCancion/" + titulo;
+        Client cliente = ClientBuilder.newClient();
+        WebTarget webTarget = cliente.target(BASE_URL + metodo);      
+        List<Cancion> lista = webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<Cancion>>(){});    
+        JSONObject json = new JSONObject(lista.get(0));
+        System.out.println(json);
+        return lista;
+    }
     
-    public static Response subirCancion(CancionDAO cancion) {
-        //donde se convierte a JSON la cancion, se pasa a la URL ya convertida
-        //se tiene que enviar tambien el audio aunque en que formato??
-        String url = "guardarCancion/" + cancion;
-        return invocarServicioWeb(url, "POST", null);
+      public List<Cancion> buscarCancionesDeLista(int idLista) {
+        String metodo = "buscarCancionesLista/" + idLista;
+        Client cliente = ClientBuilder.newClient();
+        WebTarget webTarget = cliente.target(BASE_URL + metodo);      
+        List<Cancion> lista = webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<Cancion>>(){});    
+        JSONObject json = new JSONObject(lista.get(0));
+        System.out.println(json);
+        return lista;
+    }
+    
+  
+    public List<ListaReproduccion> buscarListasUsuario(String titulo) {
+        String metodo = "buscarCancion/" + titulo;
+        Client cliente = ClientBuilder.newClient();
+        WebTarget webTarget = cliente.target(BASE_URL + metodo);      
+        List<ListaReproduccion> lista = webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<ListaReproduccion>>(){});    
+        JSONObject json = new JSONObject(lista.get(0));
+        System.out.println(json);
+        return lista;
     }
     
      public static Response buscarCancion(String titulo, int calidad) {
