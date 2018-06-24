@@ -16,7 +16,10 @@ public class UsuarioAgregaCancion {
     private Cancion idCancion;
     private ListaReproduccion idListaReproduccion;
     private Usuario idUsuario;
-
+    private Cancion cancion;
+    private ListaReproduccion listaReproduccion;
+    private Usuario usuario;
+    
     public Integer getId() {
         return id;
     }
@@ -55,5 +58,29 @@ public class UsuarioAgregaCancion {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public Cancion getCancion() {
+        return cancion;
+    }
+
+    public void setCancion(Cancion cancion) {
+        this.cancion = cancion;
+    }
+
+    public ListaReproduccion getListaReproduccion() {
+        return listaReproduccion;
+    }
+
+    public void setListaReproduccion(ListaReproduccion listaReproduccion) {
+        this.listaReproduccion = listaReproduccion;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

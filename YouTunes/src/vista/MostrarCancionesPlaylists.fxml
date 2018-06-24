@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.MostrarCancionesPlaylistsController">
+   <children>
+      <ListView fx:id="listCancionesPlaylist" layoutX="38.0" layoutY="109.0" onMouseClicked="#handle" prefHeight="402.0" prefWidth="565.0" styleClass="fondo" />
+      <Label fx:id="labelTitulo" alignment="CENTER" layoutY="8.0" prefHeight="18.0" prefWidth="640.0" text="Label" />
+      <JFXTextArea fx:id="textDescripcion" layoutX="57.0" layoutY="25.0" prefHeight="62.0" prefWidth="533.0" style="-fx-text-fill: white;" />
+   </children>
+</AnchorPane>

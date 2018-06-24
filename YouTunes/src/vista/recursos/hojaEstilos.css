@@ -106,6 +106,33 @@ and open the template in the editor.
     -jfx-focus-color: #FFFFFF ;
 }
 
+.table-view {
+    -fx-base:  #093b49;
+    -fx-control-inner-background:  #093b49;
+    -fx-background-color: #093b49;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+}
+
+.table-view .column-header .label {    
+    -fx-text-fill: white;
+}
+
+
+
 
 
 

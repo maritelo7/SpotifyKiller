@@ -87,7 +87,7 @@ public class SubirCancionesController implements Initializable {
             comboCalidad.setVisible(false);
             usuario = PaginaPrincipalClienteController.getUsuario();
         } else {
-            usuario = PaginaPrincipalArtistaController.getUsuario();
+            //usuario = PaginaPrincipalArtistaController.getUsuario();
         }
     }
 
@@ -123,9 +123,12 @@ public class SubirCancionesController implements Initializable {
                 if (comboCalidad.getValue() == "Alta");
                 cancion.setCalidad(3);
                 cancion.setIdAlbum(CrearAlbumController.returnIdAlbum());
+                cancion.setIdGenero(comboGenero.getValue().getIdGenero());
+            } else {
+                //cancion.setCalidad(3);
+                cancion.setIdAlbum(3);
+                cancion.setIdGenero(33);                
             }
-
-            cancion.setIdGenero(comboGenero.getValue().getIdGenero());
             cancion.setIdUsuarioSubioCancion(usuario.getIdUsuario());
             cancion.setTitulo(fieldTitulo.getText());
             cancion.setPath(path);
@@ -167,9 +170,8 @@ public class SubirCancionesController implements Initializable {
                 dialogo = new Dialogo(Alert.AlertType.INFORMATION,
                     "¡Las canciones se subieron exitosamente!", "Éxito", ButtonType.OK);
                 dialogo.show();
-            } catch (FileNotFoundException ex) {
-            } catch (IOException ex) {
             } catch (Exception ex) {
+                ex.printStackTrace();
             } finally {
                 try {
                     input.close();
