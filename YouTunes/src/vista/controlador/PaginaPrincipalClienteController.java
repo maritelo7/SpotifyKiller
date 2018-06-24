@@ -7,17 +7,24 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import modelo.Services;
+import modelo.mapeos.Cancion;
+import modelo.mapeos.ListaReproduccion;
 import modelo.pojos.CancionDAO;
 import modelo.pojos.UsuarioDAO;
 import vista.Dialogo;
@@ -50,7 +57,7 @@ public class PaginaPrincipalClienteController implements Initializable {
     @FXML
     private TitledPane buttonMiMusica;
     @FXML
-    private static JFXTextField fieldCanciones;
+    private JFXTextField fieldCanciones;
     @FXML
     private JFXButton buttonBuscar;
     static ColaReproduccionController controllerCola;
@@ -59,23 +66,28 @@ public class PaginaPrincipalClienteController implements Initializable {
     @FXML
     private JFXButton buttonCrearPlaylist;
     @FXML
-    private JFXListView<?> listPlaylists;
+    private JFXListView<ListaReproduccion> listPlaylists;
     @FXML
     private JFXButton buttonMisCanciones;
     @FXML
     private JFXButton buttonHistorial;
+    @FXML
+    private TitledPane titledPanePlaylists;
+    @FXML
+    private Label labelMostrar;
     
     private Dialogo dialogo;
     static UsuarioDAO usuario;
     static ReproductorController controllerReproductor;  
     static String cancionBuscada;
+    static ListaReproduccion listaSeleccionada;
+
 
     /**
      * Initializes the controllerReproductor class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Reproductor.fxml"));
             AnchorPane panel = loader.load();
@@ -86,6 +98,8 @@ public class PaginaPrincipalClienteController implements Initializable {
             panel = loader.load();
             controllerCola = loader.getController();
             drawerCola.setSidePane(panel);
+            
+            
         } catch (IOException ex) {
             dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
@@ -105,6 +119,8 @@ public class PaginaPrincipalClienteController implements Initializable {
                 .getResource("/vista/ConsultaCuentaCliente.fxml"));
             pane.setPrefWidth(550);
             pane.setContent(consultaCliente);
+            drawerCola.close();
+            drawerReproductor.close();
         } catch (IOException ex) {
             dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
@@ -123,6 +139,8 @@ public class PaginaPrincipalClienteController implements Initializable {
                 .getResource("/vista/CancionesSubidas.fxml"));
             pane.setPrefWidth(550);
             pane.setContent(cancionesSubidas);
+            drawerCola.close();
+            drawerReproductor.close();
         } catch (IOException ex) {
             dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
@@ -141,6 +159,8 @@ public class PaginaPrincipalClienteController implements Initializable {
                 .getResource("/vista/CrearPlaylist.fxml"));
             pane.setPrefWidth(550);
             pane.setContent(consultaCliente);
+            drawerCola.close();
+            drawerReproductor.close();
         } catch (IOException ex) {
             dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
@@ -153,17 +173,23 @@ public class PaginaPrincipalClienteController implements Initializable {
      */
     @FXML
     public void abrirFiltroCanciones() {
-        cancionBuscada = fieldCanciones.getText();
+       cancionBuscada = fieldCanciones.getText();
         try {
             AnchorPane consultaCanciones = FXMLLoader.load(getClass()
                 .getResource("/vista/BuscarCanciones.fxml"));
             pane.setPrefWidth(550);
             pane.setContent(consultaCanciones);
+            drawerCola.close();
+            drawerReproductor.close();
+            fieldCanciones.setText("");
         } catch (IOException ex) {
+            ex.printStackTrace();
             dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
             dialogo.show();
         }
+       
+       
     }
 
     /**
@@ -176,12 +202,14 @@ public class PaginaPrincipalClienteController implements Initializable {
                 .getResource("/vista/SubirCanciones.fxml"));
             pane.setPrefWidth(550);
             pane.setContent(consultaCliente);
-
+            drawerCola.close();
+            drawerReproductor.close();
         } catch (IOException ioEx) {
             dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
             dialogo.show();
         }
+     
     }
     
     /**
@@ -195,6 +223,8 @@ public class PaginaPrincipalClienteController implements Initializable {
                 .getResource("/vista/HistorialReproduccion.fxml"));
             pane.setPrefWidth(550);
             pane.setContent(consultaCanciones);
+            drawerCola.close();
+            drawerReproductor.close();
         } catch (IOException ex) {
             dialogo = new Dialogo(Alert.AlertType.ERROR,
                 "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
@@ -246,8 +276,47 @@ public class PaginaPrincipalClienteController implements Initializable {
         } catch (IOException ex) {
         }
     }
+    
+    @FXML
+    public boolean cargarPlaylists(){        
+       List<ListaReproduccion> listasRecuperadas = Services.buscarListasUsuario(usuario.getIdUsuario());
+       ObservableList<ListaReproduccion> playlists = FXCollections.observableArrayList();
+       //MOSTRAR LISTAS RECUPERADAS EN COMBO BOX
+       if (!listasRecuperadas.isEmpty()) {    
+      
+        for (int i = 0; i < listasRecuperadas.size(); i++) {
+            playlists.add(listasRecuperadas.get(i));
+        }   
+        listPlaylists.setItems(playlists);
+               
+       return true;        
+       }       
+       return false;      
+        
+    }
+    
+    @FXML
+    public void cargarCancionesPlaylist(){      
+        if (!listPlaylists.getSelectionModel().isEmpty()){
+            listaSeleccionada = listPlaylists.getSelectionModel().getSelectedItem(); 
+            System.out.println(listaSeleccionada.getId());
+          try {
+            AnchorPane consultaCanciones = FXMLLoader.load(getClass()
+                    .getResource("/vista/MostrarCancionesPlaylists.fxml"));
+            pane.setPrefWidth(550);
+            pane.setContent(consultaCanciones);
+            drawerCola.close();
+            drawerReproductor.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+            dialogo.show();
+        } 
+        }  
+    }
 
-    public static void cargarCancion(CancionDAO cancion) {
+    public static void cargarCancion(Cancion cancion) {
         controllerReproductor.cargarCancion(cancion);
     }
 
@@ -255,20 +324,29 @@ public class PaginaPrincipalClienteController implements Initializable {
         controllerCola.siguienteCancion();
     }
 
-    public static void agregarCancionFinalCola(CancionDAO cancion) {
+    public static void agregarCancionFinalCola(Cancion cancion) {
         controllerCola.agregarCancionFinal(cancion);
     }
 
-    public static void agregarCancionPrincipioCola(CancionDAO cancion) {
+    public static void agregarCancionPrincipioCola(Cancion cancion) {
         controllerCola.agregarCancionPrincipio(cancion);
     }
+    
+    public static void generarRadio(List<Cancion> canciones) {
+        controllerCola.generarRadio(canciones);
+    }
 
-    public static String returnBusquedaCancion() {
+    public String returnBusquedaCancion() {
         String nombreCancion = fieldCanciones.getText();
         return nombreCancion;
     }
 
-    public static void stopReproduccion() {
+    public static ListaReproduccion getPLaylistSeleccionada() {
+        System.out.println("desde el get: " + listaSeleccionada.getId());
+       return listaSeleccionada;
+    }
+    
+      public static void stopReproduccion() {
         controllerReproductor.stopMusic();
     }
 

@@ -17,6 +17,7 @@ public class ListaReproduccion {
     private String descripcion;
     private Usuario idUsuario;
     private List<UsuarioAgregaCancion> usuarioAgregaCancionList;
+    private Usuario usuario;
 
     public Integer getId() {
         return id;
@@ -56,5 +57,9 @@ public class ListaReproduccion {
 
     public void setUsuarioAgregaCancionList(List<UsuarioAgregaCancion> usuarioAgregaCancionList) {
         this.usuarioAgregaCancionList = usuarioAgregaCancionList;
+    }
+    
+    public String toString(){
+        return nombreLista;
     }
 }

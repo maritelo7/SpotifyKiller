@@ -20,6 +20,7 @@ public class Album {
     private String companiaDiscografica;
     private Usuario idUsuario;
     private List<Cancion> cancionList;
+    private Usuario usuario;
 
     public Integer getId() {
         return id;
@@ -75,6 +76,14 @@ public class Album {
 
     public void setCancionList(List<Cancion> cancionList) {
         this.cancionList = cancionList;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
 }

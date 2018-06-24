@@ -24,6 +24,10 @@ public class Cancion {
     private Album idAlbum;
     private Genero idGenero;
     private Usuario idUsuarioSubioCancion;
+    private Genero genero;
+    private Usuario usuarioSubioCancion;
+    private Album album;
+    private Usuario usuario;
 
     public Integer getId() {
         return id;
@@ -111,5 +115,41 @@ public class Cancion {
 
     public void setIdUsuarioSubioCancion(Usuario idUsuarioSubioCancion) {
         this.idUsuarioSubioCancion = idUsuarioSubioCancion;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public Usuario getUsuarioSubioCancion() {
+        return usuarioSubioCancion;
+    }
+
+    public void setUsuarioSubioCancion(Usuario usuarioSubioCancion) {
+        this.usuarioSubioCancion = usuarioSubioCancion;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String toString(){
+        return titulo;
     }
 }

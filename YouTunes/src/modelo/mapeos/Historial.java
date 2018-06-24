@@ -13,9 +13,13 @@ import java.util.Date;
  */
 public class Historial {
     private Integer id;
-    private Date fecha;
+    //private Date fecha;
     private Cancion idCancion;
     private Usuario idUsuario;
+    private Cancion cancion;
+    private Usuario usuario;
+    private String fecha;
+    
 
     public Integer getId() {
         return id;
@@ -25,11 +29,11 @@ public class Historial {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -47,5 +51,21 @@ public class Historial {
 
     public void setIdUsuario(Usuario idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public Cancion getCancion() {
+        return cancion;
+    }
+
+    public void setCancion(Cancion cancion) {
+        this.cancion = cancion;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

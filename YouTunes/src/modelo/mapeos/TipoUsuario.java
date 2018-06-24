@@ -15,6 +15,7 @@ public class TipoUsuario {
     private String tipoUsuario;
     private Integer id;
     private List<Usuario> usuarioList;
+    
 
     public String getTipoUsuario() {
         return tipoUsuario;

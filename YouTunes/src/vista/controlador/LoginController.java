@@ -145,6 +145,7 @@ public class LoginController extends Application {
                 nombreArtisticoTF.setVisible(true);
             } else {
                 nombreArtisticoTF.setVisible(false);
+                nombreArtisticoTF.setText("Desconocido");
             }
         } catch (NullPointerException ex) {
         }

@@ -1,19 +1,28 @@
 package vista.controlador;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXProgressBar;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,7 +30,10 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import modelo.HttpUtils;
 import modelo.Services;
+import modelo.mapeos.Cancion;
+import modelo.mapeos.ListaReproduccion;
 import modelo.pojos.CancionDAO;
 import vista.Dialogo;
 
@@ -59,10 +71,14 @@ public class ReproductorController extends Application {
     static Thread taskThread;
     final int FIN = 100;
     double progresoCancion = 0;
-    CancionDAO cancion;
+    Cancion cancion;
     File archivoAudio;
     Image image;
     boolean primeraVez = true;
+    @FXML
+    private JFXButton buttonOpciones;
+    @FXML
+    private JFXComboBox<Integer> comboBox;    
 
     @Override
     public void start(Stage stage) {
@@ -74,14 +90,13 @@ public class ReproductorController extends Application {
             stage.show();
         } catch (IOException ex) {
             dialogo = new Dialogo(Alert.AlertType.ERROR,
-                "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+                    "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
             dialogo.show();
         }
     }
 
-    public void cargarCancion(CancionDAO cancion) {
-        Services.recuperarCancion(cancion.getIdCancion());
-        this.cancion = cancion;        
+    public void cargarCancion(Cancion cancion) {
+        this.cancion = cancion;
         playNewSong();
     }
 
@@ -89,6 +104,7 @@ public class ReproductorController extends Application {
         buttonPlay.setDisable(false);
         buttonNext.setDisable(false);
         buttonStop.setDisable(false);
+        buttonOpciones.setDisable(false);
         progresoCancion = 100;
         progressBarAudio.progressProperty().unbind();
         progressBarAudio.setProgress(0);
@@ -96,20 +112,39 @@ public class ReproductorController extends Application {
             mediaPlayer.dispose();
             taskThread.interrupt();
         }
-        archivoAudio = new File(cancion.getPath());
-        String bin = archivoAudio.getAbsolutePath();
-        hit = new Media(new File(bin).toURI().toString());
-        mediaPlayer = new MediaPlayer(hit);
-        mediaPlayer.play();
-        labelTitulo.setText(cancion.getTitulo());
-        labelArtista.setText("Artista");
-        labelAlbum.setText("Album");
 
-//        image = new Image("file:" + fotoPortada.getAbsolutePath());
-//        portada.setImage(image);
-        creaProgressBar();
-        playing = true;
-        primeraVez = false;
+        try{
+            String bin = Services.recuperarAudio(cancion.getId(), cancion.getPath());
+            System.out.println(cancion.getPath());
+            hit = new Media(new File(bin).toURI().toString());
+            mediaPlayer = new MediaPlayer(hit);
+            mediaPlayer.play();
+            creaProgressBar();
+            playing = true;
+            primeraVez = false;
+   
+        }catch (Exception e) {                
+            System.out.println("ERROR AL REPRODUCIR LA CANCIÓN");   
+        }     
+               
+        labelTitulo.setText(cancion.getTitulo());
+        try{
+        if (!cancion.getColaboradores().equals("") && cancion.getColaboradores()!=null){
+           labelArtista.setText(cancion.getUsuario().getNombreArtistico() + " feat. " + cancion.getColaboradores());
+        }
+        } catch (NullPointerException e){    
+            labelArtista.setText(cancion.getUsuario().getNombreArtistico());
+        }
+        labelAlbum.setText(" - Album: "  + cancion.getAlbum().getTitulo());
+        try {
+            BufferedImage bufferedImage = Services.recuperarImagen(cancion.getAlbum().getId());
+            Image imagen = SwingFXUtils.toFXImage(bufferedImage, null);
+            portada.setImage(imagen);
+        } catch (IOException ex) {
+            System.out.println("ERROR AL OBTENER PORTADA DE ALBUM");
+            Logger.getLogger(ReproductorController.class.getName()).log(Level.SEVERE, null, ex);
+        }               
+      
     }
 
     @FXML
@@ -167,7 +202,7 @@ public class ReproductorController extends Application {
                         updateProgress(progresoCancion, FIN);
                     } catch (Exception ex) {
                         dialogo = new Dialogo(Alert.AlertType.ERROR,
-                            "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+                                "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
                         dialogo.show();
                     }
                 } while (progresoCancion < FIN);
@@ -175,6 +210,36 @@ public class ReproductorController extends Application {
                 return null;
             }
         };
+    }
+
+    @FXML
+    public void cargarMenuContextual() {
+        final ContextMenu contextMenu = new ContextMenu();
+        MenuItem calificar = new MenuItem("Calificar esta canción");
+        MenuItem radio = new MenuItem("Crear radio personalizada a partir de está canción");
+        contextMenu.getItems().addAll(radio);
+
+        calificar.setOnAction((ActionEvent event) -> {
+            ObservableList<Integer> calif = FXCollections.observableArrayList(1,2,3,4,5);
+            comboBox.setItems(calif);
+            comboBox.setVisible(true);
+        });
+
+        radio.setOnAction((ActionEvent event) -> {
+           List<Cancion> canciones =Services.buscarCancionGenero(cancion.getGenero().getId());
+            if (!canciones.isEmpty()){
+                PaginaPrincipalClienteController.generarRadio(canciones);
+            } else {
+                System.out.println("NO SE PUDO GENERAR RADIO, NO HAY MÁS CANCIONES DE ESTE GÉNERO REGISTRADAS");
+            }
+        });
+
+        buttonOpciones.setContextMenu(contextMenu);
+    }
+    
+    @FXML
+    public void calificarCancion(){
+//        HttpUtils.actualizarValoracion(usuarioCancion)comboBox.getValue();
     }
 
 }

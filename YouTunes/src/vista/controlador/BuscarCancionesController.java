@@ -9,13 +9,18 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import modelo.HttpUtils;
 import modelo.Response;
 import modelo.Services;
+import modelo.mapeos.Cancion;
+import modelo.mapeos.ListaReproduccion;
 import modelo.pojos.CancionDAO;
 import modelo.pojos.ListaReproduccionDAO;
 import modelo.pojos.UsuarioDAO;
@@ -30,11 +35,11 @@ public class BuscarCancionesController implements Initializable {
     
 
     @FXML
-    private JFXListView<CancionDAO> listaCanciones;
+    private JFXListView<Cancion> listaCanciones;
     @FXML
-    private JFXComboBox<ListaReproduccionDAO> comboBox;    
-    ObservableList<CancionDAO> items =FXCollections.observableArrayList(); 
-    ObservableList<ListaReproduccionDAO> playlists = FXCollections.observableArrayList();
+    private JFXComboBox<ListaReproduccion> comboBox;    
+    ObservableList<Cancion> items =FXCollections.observableArrayList(); 
+    ObservableList<ListaReproduccion> playlists = FXCollections.observableArrayList();
     String cancionBuscada;
     UsuarioDAO usuario;
     
@@ -45,60 +50,43 @@ public class BuscarCancionesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         cancionBuscada = PaginaPrincipalClienteController.getCancionBuscada();
         usuario = PaginaPrincipalClienteController.getUsuario();
+        System.out.println("cancion: " + cancionBuscada);
         
-        
-        if (cancionBuscada != null) {
-            Services.buscarCancion(cancionBuscada, usuario.getCalidadStream());
-            //MOSTRAR CANCIONES RECUPERADAS EN LISTA 
+        if (cancionBuscada != null && !cancionBuscada.equals("")) {
+            List<Cancion> resultados = Services.buscarCancion(cancionBuscada);
             
-            cargarCanciones();
-            cargarPlaylists();
-
-            final ContextMenu contextMenu = new ContextMenu();
-            MenuItem inicio = new MenuItem("Agregar al inicio de la cola de reproducción");
-            MenuItem fin = new MenuItem("Agregar al final de la cola de reproducción");
-            MenuItem playlist = new MenuItem("Agregar a playlist");
-            contextMenu.getItems().addAll(inicio, fin, playlist);
-
-            inicio.setOnAction((ActionEvent event) -> {
-                CancionDAO cancion = listaCanciones.getSelectionModel().getSelectedItem();
-                System.out.println("SELECTED ITEM " + cancion);
-                PaginaPrincipalClienteController.agregarCancionPrincipioCola(cancion);
-                //enviar a cola
-            });
-
-            fin.setOnAction((ActionEvent event) -> {
-                CancionDAO cancion = listaCanciones.getSelectionModel().getSelectedItem();
-                System.out.println("SELECTED ITEM " + cancion);
-                PaginaPrincipalClienteController.agregarCancionFinalCola(cancion);
-                //enviar a cola
-            });
-
-            playlist.setOnAction((ActionEvent event) -> {
-                CancionDAO cancion = listaCanciones.getSelectionModel().getSelectedItem();
-                System.out.println("SELECTED ITEM " + cancion);
-                comboBox.setVisible(true);
-                listaCanciones.setVisible(false);
-            });
-
-            listaCanciones.setContextMenu(contextMenu);
+            if (!resultados.isEmpty()){  
+            for (int i = 0; i < resultados.size(); i++) {
+                if (resultados.get(i).getAlbum().getId() != 3)
+                    items.add(resultados.get(i));
+            }           
+           
+            menuContextual();
+                       
             
-            
+            } else {
+                 System.out.println("¡Lo sentimos! No encontramos ninguna coincidencia."); 
+            }    
             
         } else {
-            CancionDAO cancion = new CancionDAO();
-            cancion.setTitulo("¡Lo sentimos! No hay coincidencias para esa búsqueda.");        
-            items.add(cancion);
-            listaCanciones.setItems(items);
+            System.out.println("POR FAVOR INGRESE ALGO PARA BUSCAR");      
         }
+        
+         listaCanciones.setItems(items);
     }
     
     
     @FXML
-    public void reproduceCancion(){        
-        System.out.println("SELECCIONAR CANCION");
-        PaginaPrincipalClienteController.cargarCancion(listaCanciones.getSelectionModel().getSelectedItem());       
+    public void handle(MouseEvent me) {
+        if (me.getButton().equals(MouseButton.PRIMARY)) {
+            if (!items.isEmpty()) {
+                PaginaPrincipalClienteController.cargarCancion(listaCanciones.getSelectionModel().getSelectedItem());
+            }
+        }
     }
+        
+
+        
     
     
      @FXML
@@ -106,13 +94,13 @@ public class BuscarCancionesController implements Initializable {
         comboBox.setItems(playlists);
         System.out.println(listaCanciones.getSelectionModel().getSelectedItem());
         System.out.println(comboBox.getValue());
-        CancionDAO cancion = listaCanciones.getSelectionModel().getSelectedItem();
-        ListaReproduccionDAO lista = comboBox.getValue();
+        Cancion cancion = listaCanciones.getSelectionModel().getSelectedItem();
+        ListaReproduccion lista = comboBox.getValue();
         
         UsuarioAgregaCancionDAO usuarioCancion= new UsuarioAgregaCancionDAO();
         usuarioCancion.setIdUsuario(usuario.getIdUsuario());
-        usuarioCancion.setIdCancion(cancion.getIdCancion());
-        usuarioCancion.setIdListaReproduccion(lista.getIdListaReproduccion());        
+        usuarioCancion.setIdCancion(cancion.getId());
+        usuarioCancion.setIdListaReproduccion(lista.getId());        
         
         Response res = HttpUtils.agregarCancionPlaylist(usuarioCancion);
         if (res.getStatus()==200 || res.getStatus() == 201){
@@ -125,49 +113,56 @@ public class BuscarCancionesController implements Initializable {
         listaCanciones.setVisible(true);
     }
     
-    public void cargarPlaylists(){
-       Services.recuperarListasReproduccion(usuario.getIdUsuario());
-       //MOSTRAR LISTAS RECUPERADAS EN COMBO BOX
-        
-       List<ListaReproduccionDAO> listaRecuperada = new ArrayList();
-       ListaReproduccionDAO e = new ListaReproduccionDAO();
-       e.setNombreLista("Uno");
-       listaRecuperada.add(e);
-       e = new ListaReproduccionDAO();
-       e.setNombreLista("Dos");
-       listaRecuperada.add(e);
+    public boolean cargarPlaylists(){
+       List<ListaReproduccion> listasRecuperadas = Services.buscarListasUsuario(usuario.getIdUsuario());
        
+       //MOSTRAR LISTAS RECUPERADAS EN COMBO BOX
+       if (!listasRecuperadas.isEmpty()) {    
       
-        for (int i = 0; i < listaRecuperada.size(); i++) {
-            playlists.add(listaRecuperada.get(i));
+        for (int i = 0; i < listasRecuperadas.size(); i++) {
+            playlists.add(listasRecuperadas.get(i));
         }   
         comboBox.setItems(playlists);
-      
+       return true;
+        
+       }
+       
+       return false;      
         
     }
     
-   
-    
-     public void cargarCanciones(){     
-        CancionDAO cancion = new CancionDAO();
-        cancion.setTitulo("Eenie Meenie");
-        cancion.setFormato(".mp3");
-        cancion.setPath("Eenie Meenie.mp3");
-//        cancion.setNombreArtista("Justin Bieber");
-//        cancion.setGenero("Pop");
-        items.add(cancion);
-        
-        cancion = new CancionDAO();
-        cancion.setTitulo("Warrior");
-        cancion.setFormato(".mp3");
-        cancion.setPath("Warrior.mp3");
-//        cancion.setNombreArtista("Demi Lovato");
-//        cancion.setGenero("Pop");
-        items.add(cancion);
-        
-        listaCanciones.setItems(items);
+    public void menuContextual(){
+         final ContextMenu contextMenu = new ContextMenu();
+            MenuItem inicio = new MenuItem("Agregar al inicio de la cola de reproducción");
+            MenuItem fin = new MenuItem("Agregar al final de la cola de reproducción");
+            MenuItem playlist = new MenuItem("Agregar a playlist");
+            contextMenu.getItems().addAll(inicio, fin, playlist);
+
+            inicio.setOnAction((ActionEvent event) -> {
+                Cancion cancion = listaCanciones.getSelectionModel().getSelectedItem();
+                PaginaPrincipalClienteController.agregarCancionPrincipioCola(cancion);
+                //enviar a cola
+            });
+
+            fin.setOnAction((ActionEvent event) -> {
+                Cancion cancion = listaCanciones.getSelectionModel().getSelectedItem();
+                PaginaPrincipalClienteController.agregarCancionFinalCola(cancion);
+                //enviar a cola
+            });
+
+            playlist.setOnAction((ActionEvent event) -> {
+                Cancion cancion = listaCanciones.getSelectionModel().getSelectedItem();
+                if (cargarPlaylists()){
+                    comboBox.setVisible(true);
+                    listaCanciones.setVisible(false);
+                } else {
+                    System.out.println("NO HAY LISTAS DE REPRODUCCIÓN CREADAS");
+                }
+            });
+
+            listaCanciones.setContextMenu(contextMenu);
     }
     
-    
+       
     
 }

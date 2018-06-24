@@ -9,7 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.ReproductorController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.ReproductorController">
    <children>
       <JFXButton id="buttonStop" fx:id="buttonStop" disable="true" layoutX="150.0" layoutY="470.0" onAction="#stopMusic" prefHeight="50.0" prefWidth="20.0" style="-fx-background-color: transparent;" stylesheets="@recursos/hojaEstilos.css" text=" ">
          <graphic>
@@ -33,14 +33,11 @@
          </graphic>
       </JFXButton>
       <JFXProgressBar fx:id="progressBarAudio" layoutX="121.0" layoutY="455.0" prefHeight="5.0" prefWidth="400.0" styleClass="bar" stylesheets="@recursos/hojaEstilos.css" />
-      <ImageView fx:id="portada" fitHeight="400.0" fitWidth="400.0" layoutX="121.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@recursos/nirvana.jpg" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="portada" fitHeight="350.0" fitWidth="350.0" layoutX="145.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="labelTitulo" alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="1.0" layoutY="388.0" prefHeight="20.0" prefWidth="315.0" textAlignment="CENTER" />
       <Label fx:id="labelArtista" alignment="CENTER" contentDisplay="CENTER" layoutX="1.0" layoutY="410.0" prefHeight="20.0" prefWidth="640.0" textAlignment="CENTER" />
       <Label fx:id="labelAlbum" contentDisplay="CENTER" layoutX="329.0" layoutY="388.0" prefHeight="20.0" prefWidth="310.0" style="-fx-font-size: 12;" textAlignment="CENTER" />
       <Label fx:id="labelDuracion" layoutX="530.0" layoutY="447.0" prefHeight="20.0" prefWidth="107.0" />
+      <JFXButton fx:id="buttonOpciones" layoutX="488.0" layoutY="417.0" onAction="#cargarMenuContextual" style="-fx-background-color: #093b49; -fx-text-fill: white;" text="..." />
    </children>
 </AnchorPane>

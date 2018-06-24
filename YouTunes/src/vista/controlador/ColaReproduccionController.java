@@ -7,6 +7,7 @@ package vista.controlador;
 
 import com.jfoenix.controls.JFXListView;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import modelo.mapeos.Cancion;
 import modelo.pojos.CancionDAO;
 
 /**
@@ -26,32 +28,41 @@ import modelo.pojos.CancionDAO;
 public class ColaReproduccionController implements Initializable {
 
     @FXML
-    private JFXListView<CancionDAO> listaCanciones;
+    private JFXListView<Cancion> listaCanciones;
     
-    ObservableList<CancionDAO> items =FXCollections.observableArrayList(); 
+    ObservableList<Cancion> items =FXCollections.observableArrayList(); 
          
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        cargarCanciones();                
+    public void initialize(URL url, ResourceBundle rb) {                       
     }    
     
     @FXML
     public void reproduceCancion(){        
-        System.out.println("SELECCIONAR CANCION");
-        PaginaPrincipalClienteController.cargarCancion(listaCanciones.getSelectionModel().getSelectedItem()); 
-        items.remove(listaCanciones.getSelectionModel().getSelectedItem());
-        listaCanciones.setItems(items);
+        if (listaCanciones.getSelectionModel().getSelectedItem()!=null){
+          PaginaPrincipalClienteController.cargarCancion(listaCanciones.getSelectionModel().getSelectedItem()); 
+            items.remove(listaCanciones.getSelectionModel().getSelectedItem());
+            listaCanciones.setItems(items);
+        }
     }
     
-    public void agregarCancionPrincipio (CancionDAO cancionAgregada){
+    public void agregarCancionPrincipio (Cancion cancionAgregada){
         items.add(0, cancionAgregada);
         listaCanciones.setItems(items);
     }
     
-      public void agregarCancionFinal (CancionDAO cancionAgregada){
+     public void generarRadio (List<Cancion> canciones){
+        items.clear();
+        listaCanciones.setItems(items);
+        canciones.forEach((cancione) -> {
+            items.add(cancione);
+        }); 
+        listaCanciones.setItems(items);
+    }
+    
+      public void agregarCancionFinal (Cancion cancionAgregada){
         items.add(cancionAgregada);
         listaCanciones.setItems(items);
     }
@@ -63,26 +74,6 @@ public class ColaReproduccionController implements Initializable {
             listaCanciones.setItems(items);
         }
       }
-    
-    public void cargarCanciones(){     
-        CancionDAO cancion = new CancionDAO();
-        cancion.setTitulo("Eenie Meenie");
-        cancion.setFormato(".mp3");
-        cancion.setPath("Eenie Meenie.mp3");
-//        cancion.setNombreArtista("Justin Bieber");
-//        cancion.setGenero("Pop");
-        items.add(cancion);
-        
-        cancion = new CancionDAO();
-        cancion.setTitulo("Warrior");
-        cancion.setFormato(".mp3");
-        cancion.setPath("Warrior.mp3");
-//        cancion.setNombreArtista("Demi Lovato");
-//        cancion.setGenero("Pop");
-        items.add(cancion);
-        
-        listaCanciones.setItems(items);
-    }
     
     
     

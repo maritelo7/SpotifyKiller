@@ -257,14 +257,14 @@ public class Catalog {
     public Mensaje subirImagen(@PathParam("album") String album, byte[] bytes) throws UnsupportedEncodingException{
         Mensaje res = new Mensaje();        
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String PATH = "C:\\Users\\Mari\\Desktop\\Canciones\\" + 
-            URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".jpg";         
+        String nombre = URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".jpg"; 
+        String path = "/home/maritello/Escritorio/images/" + nombre;                    
         String albumDecoded = URLDecoder.decode(album, "UTF-8");
         Album albumRecibido = new Gson().fromJson(albumDecoded, Album.class);
         try{
             if(bytes!=null){
     
-                if(guardarImagen(PATH, bytes, albumRecibido)){
+                if(guardarImagen(nombre, path, bytes, albumRecibido)){
                     res.setMensaje("Foto guardada correctamente...");
                 }else{
                     res.setError(true);
@@ -282,7 +282,7 @@ public class Catalog {
         return res;
     }
 
-    private boolean guardarImagen(String nombre, byte[] bytes, Album album){
+    private boolean guardarImagen(String nombre, String path, byte[] bytes, Album album){
         InputStream in = new ByteArrayInputStream(bytes);
         try {
             SqlSession conn = null;
@@ -291,7 +291,7 @@ public class Catalog {
             conn.insert("Album.registrarAlbum", album);
             conn.commit();            
             BufferedImage buffImage = ImageIO.read(in);
-            ImageIO.write(buffImage, "jpg", new File(nombre));
+            ImageIO.write(buffImage, "jpg", new File(path));
             return true;
         }catch(Exception ex){
             ex.printStackTrace();
@@ -315,13 +315,13 @@ public class Catalog {
     public Mensaje subirCancion(@PathParam("cancion") String cancion, byte[] bytes) throws UnsupportedEncodingException{
         Mensaje res = new Mensaje();        
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        String PATH = "C:\\Users\\Mari\\Desktop\\Canciones\\" + 
-            URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".mp3";  
+        String nombre =  URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".mp3";  
+        String path = "/home/maritello/Escritorio/music/" + nombre;            
          String cancionDecoded = URLDecoder.decode(cancion, "UTF-8");
         Cancion cancionRecibida = new Gson().fromJson(cancionDecoded, Cancion.class);   
         try{
             if(bytes!=null){
-                if(guardarCancion(PATH, bytes, cancionRecibida)){
+                if(guardarCancion(nombre, path, bytes, cancionRecibida)){
                     res.setMensaje("Cancion guardada correctamente...");
                 }else{
                     res.setError(true);
@@ -339,11 +339,11 @@ public class Catalog {
         return res;
     }
 
-    private boolean guardarCancion(String nombre, byte[] bytes, Cancion cancion){
+    private boolean guardarCancion(String nombre, String path, byte[] bytes, Cancion cancion){
         InputStream in = new ByteArrayInputStream(bytes);
         try {          
-            File file = new File(nombre);                               
-			FileOutputStream output = new FileOutputStream(file);
+            File file = new File(path);                               
+            FileOutputStream output = new FileOutputStream(file);
             output.write(bytes);               
             System.out.println(file.getAbsolutePath());            
             SqlSession conn = null;

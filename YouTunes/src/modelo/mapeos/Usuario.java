@@ -30,6 +30,8 @@ public class Usuario {
     private TipoUsuario tipoUsuario;
     private List<UsuarioAgregaCancion> usuarioAgregaCancionList;
     private List<Cancion> cancionList;
+  
+   
 
     public Integer getId() {
         return id;
