@@ -120,7 +120,7 @@ public class HttpUtilsTest {
         System.out.println("Prueba de agregación de cancion a de playlist exitoso");
     }
 
-    @Test
+    /*@Test
     public void actualizarValoracionTest() {
         System.out.println("Prueba del método actualizarValoracion");
         usuarioCancion.setValoracion(4);
@@ -129,7 +129,7 @@ public class HttpUtilsTest {
         boolean expResult = false;
         assertEquals(expResult, result);
         System.out.println("Prueba de actualización de valoración exitoso");
-    }
+    }*/
 
     @Test
     public void actualizarHistorialTest() {

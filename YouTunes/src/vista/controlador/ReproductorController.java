@@ -7,8 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,10 +29,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import modelo.HttpUtils;
+import modelo.Response;
 import modelo.Services;
 import modelo.mapeos.Cancion;
-import modelo.mapeos.ListaReproduccion;
-import modelo.pojos.CancionDAO;
+import modelo.pojos.CalificacionDAO;
 import vista.Dialogo;
 
 /**
@@ -221,12 +219,18 @@ public class ReproductorController extends Application {
         final ContextMenu contextMenu = new ContextMenu();
         MenuItem calificar = new MenuItem("Calificar esta canción");
         MenuItem radio = new MenuItem("Crear radio personalizada a partir de está canción");
-        contextMenu.getItems().addAll(radio);
+        contextMenu.getItems().addAll(radio,calificar);
+        CalificacionDAO valoracion = new CalificacionDAO();
 
         calificar.setOnAction((ActionEvent event) -> {
+            valoracion.setIdCancion(cancion.getId());
+            System.out.println("Cancion: " + cancion.getId());
             ObservableList<Integer> calif = FXCollections.observableArrayList(1,2,3,4,5);
             comboBox.setItems(calif);
             comboBox.setVisible(true);
+            valoracion.setValoracion(comboBox.getValue());
+            Response resws = HttpUtils.actualizarValoracion(valoracion);
+            
         });
 
         radio.setOnAction((ActionEvent event) -> {

@@ -438,17 +438,17 @@ public class Catalog {
   @Path("actualizarValoracion")
   @Produces(MediaType.APPLICATION_JSON)
   public Mensaje actualizarValoracion(
-      @FormParam("idUsuarioAgregaCancion") Integer idUsuarioAgregaCancion,
-      @FormParam("valoracion") Integer valoracion) {
+      @FormParam("valoracion") Integer valoracion,
+      @FormParam("idCancion") Integer idCancion) {
     SqlSession conn = null;
     Mensaje msg = new Mensaje();
     try {
       conn = MyBatisUtils.getSession();
       HashMap<String, Object> param
           = new HashMap<String, Object>();
-      param.put("idUsuarioAgregaCancion", idUsuarioAgregaCancion);
       param.put("valoracion", valoracion);
-      conn.update("ListaReproduccion.actualizarValoracion", param);
+      param.put("idCancion", idCancion);
+      conn.update("Calificacion.actualizarValoracion", param);
       conn.commit();
       msg.setMensaje("Valoracion actualizada");
     } catch (IOException ex) {
