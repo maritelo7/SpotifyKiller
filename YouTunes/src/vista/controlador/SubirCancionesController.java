@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXTextField;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -25,6 +24,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import modelo.HttpUtils;
 import modelo.Response;
+import modelo.pojos.CalificacionDAO;
 import modelo.pojos.CancionDAO;
 import modelo.pojos.GeneroDAO;
 import modelo.pojos.UsuarioDAO;
@@ -144,13 +144,19 @@ public class SubirCancionesController implements Initializable {
     @FXML
     private void subirCanciones() {
         if (items.size() > 0) {
+
+            //CalificacionDAO valoracion = new CalificacionDAO();
             FileInputStream input = null;
             try {
                 System.out.println(items.size());
                 for (int i = 0; i < items.size(); i++) {
                    
                     CancionDAO cancion = items.get(i);
+
                      System.out.println(cancion.getTitulo());
+                    //valoracion.setIdCancion(i);
+                    //valoracion.setValoracion(0);
+
                     String ruta = cancion.getPath();
                     System.out.println(ruta);
                     cancion.setPath("");
@@ -163,10 +169,13 @@ public class SubirCancionesController implements Initializable {
                         baos.write(buffer, 0, bytesRead);
                     }
                     HttpUtils.subirCancion(cancion, baos.toByteArray());
+
                     Thread.sleep(1500);
                     System.out.println("Ya debí haber guardado");
+
                     input.close();
                 }
+                //HttpUtils.registrarValoracion(valoracion);
                 items.clear();
                 listCanciones.setItems(items);
                 dialogo = new Dialogo(Alert.AlertType.INFORMATION,

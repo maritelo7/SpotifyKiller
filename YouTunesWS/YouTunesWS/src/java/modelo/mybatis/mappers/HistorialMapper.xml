@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Historial">
     
-    <select id="actualizarHistorial" parameterType = "map" >
+    <insert id="actualizarHistorial" parameterType = "map" >
         INSERT INTO historial (idUsuario, idCancion, fecha) VALUES (#{idUsuario}, #{idCancion}, now());
-    </select>
+    </insert>
     
 </mapper>

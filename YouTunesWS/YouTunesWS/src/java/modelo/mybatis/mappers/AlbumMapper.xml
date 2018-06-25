@@ -5,10 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Album">
     
-    <select id="registrarAlbum" parameterType = "servicios.pojos.Album" >
+    <insert id="registrarAlbum" parameterType = "servicios.pojos.Album" >
         INSERT INTO album (titulo, pathPortada, anioLanzamiento, companiaDiscografica,
         idUsuario) VALUES (#{titulo}, #{pathPortada}, #{anioLanzamiento}, 
         #{companiaDiscografica}, #{idUsuario});
-    </select>
+    </insert>
     
 </mapper>

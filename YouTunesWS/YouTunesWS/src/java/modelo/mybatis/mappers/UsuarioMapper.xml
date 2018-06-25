@@ -17,10 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{nombreArtistico}, #{tipoUsuario}, #{nombreUsuario}, #{calidadDescarga}, #{calidadStream});
     </insert>
     
-    <select id="actualizarCalidad" parameterType = "map" >
+    <update id="actualizarCalidad" parameterType = "map" >
         UPDATE usuario SET calidadStream = #{calidadStream}, calidadDescarga= #{calidadDescarga}
         WHERE nombreUsuario = #{nombreUsuario};
-    </select>
+    </update>
     
      <select id="getPorId" parameterType = "map" resultType="servicios.pojos.Usuario">
         SELECT * FROM usuario WHERE id = #{idUsuario};
