@@ -5,9 +5,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="Calificacion">
     
-    <select id="actualizarValoracion" parameterType = "map" >
+    <update id="actualizarValoracion" parameterType = "map" >
         UPDATE calificacion SET valoracion = #{valoracion}
         WHERE idCancion = #{idCancion};
-    </select>
+    </update>
+    
+    <insert id="registrarValoracion" parameterType = "map" >
+        INSERT INTO calificacion (valoracion, idCancion) VALUES (#{valoracion}, #{idCancion});
+    </insert>
+    
+    
     
 </mapper>

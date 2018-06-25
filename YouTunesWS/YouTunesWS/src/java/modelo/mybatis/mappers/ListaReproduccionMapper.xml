@@ -5,14 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="ListaReproduccion">
     
-    <select id="registrarLista" parameterType = "map" >
+    <insert id="registrarLista" parameterType = "map" >
         INSERT INTO lista_reproduccion (idUsuario, nombreLista, descripcion) VALUES 
         (#{idUsuario}, #{nombreLista}, #{descripcion});
-    </select>
+    </insert>
     
-     <select id="agregarCancion" parameterType = "map" >
+     <insert id="agregarCancion" parameterType = "map" >
         INSERT INTO usuario_agrega_cancion (idUsuario, idCancion, idListaReproduccion) VALUES 
         (#{idUsuario}, #{idCancion}, #{idListaReproduccion});
-    </select>
+    </insert>
     
 </mapper>
