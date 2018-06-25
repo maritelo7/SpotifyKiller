@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.controlador;
 
 import com.google.gson.Gson;
@@ -19,6 +14,7 @@ import modelo.pojos.UsuarioDAO;
  * FXML Controller class
  *
  * @author Esmeralda Yamileth Hernández González
+ * @author Maribel Tello Rodríguez
  */
 public class ConsultaCuentaClienteController implements Initializable {
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.controlador;
 
 import com.jfoenix.controls.JFXListView;
@@ -23,7 +18,8 @@ import modelo.pojos.CancionDAO;
 /**
  * FXML Controller class
  *
- * @author Mari
+ * @author Maribel Tello Rodríguez
+ * @author Esmeralda Yamileth Hernández González
  */
 public class ColaReproduccionController implements Initializable {
 

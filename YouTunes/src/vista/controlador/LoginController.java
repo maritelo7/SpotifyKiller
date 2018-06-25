@@ -36,6 +36,7 @@ import vista.Dialogo;
 /**
  *
  * @author Esmeralda Yamileth Hernández González
+ * @author Maribel Tello Rodríguez
  */
 public class LoginController extends Application {
 

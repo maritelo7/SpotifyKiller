@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.controlador;
 
 import com.jfoenix.controls.JFXListView;
@@ -12,27 +7,25 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import modelo.Services;
-import modelo.mapeos.Album;
 import modelo.mapeos.Cancion;
-import modelo.mapeos.ListaReproduccion;
-import modelo.mapeos.Usuario;
-import modelo.mapeos.UsuarioAgregaCancion;
-import modelo.pojos.CancionDAO;
 import modelo.pojos.UsuarioDAO;
+import vista.Dialogo;
 
 /**
  * FXML Controller class
  *
- * @author Mari
+ * @author Maribel Tello Rodríguez
+ * @author Esmeralda Yamileth Hernández González
  */
 public class CancionesSubidasController implements Initializable {
 
@@ -40,6 +33,7 @@ public class CancionesSubidasController implements Initializable {
     private Label misCanciones;
     @FXML
     private JFXListView<Cancion> listaMisCanciones;
+    private Dialogo dialogo;
 
     ObservableList<Cancion> items = FXCollections.observableArrayList();
 
@@ -60,7 +54,9 @@ public class CancionesSubidasController implements Initializable {
             menuContextual();
 
         } else {
-            System.out.println("NO HAY CANCIONES SUBIDAS");
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "No se han subido canciones", "Error", ButtonType.OK);
+            dialogo.show();
         }
 
     }

@@ -42,6 +42,7 @@ import vista.Dialogo;
  * FXML Controller class
  *
  * @author Esmeralda Yamileth Hernández González
+ * @author Maribel Tello Rodríguez
  */
 public class CrearAlbumController implements Initializable {
 
@@ -113,7 +114,6 @@ public class CrearAlbumController implements Initializable {
         archivoPortada.setTitle("Buscar Portada de Álbum");
         archivoPortada.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("JPG", "*.jpg")
-        //new FileChooser.ExtensionFilter("PNG", "*.png")
         );
     }
 
