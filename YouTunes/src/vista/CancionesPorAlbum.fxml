@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="vista.controlador.CancionesPorAlbumController">
+   <children>
+      <JFXListView fx:id="listaCanciones" layoutX="41.0" layoutY="103.0" prefHeight="400.0" prefWidth="562.0" styleClass="fondo" />
+      <Label fx:id="labelAlbum" layoutX="296.0" layoutY="39.0" text="Album" />
+   </children>
+</AnchorPane>

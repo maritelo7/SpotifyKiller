@@ -86,4 +86,8 @@ public class Album {
         this.usuario = usuario;
     }
     
+    public String toString(){
+        return titulo;
+    }            
+    
 }

@@ -33,6 +33,7 @@ import modelo.Response;
 import modelo.Services;
 import modelo.mapeos.Cancion;
 import modelo.pojos.CalificacionDAO;
+import modelo.pojos.HistorialDAO;
 import vista.Dialogo;
 
 /**
@@ -100,6 +101,10 @@ public class ReproductorController extends Application {
     }
 
     public void playNewSong() {
+        HistorialDAO historial = new HistorialDAO();
+        historial.setIdCancion(cancion.getId());
+        historial.setIdUsuario(PaginaPrincipalClienteController.getUsuario().getIdUsuario());
+        HttpUtils.actualizarHistorial(historial);        
         buttonPlay.setDisable(false);
         buttonNext.setDisable(false);
         buttonStop.setDisable(false);
@@ -111,7 +116,6 @@ public class ReproductorController extends Application {
             mediaPlayer.dispose();
             taskThread.interrupt();
         }
-
         try{
             String bin = Services.recuperarAudio(cancion.getId(), cancion.getPath());
             System.out.println(cancion.getPath());
@@ -153,7 +157,8 @@ public class ReproductorController extends Application {
     public void playMusic() throws InterruptedException {
         System.out.println("PLAY");
         if (!playing) {
-            mediaPlayer.play();
+            mediaPlayer.play();;
+            creaProgressBar();
             playing = true;
         } else {
             mediaPlayer.pause();
@@ -168,6 +173,9 @@ public class ReproductorController extends Application {
             mediaPlayer.stop();
             playing = false;
             taskThread.interrupt();
+            progresoCancion = 100;
+            progressBarAudio.progressProperty().unbind();
+            progressBarAudio.setProgress(0);
         } catch (NullPointerException nullEx) {
 
         }
@@ -176,6 +184,7 @@ public class ReproductorController extends Application {
 
     @FXML
     public void nextMusic() throws InterruptedException {
+        taskThread.interrupt();
         PaginaPrincipalClienteController.siguienteCancion();
     }
 

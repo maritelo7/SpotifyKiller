@@ -72,23 +72,22 @@ public class SubirCancionesController implements Initializable {
         ObservableList<String> calidades = FXCollections.observableArrayList("Alta", "Media", "Baja");
         comboCalidad.setItems(calidades);
         comboCalidad.getSelectionModel().selectFirst();
-
         Response resws = HttpUtils.recuperarCatalogoGeneros();
         List<GeneroDAO> tipos = new Gson().fromJson(resws.getResult(), new TypeToken<List<GeneroDAO>>() {
         }.getType());
         ObservableList<GeneroDAO> generos = FXCollections.observableArrayList(tipos);
         comboGenero.setItems(generos);
         comboGenero.getSelectionModel().selectFirst();
-
+        
         if (LoginController.returnTipoUsuario() == 1) {
             fieldColaboradores.setVisible(false);
-            //labelGenero.setVisible(false);
+            labelGenero.setVisible(false);
             labelCalidad.setVisible(false);
-            //comboGenero.setVisible(false);
+            comboGenero.setVisible(false);
             comboCalidad.setVisible(false);
             usuario = PaginaPrincipalClienteController.getUsuario();
         } else {
-            //usuario = PaginaPrincipalArtistaController.getUsuario();
+            usuario = PaginaPrincipalArtistaController.getUsuario();
         }
     }
 
@@ -98,7 +97,6 @@ public class SubirCancionesController implements Initializable {
         configureFileChooser(archivoAudio);
         File audio = archivoAudio.showOpenDialog(null);
         if (audio != null) {
-            FileInputStream input = null;
             path = audio.getAbsolutePath();
             System.out.println(path);
         }
@@ -122,7 +120,7 @@ public class SubirCancionesController implements Initializable {
                 if (comboCalidad.getValue() == "Media");
                 cancion.setCalidad(2);
                 if (comboCalidad.getValue() == "Alta");
-                cancion.setCalidad(3);
+                cancion.setCalidad(3);                
                 cancion.setIdAlbum(CrearAlbumController.returnIdAlbum());
                 cancion.setIdGenero(comboGenero.getValue().getIdGenero());
             } else {
@@ -132,7 +130,6 @@ public class SubirCancionesController implements Initializable {
             cancion.setIdUsuarioSubioCancion(usuario.getIdUsuario());
             cancion.setTitulo(fieldTitulo.getText());
             cancion.setPath(path);
-            cancion.setIdAlbum(1);
             items.add(cancion);
             listCanciones.setItems(items);
             limpiarCampos();
@@ -149,9 +146,13 @@ public class SubirCancionesController implements Initializable {
         if (items.size() > 0) {
             FileInputStream input = null;
             try {
+                System.out.println(items.size());
                 for (int i = 0; i < items.size(); i++) {
+                   
                     CancionDAO cancion = items.get(i);
+                     System.out.println(cancion.getTitulo());
                     String ruta = cancion.getPath();
+                    System.out.println(ruta);
                     cancion.setPath("");
                     File file = new File(ruta);
                     input = new FileInputStream(file);
@@ -162,6 +163,7 @@ public class SubirCancionesController implements Initializable {
                         baos.write(buffer, 0, bytesRead);
                     }
                     HttpUtils.subirCancion(cancion, baos.toByteArray());
+                    Thread.sleep(1500);
                     System.out.println("Ya debí haber guardado");
                     input.close();
                 }
@@ -176,6 +178,7 @@ public class SubirCancionesController implements Initializable {
                 try {
                     input.close();
                 } catch (IOException ex) {
+                    
                 } catch (NullPointerException npex) {
                 }
             }

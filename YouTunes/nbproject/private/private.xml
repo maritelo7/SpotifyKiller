@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/maritello/Escritorio/git/SpotifyKiller/YouTunes/src/vista/controlador/ReproductorController.java</file>
-            <file>file:/home/maritello/Escritorio/git/SpotifyKiller/YouTunes/src/vista/controlador/ColaReproduccionController.java</file>
             <file>file:/home/maritello/Escritorio/git/SpotifyKiller/YouTunes/src/modelo/Services.java</file>
-            <file>file:/home/maritello/Escritorio/git/SpotifyKiller/YouTunes/src/vista/controlador/CancionesSubidasController.java</file>
-            <file>file:/home/maritello/Escritorio/git/SpotifyKiller/YouTunes/src/vista/controlador/SubirCancionesController.java</file>
-            <file>file:/home/maritello/Escritorio/git/SpotifyKiller/YouTunes/src/vista/controlador/BuscarCancionesController.java</file>
-            <file>file:/home/maritello/Escritorio/git/SpotifyKiller/YouTunes/src/vista/controlador/PaginaPrincipalClienteController.java</file>
+            <file>file:/home/maritello/Escritorio/git/SpotifyKiller/YouTunes/src/vista/controlador/CancionesPorAlbumController.java</file>
+            <file>file:/home/maritello/Escritorio/git/SpotifyKiller/YouTunes/src/vista/controlador/PaginaPrincipalArtistaController.java</file>
+            <file>file:/home/maritello/Escritorio/git/SpotifyKiller/YouTunes/src/vista/CancionesPorAlbum.fxml</file>
         </group>
     </open-files>
 </project-private>

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.PaginaPrincipalArtistaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.PaginaPrincipalArtistaController">
    <children>
       <AnchorPane layoutX="260.0" prefHeight="600.0" prefWidth="640.0">
          <children>
@@ -44,6 +44,7 @@
                               <VBox alignment="TOP_CENTER" prefHeight="423.0" prefWidth="275.0" styleClass="fondo">
                                  <children>
                                     <JFXButton fx:id="botonCrearAlbum" onAction="#abrirCrearAlbum" prefHeight="21.0" prefWidth="238.0" text="Crear álbum" />
+                                    <ImageView fitHeight="14.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                                     <JFXListView fx:id="listaAlbumes" prefHeight="342.0" prefWidth="238.0" styleClass="fondo" />
                                  </children>
                               </VBox>

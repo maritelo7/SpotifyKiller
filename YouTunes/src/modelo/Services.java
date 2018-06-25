@@ -123,6 +123,32 @@ public class Services {
 //        System.out.println(json);
         return lista;
     }
+    
+    //Método para regresar canciones de un genero pasado
+    public static List<Album> recuperarAlbumes(int idUsuario) {
+        String metodo = "recuperarAlbumes/" + idUsuario;
+        Client cliente = ClientBuilder.newClient();
+        WebTarget webTarget = cliente.target(BASE_URL + metodo);
+        List<Album> lista = webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<Album>>() {
+        });
+//        JSONObject json = new JSONObject(lista.get(0));
+//        System.out.println(json);
+        return lista;
+    }
+
+    //Método para regresar canciones de un genero pasado
+    public static List<Cancion> recuperarCancionesPorAlbum(int idAlbum) {
+        String metodo = "cancionesPorAlbum/" + idAlbum;
+        Client cliente = ClientBuilder.newClient();
+        WebTarget webTarget = cliente.target(BASE_URL + metodo);
+        List<Cancion> lista = webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<Cancion>>() {
+        });
+//        JSONObject json = new JSONObject(lista.get(0));
+//        System.out.println(json);
+        return lista;
+    }
+
+    
 
     //Método para regresar un archivo de imagen, buscando por id de album
     public static BufferedImage recuperarImagen(int idAlbum) throws MalformedURLException, IOException {

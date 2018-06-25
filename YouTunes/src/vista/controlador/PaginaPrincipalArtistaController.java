@@ -2,11 +2,15 @@ package vista.controlador;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,8 +19,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import modelo.Services;
+import modelo.mapeos.Album;
 import modelo.pojos.UsuarioDAO;
 import vista.Dialogo;
+import static vista.controlador.PaginaPrincipalClienteController.listaSeleccionada;
 
 /**
  * FXML Controller class
@@ -29,10 +36,15 @@ public class PaginaPrincipalArtistaController implements Initializable {
     @FXML
     private JFXButton botonCerrarSesion;
     @FXML
-    private JFXButton botonCuenta;
-    @FXML
     public JFXDrawer drawerPanel;
-
+    @FXML
+    private JFXButton botonCuentaArtista;
+    @FXML
+    private JFXButton botonCrearAlbum;
+    @FXML
+    private JFXListView<Album> listaAlbumes;
+    
+    private static Album albumSeleccionado;
     private Dialogo dialogo;
     static UsuarioDAO usuario;
     
@@ -103,6 +115,42 @@ public class PaginaPrincipalArtistaController implements Initializable {
     }
     
     /**
+     * Método para abrir la ventana para ver las canciones de un álbum
+     * 
+     */
+    
+    @FXML
+    public void abrirCancionesDeAlbum() {    
+         if (!listaAlbumes.getSelectionModel().isEmpty()){
+            albumSeleccionado = listaAlbumes.getSelectionModel().getSelectedItem(); 
+        try {
+            AnchorPane consultaCliente = FXMLLoader.load(getClass()
+                .getResource("/vista/CancionesPorAlbum.fxml"));
+            drawerPanel.setPrefWidth(640);
+            drawerPanel.setContent(consultaCliente);
+        } catch (IOException ex) {
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
+            dialogo.show();
+            }
+        }
+    }
+    
+    
+    @FXML
+     public void recuperarAlbumes() {        
+       List<Album> albumes = Services.recuperarAlbumes(usuario.getIdUsuario());
+       ObservableList<Album> playlists = FXCollections.observableArrayList();
+      
+       if (!albumes.isEmpty()) {          
+        for (int i = 0; i < albumes.size(); i++) {
+            playlists.add(albumes.get(i));
+        }   
+        listaAlbumes.setItems(playlists);
+       }
+    }
+    
+    /**
      * Método para cargar la cuenta del usuario que se logueó
      * 
      */
@@ -113,6 +161,10 @@ public class PaginaPrincipalArtistaController implements Initializable {
     
     public static UsuarioDAO getUsuario () {
         return usuario;
+    }
+    
+    public static Album getAlbum(){
+        return albumSeleccionado;
     }
     
     
