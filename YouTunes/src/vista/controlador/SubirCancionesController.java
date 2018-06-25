@@ -33,7 +33,8 @@ import vista.Dialogo;
 /**
  * FXML Controller class
  *
- * @author Mari
+ * @author Esmeralda Yamileth Hernández González
+ * @author Maribel Tello Rodríguez
  */
 public class SubirCancionesController implements Initializable {
 
@@ -81,13 +82,9 @@ public class SubirCancionesController implements Initializable {
 
         if (LoginController.returnTipoUsuario() == 1) {
             fieldColaboradores.setVisible(false);
-            //labelGenero.setVisible(false);
             labelCalidad.setVisible(false);
-            //comboGenero.setVisible(false);
             comboCalidad.setVisible(false);
             usuario = PaginaPrincipalClienteController.getUsuario();
-        } else {
-            //usuario = PaginaPrincipalArtistaController.getUsuario();
         }
     }
 
@@ -125,7 +122,6 @@ public class SubirCancionesController implements Initializable {
                 cancion.setIdAlbum(CrearAlbumController.returnIdAlbum());
                 cancion.setIdGenero(comboGenero.getValue().getIdGenero());
             } else {
-                //cancion.setCalidad(3);
                 cancion.setIdAlbum(3);
                 cancion.setIdGenero(33);                
             }

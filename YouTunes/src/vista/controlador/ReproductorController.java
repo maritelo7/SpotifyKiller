@@ -40,7 +40,8 @@ import vista.Dialogo;
 /**
  * FXML Controller class
  *
- * @author Mari
+ * @author Maribel Tello Rodríguez
+ * @author Esmeralda Yamileth Hernández González
  */
 public class ReproductorController extends Application {
 
@@ -123,8 +124,10 @@ public class ReproductorController extends Application {
             playing = true;
             primeraVez = false;
    
-        }catch (Exception e) {                
-            System.out.println("ERROR AL REPRODUCIR LA CANCIÓN");   
+        }catch (Exception e) {  
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Error al reproducir la canción.", "Error", ButtonType.OK);
+            dialogo.show();  
         }     
                
         labelTitulo.setText(cancion.getTitulo());
@@ -141,8 +144,9 @@ public class ReproductorController extends Application {
             Image imagen = SwingFXUtils.toFXImage(bufferedImage, null);
             portada.setImage(imagen);
         } catch (IOException ex) {
-            System.out.println("ERROR AL OBTENER PORTADA DE ALBUM");
-            Logger.getLogger(ReproductorController.class.getName()).log(Level.SEVERE, null, ex);
+            dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "Error al obtener la portada del álbum.", "Error", ButtonType.OK);
+            dialogo.show();
         }               
       
     }
@@ -230,7 +234,9 @@ public class ReproductorController extends Application {
             if (!canciones.isEmpty()){
                 PaginaPrincipalClienteController.generarRadio(canciones);
             } else {
-                System.out.println("NO SE PUDO GENERAR RADIO, NO HAY MÁS CANCIONES DE ESTE GÉNERO REGISTRADAS");
+                dialogo = new Dialogo(Alert.AlertType.ERROR,
+                "No se pudo generar la radio, no hay más canciones de este género registradas.", "Error", ButtonType.OK);
+            dialogo.show();
             }
         });
 

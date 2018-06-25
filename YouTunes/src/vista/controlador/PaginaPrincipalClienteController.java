@@ -32,7 +32,8 @@ import vista.Dialogo;
 /**
  * FXML Controller class
  *
- * @author yamii
+ * @author Esmeralda Yamileth Hernández González
+ * @author Maribel Tello Rodríguez
  */
 public class PaginaPrincipalClienteController implements Initializable {
 
