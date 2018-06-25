@@ -15,9 +15,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         (#{idUsuario}, #{idCancion}, #{idListaReproduccion});
     </select>
     
-    <select id="actualizarValoracion" parameterType = "map" >
-        UPDATE usuario_agrega_cancion SET valoracion = #{valoracion}
-        WHERE id= #{idUsuarioAgregaCancion };
-    </select>
-    
 </mapper>

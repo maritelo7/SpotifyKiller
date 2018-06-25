@@ -3,22 +3,18 @@ package modelo;
 import com.google.gson.Gson;
 import modelo.pojos.UsuarioDAO;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.pojos.AlbumDAO;
+import modelo.pojos.CalificacionDAO;
 import modelo.pojos.CancionDAO;
 import modelo.pojos.HistorialDAO;
 import modelo.pojos.ListaReproduccionDAO;
@@ -31,7 +27,7 @@ import modelo.pojos.UsuarioAgregaCancionDAO;
 
 public class HttpUtils {
     private static final String BASE_URL =
-            "http://localhost:8080/YouTunesWS/ws/services/";
+            "http://localhost:8084/YouTunesWS/ws/services/";
     private static final Integer CONNECT_TIMEOUT = 4000; //MILISEGUNDOS
     private static final Integer READ_TIMEOUT = 10000; //MILISEGUNDOS
 
@@ -66,10 +62,10 @@ public class HttpUtils {
         return invocarServicioWeb(url, "POST", parametros);
     }
     
-     public static Response actualizarValoracion(UsuarioAgregaCancionDAO usuarioCancion) {
+     public static Response actualizarValoracion(CalificacionDAO valoracionCancion) {
         String url = "actualizarValoracion";
-        String parametros = String.format("idUsuarioAgregaCancion=%s&valoracion=%s",
-                usuarioCancion.getIdUsuario(), usuarioCancion.getValoracion());
+        String parametros = String.format("valoracion=%s&idCancion=%s",
+                 valoracionCancion.getValoracion(),valoracionCancion.getIdCancion());
         return invocarServicioWeb(url, "POST", parametros);
     }
      
