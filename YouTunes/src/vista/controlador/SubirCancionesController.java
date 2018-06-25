@@ -82,9 +82,13 @@ public class SubirCancionesController implements Initializable {
 
         if (LoginController.returnTipoUsuario() == 1) {
             fieldColaboradores.setVisible(false);
+            //labelGenero.setVisible(false);
             labelCalidad.setVisible(false);
+            //comboGenero.setVisible(false);
             comboCalidad.setVisible(false);
             usuario = PaginaPrincipalClienteController.getUsuario();
+        } else {
+            //usuario = PaginaPrincipalArtistaController.getUsuario();
         }
     }
 

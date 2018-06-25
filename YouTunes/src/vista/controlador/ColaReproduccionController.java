@@ -49,19 +49,14 @@ public class ColaReproduccionController implements Initializable {
         listaCanciones.setItems(items);
     }
     
-     public void generarRadio (List<Cancion> canciones){
-        items.clear();
-        listaCanciones.setItems(items);
-        canciones.forEach((cancione) -> {
-            items.add(cancione);
-        }); 
-        listaCanciones.setItems(items);
-    }
+  
     
       public void agregarCancionFinal (Cancion cancionAgregada){
         items.add(cancionAgregada);
         listaCanciones.setItems(items);
     }
+      
+      
       
       public void siguienteCancion(){
         if (items.size()>0){
@@ -70,6 +65,15 @@ public class ColaReproduccionController implements Initializable {
             listaCanciones.setItems(items);
         }
       }
+      
+         public void generarRadio (List<Cancion> canciones){
+        items.clear();
+        listaCanciones.setItems(items);
+        canciones.forEach((cancione) -> {
+            items.add(cancione);
+        }); 
+        listaCanciones.setItems(items);
+    }                   
     
     
     
