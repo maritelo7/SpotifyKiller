@@ -55,9 +55,7 @@
                                  <children>
                                     <JFXButton fx:id="buttonCrearPlaylist" onAction="#crearPlaylist" prefHeight="30.0" prefWidth="240.0" text="Crear playlist" />
                                     <ImageView fitHeight="10.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Label fx:id="labelMostrar" text="Clic aqui para mostrar playlists" />
                                     <JFXListView fx:id="listPlaylists" onMouseClicked="#cargarCancionesPlaylist" styleClass="fondo" />
-                                    <Label text="Clic aqui para actualizar playlists" />
                                  </children></VBox>
                            </content>
                         </TitledPane>

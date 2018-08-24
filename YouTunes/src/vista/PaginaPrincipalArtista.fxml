@@ -39,13 +39,14 @@
                               </VBox>
                            </content>
                         </TitledPane>
-                        <TitledPane styleClass="fondo" text="Álbumes">
+                        <TitledPane onMouseClicked="#recuperarAlbumes" styleClass="fondo" text="Álbumes">
                            <content>
                               <VBox alignment="TOP_CENTER" prefHeight="423.0" prefWidth="275.0" styleClass="fondo">
                                  <children>
                                     <JFXButton fx:id="botonCrearAlbum" onAction="#abrirCrearAlbum" prefHeight="21.0" prefWidth="238.0" text="Crear álbum" />
+                                    <Label prefHeight="50.0" prefWidth="237.0" text="Subidos:" />
                                     <ImageView fitHeight="14.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                    <JFXListView fx:id="listaAlbumes" prefHeight="342.0" prefWidth="238.0" styleClass="fondo" />
+                                    <JFXListView fx:id="listaAlbumes" onMouseClicked="#abrirCancionesDeAlbum" prefHeight="342.0" prefWidth="238.0" styleClass="fondo" />
                                  </children>
                               </VBox>
                            </content>

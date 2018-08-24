@@ -38,7 +38,7 @@ import sun.misc.BASE64Decoder;
  */
 public class Services {
 
-    private static final String BASE_URL = "http://localhost:8000/";
+    private static final String BASE_URL = "http://192.168.43.133:8000/";
 
     //Método buscar canción por título
     public static List<Cancion> buscarCancion(String titulo) {
@@ -123,7 +123,7 @@ public class Services {
 //        System.out.println(json);
         return lista;
     }
-    
+
     //Método para regresar canciones de un genero pasado
     public static List<Album> recuperarAlbumes(int idUsuario) {
         String metodo = "recuperarAlbumes/" + idUsuario;
@@ -133,6 +133,19 @@ public class Services {
         });
 //        JSONObject json = new JSONObject(lista.get(0));
 //        System.out.println(json);
+        return lista;
+    }
+    
+     //Método para regresar canciones de un genero pasado
+    public static List<Album> recuperarAlbum(String titulo) {
+        String metodo = "recuperarAlbum/" + titulo;
+        System.out.println(metodo);
+        Client cliente = ClientBuilder.newClient();
+        WebTarget webTarget = cliente.target(BASE_URL + metodo);
+        List<Album> lista = webTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get().readEntity(new GenericType<List<Album>>() {
+        });
+       JSONObject json = new JSONObject(lista.get(0));
+        System.out.println(json);
         return lista;
     }
 
@@ -147,8 +160,6 @@ public class Services {
 //        System.out.println(json);
         return lista;
     }
-
-    
 
     //Método para regresar un archivo de imagen, buscando por id de album
     public static BufferedImage recuperarImagen(int idAlbum) throws MalformedURLException, IOException {
@@ -205,13 +216,29 @@ public class Services {
             c = (HttpURLConnection) u.openConnection();
             c.connect();
 
-            InputStream input = c.getInputStream();
+            InputStream input = c.getInputStream();            
 
-            byte[] buffer = new byte[10240];
-            while (input.read(buffer) > 0) {
-                output.write(buffer);
-            }
-            input.close();
+            Thread stream = new Thread() {
+                public void run() {
+                    try {
+                        
+                        byte[] buffer = new byte[10240];
+                        while (input.read(buffer) > 0) {
+                            output.write(buffer);
+                        }
+                        input.close();
+                        
+                    } catch (IOException ex) {
+                        Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            };
+
+            stream.start();            
+            
+            
+            
+         
         } catch (IOException ex) {
             Logger.getLogger(Services.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -221,5 +248,7 @@ public class Services {
 
         return bin;
     }
+    
+    
 
 }

@@ -4,10 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="vista.controlador.CancionesPorAlbumController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.CancionesPorAlbumController">
    <children>
-      <JFXListView fx:id="listaCanciones" layoutX="41.0" layoutY="103.0" prefHeight="400.0" prefWidth="562.0" styleClass="fondo" />
-      <Label fx:id="labelAlbum" layoutX="296.0" layoutY="39.0" text="Album" />
+      <JFXListView fx:id="listaCanciones" layoutX="41.0" layoutY="82.0" prefHeight="421.0" prefWidth="562.0" styleClass="fondo" />
+      <Label fx:id="labelAlbum" alignment="CENTER" layoutY="13.0" prefHeight="18.0" prefWidth="641.0" style="-fx-font-size: 16;" text="Album" />
+      <Label layoutX="41.0" layoutY="55.0" text="Lista de canciones:" />
    </children>
 </AnchorPane>

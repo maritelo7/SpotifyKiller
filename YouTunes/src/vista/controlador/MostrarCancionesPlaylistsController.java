@@ -93,11 +93,12 @@ public class MostrarCancionesPlaylistsController implements Initializable {
     public void handle(MouseEvent me) {
         if (me.getButton().equals(MouseButton.PRIMARY)) {
             if (!items.isEmpty()) {
-                if (listCancionesPlaylist.getSelectionModel().getSelectedItem() != null) {
-                    dialogo = new Dialogo(Alert.AlertType.INFORMATION,
+                if (listCancionesPlaylist.getSelectionModel().getSelectedItem() != null) {                   
+                    PaginaPrincipalClienteController.cargarCancion(listCancionesPlaylist.getSelectionModel().getSelectedItem());
+                } else {
+                     dialogo = new Dialogo(Alert.AlertType.INFORMATION,
                         "Seleccionar canción", "Alerta", ButtonType.OK);
                     dialogo.show();
-                    PaginaPrincipalClienteController.cargarCancion(listCancionesPlaylist.getSelectionModel().getSelectedItem());
                 }
             }
         }

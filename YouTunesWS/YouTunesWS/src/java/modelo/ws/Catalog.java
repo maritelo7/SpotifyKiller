@@ -47,6 +47,8 @@ public class Catalog {
 
     @Context
     private UriInfo context;
+    private String RUTA_MUSICA = "/home/maritello/Escritorio/music/";
+    private String RUTA_IMAGENES = "/home/maritello/Escritorio/images/";
 
     /**
      * Creates a new instance of catalog
@@ -256,7 +258,7 @@ public class Catalog {
         Mensaje res = new Mensaje();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String nombre = URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".jpg";
-        String path = "/home/maritello/Escritorio/images/" + nombre;
+        String path = RUTA_IMAGENES + nombre;
         String albumDecoded = URLDecoder.decode(album, "UTF-8");
         Album albumRecibido = new Gson().fromJson(albumDecoded, Album.class);
         try {
@@ -313,7 +315,7 @@ public class Catalog {
         Mensaje res = new Mensaje();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String nombre = URLEncoder.encode(dateFormat.format(new Date()), "UTF-8") + ".mp3";
-        String path = "C:/Users/yamii/Desktop/music/" + nombre;
+        String path = RUTA_MUSICA + nombre;
         String cancionDecoded = URLDecoder.decode(cancion, "UTF-8");
         Cancion cancionRecibida = new Gson().fromJson(cancionDecoded, Cancion.class);
         try {

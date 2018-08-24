@@ -118,6 +118,9 @@ public class ReproductorController extends Application {
         if (!primeraVez) {
             mediaPlayer.dispose();
             taskThread.interrupt();
+            String separator = System.getProperty("file.separator");
+            File f = new File("music" + separator + cancion.getPath());
+            f.delete();
         }
 
         try{
@@ -138,6 +141,7 @@ public class ReproductorController extends Application {
 
         labelTitulo.setText(cancion.getTitulo());
         try {
+            labelArtista.setText(cancion.getUsuario().getNombreArtistico());
             if (!cancion.getColaboradores().equals("") && cancion.getColaboradores() != null) {
                 labelArtista.setText(cancion.getUsuario().getNombreArtistico() + " feat. " + cancion.getColaboradores());
             }
@@ -188,6 +192,9 @@ public class ReproductorController extends Application {
 
     @FXML
     public void nextMusic() throws InterruptedException {
+        String separator = System.getProperty("file.separator");
+        File f = new File("music" + separator + cancion.getPath());
+        f.delete();
         taskThread.interrupt();
         PaginaPrincipalClienteController.siguienteCancion();
     }
@@ -220,7 +227,7 @@ public class ReproductorController extends Application {
                             "Servidor no disponible, intente más tarde", "Error", ButtonType.OK);
                         dialogo.show();
                     }
-                } while (progresoCancion < FIN);
+                } while (progresoCancion < FIN+1000);
                 PaginaPrincipalClienteController.siguienteCancion();
                 return null;
             }

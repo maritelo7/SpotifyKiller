@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -34,6 +35,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import modelo.HttpUtils;
+import modelo.Services;
+import modelo.mapeos.Album;
 import modelo.pojos.AlbumDAO;
 import modelo.pojos.UsuarioDAO;
 import vista.Dialogo;
@@ -132,10 +135,22 @@ public class CrearAlbumController implements Initializable {
                 dialogo = new Dialogo(Alert.AlertType.INFORMATION,
                     "¡Registro exitoso!", "Éxito", ButtonType.OK);
                 Optional<ButtonType> result = dialogo.showAndWait();
-                if (result.get() == ButtonType.OK) {
+                if (result.get() == ButtonType.OK) {                    
+                    System.out.println(album.getTitulo());
+                    List<Album> albumes = Services.recuperarAlbum(album.getTitulo());
+                    
+                    for (int i = 0; i < albumes.size(); i++) {
+                       if (albumes.get(i).getUsuario().getId().equals(usuario.getIdUsuario())){
+                           album.setIdAlbum(albumes.get(i).getId());
+                           idAlbum = album.getIdAlbum();
+                           System.out.println(idAlbum);
+                       }                        
+                    }
+                    
                     irSubirCanciones();
                 }
             } catch (Exception ex) {
+                ex.printStackTrace();
                 dialogo = new Dialogo(Alert.AlertType.ERROR,
                     "Error al crear nuevo álbum", "Error", ButtonType.OK);
                 dialogo.show();

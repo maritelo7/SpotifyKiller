@@ -63,6 +63,8 @@ public class SubirCancionesController implements Initializable {
     UsuarioDAO usuario;
     String path;
     private Dialogo dialogo;
+    @FXML
+    private Label labelNombre;
 
     /**
      * Initializes the controller class.
@@ -98,7 +100,8 @@ public class SubirCancionesController implements Initializable {
         File audio = archivoAudio.showOpenDialog(null);
         if (audio != null) {
             path = audio.getAbsolutePath();
-            System.out.println(path);
+            labelNombre.setText("Seleccionado: " + audio.getName());
+            
         }
     }
 
@@ -133,6 +136,7 @@ public class SubirCancionesController implements Initializable {
             items.add(cancion);
             listCanciones.setItems(items);
             limpiarCampos();
+            labelNombre.setText("Seleccionado: ");
             buttonSubir.setDisable(false);
         } else {
             dialogo = new Dialogo(Alert.AlertType.ERROR,

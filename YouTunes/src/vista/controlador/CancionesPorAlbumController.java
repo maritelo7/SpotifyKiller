@@ -40,7 +40,7 @@ public class CancionesPorAlbumController implements Initializable {
         albumRecuperado = PaginaPrincipalArtistaController.getAlbum();
         List<Cancion> canciones = Services.recuperarCancionesPorAlbum(albumRecuperado.getId());
 
-        labelAlbum.setText(albumRecuperado.getTitulo());
+        labelAlbum.setText("Título del álbum: " + albumRecuperado.getTitulo());
 
         if (!canciones.isEmpty()) {
 

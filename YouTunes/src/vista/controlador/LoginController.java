@@ -146,7 +146,7 @@ public class LoginController extends Application {
                 nombreArtisticoTF.setVisible(true);
             } else {
                 nombreArtisticoTF.setVisible(false);
-                nombreArtisticoTF.setText("Desconocido");
+                // nombreArtisticoTF.setText("Desconocido");
             }
         } catch (NullPointerException ex) {
         }
@@ -274,7 +274,11 @@ public class LoginController extends Application {
                 usuario.setFechaNacimiento(date);
                 usuario.setNombreUsuario(nombreUsuarioTF.getText());
                 usuario.setTipoUsuario(tipoUsuarioCB.getValue().getIdTipoUsuario());
-                usuario.setNombreArtistico(nombreArtisticoTF.getText());
+                if (nombreArtisticoTF.getText()!="" && nombreArtisticoTF.getText()!=null){
+                    usuario.setNombreArtistico(nombreArtisticoTF.getText());
+                } else {
+                    usuario.setNombreArtistico("Desconocido");
+                }
                 resws = HttpUtils.recuperarUsuarioPorNombreUsuario(usuario);
                 if (!resws.isError()) {                    
                     if (resws.getStatus()==204){    

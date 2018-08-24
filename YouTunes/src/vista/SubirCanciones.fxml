@@ -8,10 +8,10 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.SubirCancionesController">
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="640.0" styleClass="fondo" stylesheets="@recursos/hojaEstilos.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vista.controlador.SubirCancionesController">
    <children>
       <Label layoutX="247.0" layoutY="24.0" styleClass="labelTitulo" text="Subir canciones" />
-      <ListView fx:id="listCanciones" layoutX="61.0" layoutY="95.0" prefHeight="324.0" prefWidth="268.0" style="-fx-border-color: grey;" styleClass="fondo" />
+      <ListView fx:id="listCanciones" layoutX="61.0" layoutY="95.0" prefHeight="278.0" prefWidth="268.0" style="-fx-border-color: grey;" styleClass="fondo" />
       <Label layoutX="61.0" layoutY="71.0" text="Lista de canciones:" />
       <JFXButton fx:id="buttonSubir" disable="true" layoutX="282.0" layoutY="487.0" onAction="#subirCanciones" text="Subir canciones" />
       <JFXTextField fx:id="fieldTitulo" labelFloat="true" layoutX="362.0" layoutY="95.0" prefHeight="25.0" prefWidth="248.0" promptText="Título" />
@@ -20,7 +20,8 @@
       <Label fx:id="labelGenero" layoutX="362.0" layoutY="186.0" text="Seleccione género:" />
       <JFXComboBox fx:id="comboCalidad" layoutX="362.0" layoutY="275.0" prefHeight="25.0" prefWidth="248.0" />
       <Label fx:id="labelCalidad" layoutX="362.0" layoutY="250.0" text="Seleccione calidad:" />
-      <Button fx:id="buttonSeleccionar" layoutX="104.0" layoutY="434.0" mnemonicParsing="false" onAction="#seleccionarCancion" prefHeight="25.0" prefWidth="183.0" text="Seleccionar archivo de audio" />
+      <Button fx:id="buttonSeleccionar" layoutX="60.0" layoutY="404.0" mnemonicParsing="false" onAction="#seleccionarCancion" prefHeight="26.0" prefWidth="248.0" text="Seleccionar archivo de audio" />
       <JFXButton fx:id="buttonAgregar" layoutX="431.0" layoutY="334.0" onAction="#agregarCancion" text="Agregar canción" />
+      <Label fx:id="labelNombre" layoutX="60.0" layoutY="382.0" prefHeight="18.0" prefWidth="564.0" />
    </children>
 </AnchorPane>

@@ -86,6 +86,8 @@ public class BuscarCancionesController implements Initializable {
 
     @FXML
     public void agregarCancionPlaylist() {
+        
+        
         comboBox.setItems(playlists);
         System.out.println(listaCanciones.getSelectionModel().getSelectedItem());
         System.out.println(comboBox.getValue());
@@ -115,9 +117,8 @@ public class BuscarCancionesController implements Initializable {
     public boolean cargarPlaylists() {
         List<ListaReproduccion> listasRecuperadas = Services.buscarListasUsuario(usuario.getIdUsuario());
 
-        //MOSTRAR LISTAS RECUPERADAS EN COMBO BOX
         if (!listasRecuperadas.isEmpty()) {
-
+            playlists.clear();
             for (int i = 0; i < listasRecuperadas.size(); i++) {
                 playlists.add(listasRecuperadas.get(i));
             }

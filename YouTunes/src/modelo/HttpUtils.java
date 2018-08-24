@@ -26,7 +26,7 @@ import modelo.pojos.UsuarioAgregaCancionDAO;
 public class HttpUtils {
 
     private static final String BASE_URL =
-            "http://localhost:8080/YouTunesWS/ws/services/";
+            "http://192.168.43.133:8080/YouTunesWS/ws/services/";
 
     private static final Integer CONNECT_TIMEOUT = 4000; //MILISEGUNDOS
     private static final Integer READ_TIMEOUT = 10000; //MILISEGUNDOS
